@@ -1,0 +1,20 @@
+vsim work.conf_tb_siso_gen_synchronising
+# vsim work.conf_tb_siso_gen_synchronising 
+# Start time: 20:53:53 on Dec 06,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_synchronising
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.tvc_siso_gen(file_io)
+add wave *
+run -all
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Framing/synchronising/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Framing/synchronising/tvc_siso_gen_file_io_arch.vhd line 96
+# End time: 21:05:48 on Dec 06,2018, Elapsed time: 0:11:55
+# Errors: 0, Warnings: 0

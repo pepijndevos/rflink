@@ -28,7 +28,9 @@ entity siso_gen_synchronising is
 	   preamble_receiver: integer := 785;
 	   synchronising_length: integer := 20);
   port (data_in_synchronising: in std_logic;
-        clk_synchronising: in std_logic;
+        clk_synchronising_in: in std_logic;
         reset: in std_logic;
-        data_out_synchronising: out std_logic);
+        data_out_synchronising: out std_logic;
+        clk_synchronising_out_serial: out std_logic;
+        clk_synchronising_out_parallel: out std_logic);
 end siso_gen_synchronising;

@@ -41,7 +41,7 @@ architecture file_io of tvc_siso_gen is
 
 begin
   --  connect internal clock and reset to ports
-  clk_synchronising <= clk_i;
+  clk_synchronising_in <= clk_i;
   reset <= rst_i;
 
   -- generate clock

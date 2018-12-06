@@ -41,7 +41,7 @@ architecture structure of tb_siso_gen is
 	     preamble_receiver: natural;
 	     synchronising_length: natural);
     port (data_in_synchronising: in std_logic;
-          clk_synchronising: in std_logic;
+          clk_synchronising_in: in std_logic;
           reset: in std_logic;
   
           data_out_synchronising: out std_logic);
@@ -54,7 +54,7 @@ architecture structure of tb_siso_gen is
              in_file_name: string := "siso_gen.in";
              out_file_name: string := "siso_gen.out");
     port (data_in_synchronising: out std_logic;
-          clk_synchronising: out std_logic;
+          clk_synchronising_in: out std_logic;
           reset: out std_logic;
   
           data_out_synchronising: in std_logic);
@@ -63,7 +63,7 @@ architecture structure of tb_siso_gen is
   -- declare local signals
   signal data_in_synchronising: std_logic; 
   signal data_out_synchronising: std_logic;
-  signal clk_synchronising, reset: std_logic;
+  signal clk_synchronising_in, reset: std_logic;
 begin
   -- instantiate and interconnect components
   -- note that the generic word_length is passed to the subblocks
@@ -71,13 +71,13 @@ begin
     generic map (word_length_synchronising => word_length_synchronising,
 		 preamble_receiver => preamble_receiver,
 		 synchronising_length => synchronising_length)
-    port map (data_in_synchronising => data_in_synchronising, clk_synchronising => clk_synchronising, reset => reset, 
+    port map (data_in_synchronising => data_in_synchronising, clk_synchronising_in => clk_synchronising_in, reset => reset, 
 	      data_out_synchronising => data_out_synchronising);
   tvc: tvc_siso_gen
     generic map (word_length_synchronising => word_length_synchronising,
 		 preamble_receiver => preamble_receiver,
 		 synchronising_length => synchronising_length)
-    port map (data_in_synchronising => data_in_synchronising, clk_synchronising => clk_synchronising, reset => reset, 
+    port map (data_in_synchronising => data_in_synchronising, clk_synchronising_in => clk_synchronising_in, reset => reset, 
               data_out_synchronising => data_out_synchronising);
 end structure;
 

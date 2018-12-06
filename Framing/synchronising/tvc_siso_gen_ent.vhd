@@ -34,7 +34,7 @@ entity tvc_siso_gen is
            out_file_name: string := "siso_gen.out";
            half_clock_period: time := 100 ns);
   port (data_in_synchronising: out std_logic;
-        clk_synchronising: out std_logic;
+        clk_synchronising_in: out std_logic;
         reset: out std_logic;
         data_out_synchronising: in std_logic);
 end tvc_siso_gen;
