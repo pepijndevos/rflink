@@ -6,3 +6,6 @@ output_files
 work
 *~
 *.swp
+*.mpf
+*.mti
+*.wlf
