@@ -1,6 +1,13 @@
+# Compile of conf_tb_siso_gen_synchronising.vhd was successful.
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# 6 compiles, 0 failed with no errors.
 vsim work.conf_tb_siso_gen_synchronising
 # vsim work.conf_tb_siso_gen_synchronising 
-# Start time: 20:53:53 on Dec 06,2018
+# Start time: 06:52:40 on Dec 07,2018
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -16,5 +23,3 @@ run -all
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Framing/synchronising/tvc_siso_gen_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Framing/synchronising/tvc_siso_gen_file_io_arch.vhd line 96
-# End time: 21:05:48 on Dec 06,2018, Elapsed time: 0:11:55
-# Errors: 0, Warnings: 0

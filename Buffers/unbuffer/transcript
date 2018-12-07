@@ -1,0 +1,46 @@
+# Compile of conf_tb_siso_gen_unbuffer.vhd was successful.
+# Compile of siso_gen_unbuffer_arch.vhd was successful.
+# Compile of siso_gen_unbuffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 6 compiles, 0 failed with no errors.
+vsim work.conf_tb_siso_gen_unbuffer
+# vsim work.conf_tb_siso_gen_unbuffer 
+# Start time: 06:40:13 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_unbuffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_unbuffer(unbuffer)
+# Loading work.tvc_siso_gen(file_io)
+add wave *
+run -all
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159 us  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd line 96
+# Compile of siso_gen_unbuffer_arch.vhd was successful.
+vsim work.conf_tb_siso_gen_unbuffer
+# End time: 06:46:34 on Dec 07,2018, Elapsed time: 0:06:21
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_unbuffer 
+# Start time: 06:46:34 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_unbuffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_unbuffer(unbuffer)
+# Loading work.tvc_siso_gen(file_io)
+add wave *
+run -all
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159 us  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd line 96
