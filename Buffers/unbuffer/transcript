@@ -44,3 +44,6 @@ run -all
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 159 us  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/unbuffer/tvc_siso_gen_file_io_arch.vhd line 96
+quit -sim
+# End time: 08:44:58 on Dec 07,2018, Elapsed time: 1:58:24
+# Errors: 0, Warnings: 0
