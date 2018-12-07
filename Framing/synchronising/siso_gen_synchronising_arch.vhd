@@ -25,7 +25,7 @@ architecture synchronising of siso_gen_synchronising is
   -- registers
   signal synchronising_counter_bits : integer range 0 to (synchronising_length*word_length_synchronising);
   signal synchronising_counter_frames : integer range 0 to synchronising_length;
-  signal data_out_tmp,clk_synchronising_out_parallel_temp: std_logic;
+  signal data_out_tmp, clk_synchronising_out_parallel_temp, clk_synchronising_out_parallel_temp_buffer1, clk_synchronising_out_parallel_temp_buffer2: std_logic;
   signal preamble_receiver_std_logic_vector, data_in_temp_buffer_10_newest_of_20, data_in_temp_buffer_20_newest_of_20 : std_logic_vector(word_length_synchronising-1 downto 0);
 begin
   -- the next process is sequential and only sensitive to clk and reset
@@ -70,7 +70,11 @@ begin
 	
 		elsif(synchronising_counter_frames <= synchronising_length-1)
 		then
-			if (synchronising_counter_bits=((word_length_synchronising/2)-1))
+			if((synchronising_counter_bits=0) and (synchronising_counter_frames=1))
+			then
+				synchronising_counter_bits<=synchronising_counter_bits+1;
+				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);				
+			elsif (synchronising_counter_bits=((word_length_synchronising/2)-1))
 			then
 				clk_synchronising_out_parallel_temp <= not clk_synchronising_out_parallel_temp;
 				synchronising_counter_bits<=synchronising_counter_bits+1;
@@ -105,18 +109,18 @@ begin
 
 		end if; -- (synchronising_counter_frames = 0)
 
-
 	else-- you have not found any preamble and are not sending any frames
 		synchronising_counter_frames<=0;
 		synchronising_counter_bits<=0;	
 		data_out_tmp <= '0';
 	end if;
-
+	clk_synchronising_out_parallel_temp_buffer1<=clk_synchronising_out_parallel_temp;
+	clk_synchronising_out_parallel_temp_buffer2<=clk_synchronising_out_parallel_temp_buffer1;
     end if; -- (reset = '0')
   end process seq; 
   
   -- output register can be any of num1 or num2
   data_out_synchronising <= data_out_tmp;
   clk_synchronising_out_serial<=clk_synchronising_in;
-  clk_synchronising_out_parallel<=clk_synchronising_out_parallel_temp;
+  clk_synchronising_out_parallel<=clk_synchronising_out_parallel_temp_buffer2;
 end synchronising;

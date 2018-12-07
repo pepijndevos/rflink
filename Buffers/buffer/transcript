@@ -853,3 +853,32 @@ do start_sim.do
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+restart -f
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 165300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+do start_sim.do
+# End time: 18:23:54 on Dec 07,2018, Elapsed time: 4:42:43
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 18:23:54 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 185300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# End time: 20:09:53 on Dec 07,2018, Elapsed time: 1:45:59
+# Errors: 0, Warnings: 0
