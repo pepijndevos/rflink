@@ -10,7 +10,7 @@ architecture behavioral of clock_recovery is
 	signal multiple : unsigned(3 downto 0);
 begin
 
-  period <= period_256/256;
+  period <= resize(period_256/256, period'length);
 
   process(clk, rst)
 	  variable polarity : std_logic;
@@ -23,7 +23,7 @@ begin
     elsif rising_edge(clk) then
 	    if input /= last_input then
 		    counter <= (others => '0');
-		    period_256 <= resize((period_256*127 + (counter+1)*256/multiple)/128, 32);
+		    period_256 <= resize((period_256*127 + (counter+1)*256/multiple)/128, period_256'length);
 		    out_clk <= '1';
 		    multiple <= to_unsigned(1, multiple'length);
 	    elsif counter > period*multiple+timeout then
@@ -35,6 +35,10 @@ begin
 		    counter <= counter + 1;
 	    end if;
 	    last_input <= input;
+
+	    if multiple > 5 or period <= std_period/2 then
+		    period_256 <= to_unsigned(std_period*256, period_256'length);
+	    end if;
     end if;
   end process;
 
