@@ -12,7 +12,7 @@ architecture testbench of modulatorbench is
   signal clk : std_logic := '0';
   signal sampleclk : std_logic := '0';
 
-  signal pulse : unsigned(3 downto 0) := "0000";
+  signal pulse : unsigned(9 downto 0) := "0000000000";
   signal sine : signed(9 downto 0);
   signal rcv_sine : signed(9 downto 0);
   signal binary : std_logic;
@@ -34,16 +34,16 @@ begin
 		  idx := 0;
 	  elsif rising_edge(sampleclk) then
 		  case idx is
-			  when 0 => pulse <= "0000";
-			  when 1 => pulse <= "0001";
-			  when 2 => pulse <= "1000";
-			  when 3 => pulse <= "1110";
-			  when 4 => pulse <= "1111";
-			  when 5 => pulse <= "1111";
-			  when 6 => pulse <= "1110";
-			  when 7 => pulse <= "1000";
-			  when 8 => pulse <= "0001";
-			  when 9 => pulse <= "0000";
+			  when 0 => pulse <= "0000000000";
+			  when 1 => pulse <= "0001000000";
+			  when 2 => pulse <= "1000000000";
+			  when 3 => pulse <= "1110000000";
+			  when 4 => pulse <= "1111111111";
+			  when 5 => pulse <= "1111111111";
+			  when 6 => pulse <= "1110000000";
+			  when 7 => pulse <= "1000000000";
+			  when 8 => pulse <= "0001000000";
+			  when 9 => pulse <= "0000000000";
 			  when others =>
 		  end case;
 		  if idx < 9 then

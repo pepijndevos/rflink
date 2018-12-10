@@ -33,7 +33,7 @@ signal Fout : integer;
 begin
 
 output <= signed(sin_out(11 downto 2));
-Fout <= Flo + (to_integer(input) * (Fhi-Flo) / 16);
+Fout <= Flo + (to_integer(input) * (Fhi-Flo) / 1024);
 phase_inc <= std_logic_vector(resize(Fout * unsigned'(X"100000000") / Fclk, 32));
 
   process(clk, rst)
