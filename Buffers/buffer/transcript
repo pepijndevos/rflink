@@ -1,0 +1,884 @@
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd failed.
+# Compile of siso_gen_buffer_arch.vhd failed.
+# Compile of siso_gen_buffer_ent.vhd failed.
+# Compile of tb_siso_gen.vhd failed.
+# Compile of tvc_siso_gen_file_io_arch.vhd failed.
+# Compile of siso_gen_buffer_arch.vhd failed with 1 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 1 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 2 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 2 errors.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd failed with 2 errors.
+# Compile of conf_tb_siso_gen_buffer.vhd failed with 2 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 5 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 3 errors.
+# Compile of siso_gen_buffer_arch.vhd failed with 2 errors.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd failed with 3 errors.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# Compile of tb_siso_gen.vhd failed with 14 errors.
+# Compile of tb_siso_gen.vhd failed with 8 errors.
+# Compile of tb_siso_gen.vhd failed with 8 errors.
+# Compile of tb_siso_gen.vhd failed with 8 errors.
+# Compile of tb_siso_gen.vhd failed with 7 errors.
+# Compile of tb_siso_gen.vhd failed with 5 errors.
+# Compile of tb_siso_gen.vhd failed with 3 errors.
+# Compile of tb_siso_gen.vhd failed with 3 errors.
+# Compile of tb_siso_gen.vhd failed with 2 errors.
+# Compile of tb_siso_gen.vhd failed with 2 errors.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd failed with 2 errors.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+vsim work.conf_tb_siso_gen_buffer
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:37:30 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+add wave *
+add wave *
+run -all
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 10:41:18 on Dec 07,2018, Elapsed time: 0:03:48
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:41:18 on Dec 07,2018
+# Loading std.standard
+# ** Error: (vsim-13) Recompile work.conf_tb_siso_gen_buffer because work.tb_siso_gen(structure) has changed.
+# Error loading design
+# Error: Error loading design
+#        Pausing macro execution
+# MACRO ./start_sim.do PAUSED at line 1
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+vsim work.conf_tb_siso_gen_buffer
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:41:18 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+./start_sim.do
+# couldn't execute ".\start_sim.do": no such file or directory
+do start_sim.do
+# End time: 10:42:36 on Dec 07,2018, Elapsed time: 0:01:18
+# Errors: 2, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:42:36 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+add wave -position insertpoint sim:/tb_siso_gen_top/tg/duv/*
+do start_sim.do
+# End time: 10:43:23 on Dec 07,2018, Elapsed time: 0:00:47
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:43:23 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_buffer_arch.vhd failed with 2 errors.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 10:51:16 on Dec 07,2018, Elapsed time: 0:07:53
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:51:16 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 10:57:57 on Dec 07,2018, Elapsed time: 0:06:41
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 10:57:57 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:00:53 on Dec 07,2018, Elapsed time: 0:02:56
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:00:53 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:03:48 on Dec 07,2018, Elapsed time: 0:02:55
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:03:48 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:12:33 on Dec 07,2018, Elapsed time: 0:08:45
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:12:33 on Dec 07,2018
+# Loading std.standard
+# ** Error: (vsim-13) Recompile work.conf_tb_siso_gen_buffer because work.tb_siso_gen(structure) has changed.
+# Error loading design
+# Error: Error loading design
+#        Pausing macro execution
+# MACRO ./start_sim.do PAUSED at line 1
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+add wave -position insertpoint sim:/tb_siso_gen_top/tg/duv/*
+# Unrecognized dataset prefix: sim
+do start_sim.do
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:12:33 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:15:46 on Dec 07,2018, Elapsed time: 0:03:13
+# Errors: 1, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:15:46 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:26:07 on Dec 07,2018, Elapsed time: 0:10:21
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:26:07 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:31:13 on Dec 07,2018, Elapsed time: 0:05:06
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:31:13 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:35:14 on Dec 07,2018, Elapsed time: 0:04:01
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:35:14 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:40:13 on Dec 07,2018, Elapsed time: 0:04:59
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:40:13 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:52:26 on Dec 07,2018, Elapsed time: 0:12:13
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:52:26 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Fatal: (vsim-3421) Value 21 is out of range 0 to 20.
+#    Time: 132400 ns  Iteration: 2  Process: /tb_siso_gen_top/tg/duv/seq File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/siso_gen_synchronising_arch.vhd
+# Fatal error in Process seq at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/siso_gen_synchronising_arch.vhd line 53
+# 
+# HDL call sequence:
+# Stopped at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/siso_gen_synchronising_arch.vhd 53 Process seq
+# 
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 11:55:46 on Dec 07,2018, Elapsed time: 0:03:20
+# Errors: 2, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 11:55:46 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:22:06 on Dec 07,2018, Elapsed time: 0:26:20
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:22:07 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:26:15 on Dec 07,2018, Elapsed time: 0:04:08
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:26:15 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:33:23 on Dec 07,2018, Elapsed time: 0:07:08
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:33:23 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:36:51 on Dec 07,2018, Elapsed time: 0:03:28
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:36:51 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:44:06 on Dec 07,2018, Elapsed time: 0:07:15
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:44:07 on Dec 07,2018
+# Loading std.standard
+# ** Error: (vsim-13) Recompile work.conf_tb_siso_gen_buffer because work.tb_siso_gen(structure) has changed.
+# Error loading design
+# Error: Error loading design
+#        Pausing macro execution
+# MACRO ./start_sim.do PAUSED at line 1
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+add wave -position insertpoint sim:/tb_siso_gen_top/tg/duv/*
+# Unrecognized dataset prefix: sim
+do start_sim.do
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:44:07 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+
+do start_sim.do
+# End time: 12:44:47 on Dec 07,2018, Elapsed time: 0:00:40
+# Errors: 1, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:44:47 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 12:47:43 on Dec 07,2018, Elapsed time: 0:02:56
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 12:47:43 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 13:06:27 on Dec 07,2018, Elapsed time: 0:18:44
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 13:06:27 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 13:13:16 on Dec 07,2018, Elapsed time: 0:06:49
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 13:13:16 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 13:15:43 on Dec 07,2018, Elapsed time: 0:02:27
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 13:15:43 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 13:27:14 on Dec 07,2018, Elapsed time: 0:11:31
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 13:27:14 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# Compile of siso_gen_synchronising_ent.vhd was successful.
+# Compile of tvc_siso_gen_ent.vhd was successful.
+# Compile of siso_gen_synchronising_arch.vhd was successful.
+# Compile of conf_tb_siso_gen_buffer.vhd was successful.
+# Compile of siso_gen_buffer_arch.vhd was successful.
+# Compile of siso_gen_buffer_ent.vhd was successful.
+# Compile of tb_siso_gen.vhd was successful.
+# Compile of tvc_siso_gen_file_io_arch.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+do start_sim.do
+# End time: 13:41:11 on Dec 07,2018, Elapsed time: 0:13:57
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 13:41:11 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 159300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+restart -f
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 165300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+do start_sim.do
+# End time: 18:23:54 on Dec 07,2018, Elapsed time: 4:42:43
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_siso_gen_buffer 
+# Start time: 18:23:54 on Dec 07,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_siso_gen_buffer
+# Loading work.tb_siso_gen_top(top)
+# Loading work.tb_siso_gen(structure)
+# Loading work.siso_gen_synchronising(synchronising)
+# Loading work.siso_gen_buffer(buffer_1)
+# Loading work.tvc_siso_gen(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 185300 ns  Iteration: 1  Process: /tb_siso_gen_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/Buffers/buffer/tvc_siso_gen_file_io_arch.vhd line 90
+# End time: 20:09:53 on Dec 07,2018, Elapsed time: 1:45:59
+# Errors: 0, Warnings: 0
