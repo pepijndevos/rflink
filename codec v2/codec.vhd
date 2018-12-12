@@ -5,10 +5,10 @@ use IEEE.NUMERIC_STD.ALL;
 entity codec is
   port(CLOCK_50    : in std_logic;
 		 AUD_ADCDAT  : in std_logic;
-		 AUD_ADCLRCK : in std_logic;
-		 AUD_BCLK    : in std_logic;
+		 AUD_ADCLRCK : out std_logic; -- in
+		 AUD_BCLK    : out std_logic; -- in 
 		 AUD_DACDAT  : out std_logic;
-		 AUD_DACLRCK : in std_logic;
+		 AUD_DACLRCK : out std_logic; -- in
 		 AUD_XCK     : out std_logic;
 		 FPGA_I2C_SCLK: out std_logic;
 		 FPGA_I2C_SDAT: inout std_logic;
