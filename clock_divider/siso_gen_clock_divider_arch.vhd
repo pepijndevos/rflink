@@ -23,17 +23,10 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-entity clk_3_125MHz is
-  port(outclk_0      : in std_logic;
-		 reset 			: in std_logic;
-		 clk_31_25kHz  : out std_logic
-	   );
-end clk_3_125MHz;
 
+ARCHITECTURE Behavorial OF clock_divider IS
 
-ARCHITECTURE Behavorial OF clk_3_125MHz IS
-
-signal counter_clk : integer range 0 to 9;
+signal counter_clk : integer ;
 signal clk_31_25kHz_temp : std_logic;
 
 BEGIN
@@ -46,11 +39,11 @@ BEGIN
 			clk_31_25kHz_temp <= '0';
 		elsif(rising_edge(outclk_0)) 
 		then
-			if (counter_clk = 9) 
+			if (counter_clk = 99) 
 			then
 				clk_31_25kHz_temp <= not clk_31_25kHz_temp;
 				counter_clk <= 0;
-			elsif(counter_clk = 4)
+			elsif(counter_clk = 49)
 			then
 				clk_31_25kHz_temp <= not clk_31_25kHz_temp;
 				counter_clk <= counter_clk + 1;
@@ -62,4 +55,5 @@ BEGIN
 			
 	clk_31_25kHz <= clk_31_25kHz_temp;--clk at 31.25kHz
 	
+			
 end Behavorial;
