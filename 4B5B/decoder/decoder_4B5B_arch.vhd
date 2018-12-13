@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture fourBfiveB_decoder of siso_gen_4B5B_decoder is
+architecture fourBfiveB_decoder of decoder_4B5B is
   -- registers
   signal data_out_tmp: std_logic_vector(word_length_out_4B5B_decoder-1 downto 0);
 begin
