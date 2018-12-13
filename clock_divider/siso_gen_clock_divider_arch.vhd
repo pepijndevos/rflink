@@ -27,25 +27,25 @@ USE ieee.numeric_std.all;
 ARCHITECTURE Behavorial OF clock_divider IS
 
 signal counter_clk : integer ;
-signal clk_31_25kHz_temp : std_logic;
+signal clk_low_freq_temp : std_logic;
 
 BEGIN
 
-	seq : process(outclk_0, reset)
+	seq : process(clk_high_freq, reset)
 	begin
 		if (reset = '0') 
 		then
-			counter_clk <= 0; 
-			clk_31_25kHz_temp <= '0';
-		elsif(rising_edge(outclk_0)) 
+			counter_clk <= 1; 
+			clk_low_freq_temp <= '0';
+		elsif(rising_edge(clk_high_freq)) 
 		then
-			if (counter_clk = 99) 
+			if (counter_clk = clk_div) 
 			then
-				clk_31_25kHz_temp <= not clk_31_25kHz_temp;
-				counter_clk <= 0;
-			elsif(counter_clk = 49)
+				clk_low_freq_temp <= not clk_low_freq_temp;
+				counter_clk <= 1;
+			elsif(counter_clk = clk_div/2)
 			then
-				clk_31_25kHz_temp <= not clk_31_25kHz_temp;
+				clk_low_freq_temp <= not clk_low_freq_temp;
 				counter_clk <= counter_clk + 1;
 			else
 				counter_clk <= counter_clk + 1;
@@ -53,7 +53,7 @@ BEGIN
 		end if; --(reset = '0')
 	end process;
 			
-	clk_31_25kHz <= clk_31_25kHz_temp;--clk at 31.25kHz
+	clk_low_freq <= clk_low_freq_temp;--clk at 31.25kHz
 	
 			
 end Behavorial;
