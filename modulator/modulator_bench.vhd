@@ -11,10 +11,9 @@ architecture testbench of modulatorbench is
   signal rst : std_logic := '0';
   signal clk : std_logic := '0';
   signal sampleclk : std_logic := '0';
-  signal sample : signed(0 downto 0) := "0";
+  signal sample : std_logic := '0';
 
   signal pulse : unsigned(7 downto 0) := "00000000";
-  signal pulse_out : signed(9 downto 0) := (others => '0');
   signal sine : signed(9 downto 0);
   signal rcv_sine : signed(9 downto 0);
   signal binary : std_logic;
@@ -27,7 +26,6 @@ begin
   sampleclk <= not sampleclk AFTER 100 ns;
   sample <= not sample AFTER 2000 ns;
   rcv_sine <= sine/2 + 100 + noise;
-  pulse <= unsigned(pulse_out(7 downto 0));
 
 
 -- noise
@@ -44,9 +42,8 @@ end process;
   fir_inst: entity work.fir(behavioral)
   generic map (
     coef_scale => 4,
-    w_acc => 32,
-    w_in => 1,
-    w_out => pulse_out'length,
+    w_acc => 16,
+    w_out => pulse'length,
     coef => (262, 498, 262)
   )
   port map (
@@ -54,7 +51,7 @@ end process;
     clk => clk,
     sndclk => sampleclk,
     word => sample,
-    resp => pulse_out
+    resp => pulse
 );
 
   mod_inst: entity work.modulator(behavioral)
