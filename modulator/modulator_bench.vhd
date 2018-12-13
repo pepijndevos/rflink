@@ -11,8 +11,10 @@ architecture testbench of modulatorbench is
   signal rst : std_logic := '0';
   signal clk : std_logic := '0';
   signal sampleclk : std_logic := '0';
+  signal sample : signed(0 downto 0) := "0";
 
-  signal pulse : unsigned(9 downto 0) := "0000000000";
+  signal pulse : unsigned(7 downto 0) := "00000000";
+  signal pulse_out : signed(9 downto 0) := (others => '0');
   signal sine : signed(9 downto 0);
   signal rcv_sine : signed(9 downto 0);
   signal binary : std_logic;
@@ -23,36 +25,9 @@ begin
   rst <= '1' after 20 ns;
   clk <= not clk after 10 ns;
   sampleclk <= not sampleclk AFTER 100 ns;
+  sample <= not sample AFTER 2000 ns;
   rcv_sine <= sine/2 + 100 + noise;
-
-
-  -- pulse input
-  process (sampleclk, rst)
-	  variable idx : integer;
-  begin
-	  if rst = '0' then
-		  idx := 0;
-	  elsif rising_edge(sampleclk) then
-		  case idx is
-			  when 0 => pulse <= "0000000000";
-			  when 1 => pulse <= "0001000000";
-			  when 2 => pulse <= "1000000000";
-			  when 3 => pulse <= "1110000000";
-			  when 4 => pulse <= "1111111111";
-			  when 5 => pulse <= "1111111111";
-			  when 6 => pulse <= "1110000000";
-			  when 7 => pulse <= "1000000000";
-			  when 8 => pulse <= "0001000000";
-			  when 9 => pulse <= "0000000000";
-			  when others =>
-		  end case;
-		  if idx < 9 then
-			  idx := idx+1;
-		  else
-			  idx := 0;
-		  end if;
-	  end if;
-  end process;
+  pulse <= unsigned(pulse_out(7 downto 0));
 
 
 -- noise
@@ -66,6 +41,21 @@ begin
     wait for 10 ns;
 end process;
 
+  fir_inst: entity work.fir(behavioral)
+  generic map (
+    coef_scale => 4,
+    w_acc => 32,
+    w_in => 1,
+    w_out => pulse_out'length,
+    coef => (262, 498, 262)
+  )
+  port map (
+    rst => rst,
+    clk => clk,
+    sndclk => sampleclk,
+    word => sample,
+    resp => pulse_out
+);
 
   mod_inst: entity work.modulator(behavioral)
     port map (rst => rst,
