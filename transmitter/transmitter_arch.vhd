@@ -2,10 +2,8 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;  
 use IEEE.NUMERIC_STD.ALL;
 
-architecture Behavioral of transmitter is
-	
+architecture structure of transmitter is
   signal rst : std_logic;
-	
 
   signal socadc : std_logic_vector(31 downto 0);
   signal win1 : signed(15 downto 0);
@@ -23,31 +21,28 @@ architecture Behavioral of transmitter is
   signal clk : std_logic;
   signal clk_3_2_MHz : std_logic;
   signal clk_32_kHz : std_logic;  
-	
 begin
+	win1 <= signed(socadc(31 downto 16));
+	win2 <= signed(socadc(15 downto 0));
+	rst <= KEY(0);
+	clk <= CLOCK_50;
+	GPIO_0(7 downto 0) <= buffer_out;
+	GPIO_0(8) <= clk_32_kHz;
 
+	process(sndclk)
+	begin
+		if rising_edge(sndclk) then
+			wout1 <= buffer_out & "00000000";
+			wout2 <= buffer_out & "00000000";
+		end if;
+	end process;
 
-win1 <= signed(socadc(31 downto 16));
-win2 <= signed(socadc(15 downto 0));
-rst <= KEY(0);
-clk <= CLOCK_50;
-GPIO_0(7 downto 0) <= buffer_out;
-GPIO_0(8) <= clk_32_kHz;
-
-process(sndclk)
-begin
-	if rising_edge(sndclk) then
-		wout1 <= buffer_out & "00000000";
-		wout2 <= buffer_out & "00000000";
-	end if;
-end process;
-
-process(clk_32_kHz)
-begin
-	if rising_edge(clk_32_kHz) then
-		buffer_in <= std_logic_vector(win1(15 downto 8));
-	end if;
-end process;
+	process(clk_32_kHz)
+	begin
+		if rising_edge(clk_32_kHz) then
+			buffer_in <= std_logic_vector(win1(15 downto 8));
+		end if;
+	end process;
 
 
 	audio_inst : entity work.audio_interface
@@ -72,15 +67,15 @@ end process;
 		
 		
 	clock_gen_3_2_MHz_inst : entity work.clock_gen_3_2_MHz
-	   port map (
-	   refclk => clk, -- clk 50MHz
-	   rst => not rst,  -- reset active low
-	   outclk_0 => clk_3_2_MHz -- 32 kHz clock
-	   );
+	  port map (
+			refclk => clk, -- clk 50MHz
+			rst => not rst,  -- reset active low
+			outclk_0 => clk_3_2_MHz -- 32 kHz clock
+	  );
 	
 	clock_divider_inst : entity work.clock_divider
 		generic map (
-		clk_div => clk_div -- the output clock freq will be clk_high_freq / clk_div
+			clk_div => clk_div -- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
 		clk_high_freq => clk_3_2_MHz, -- high freq clock input
@@ -90,22 +85,20 @@ end process;
 	
 	audiobuffer_inst : entity work.audiobuffer
 		generic map (
-		word_length => word_length
-		 )
+			word_length => word_length
+		)
 		port map (
-		clk =>clk_32_kHz,
-		data_in => buffer_in,
-		data_out => buffer_out -- to gpio
+			clk =>clk_32_kHz,
+			data_in => buffer_in,
+			data_out => buffer_out -- to gpio
 		);
 	
 	
-	-- encoder_inst : entity work.siso_gen_4B5B_encoder
-		-- port map (
-			-- data_in_4B5B_encoder => to_encoder,
-			-- clk_4B5B_encoder => sndclk,
-			-- reset => rst,
-			-- data_out_4B5B_encoder => encoded_data		
-		-- );
-					
-
-end Behavioral;
+	--encoder_inst : entity work.siso_gen_4B5B_encoder
+	--	port map (
+	--		data_in_4B5B_encoder => to_encoder,
+	--		clk_4B5B_encoder => sndclk,
+	--		reset => rst,
+	--		data_out_4B5B_encoder => encoded_data		
+	--	);
+end structure;
