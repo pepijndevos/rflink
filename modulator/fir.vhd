@@ -6,16 +6,16 @@ use work.data_types.all;
 entity fir is
 Generic (
     coef_scale : integer;
-    w_acc : integer;
-    w_out : integer := 16;
+    w_acc : integer; -- acumulator width
+    w_out : integer; -- output length
     coef : array_of_integers
 );
     port (
       rst    : in std_logic;
-      clk    : in std_logic;
-      sndclk : in std_logic;
-      word   : in std_logic;
-      resp   : out unsigned(w_out-1 downto 0)
+      clk    : in std_logic; -- 50MHZ
+      sndclk : in std_logic; -- clock 3MHZ
+      word   : in std_logic; -- input at 300 kHz
+      resp   : out unsigned(w_out-1 downto 0) -- output signal
     );
 end;
 
