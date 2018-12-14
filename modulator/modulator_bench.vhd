@@ -11,6 +11,7 @@ architecture testbench of modulatorbench is
   signal rst : std_logic := '0';
   signal clk : std_logic := '0';
   signal sampleclk : std_logic := '0';
+  signal outclk : std_logic := '0';
   signal sample : std_logic := '0';
 
   signal pulse : unsigned(7 downto 0) := "00000000";
@@ -65,4 +66,14 @@ end process;
       clk => clk,
       input => rcv_sine,
       output => binary);
+
+  recovery_inst: entity work.clock_recovery(behavioral)
+  generic map (
+      std_period => 50,
+      timeout => 25
+  )
+    port map (rst => rst,
+      clk => clk,
+      input => binary,
+      out_clk => outclk);
 end;
