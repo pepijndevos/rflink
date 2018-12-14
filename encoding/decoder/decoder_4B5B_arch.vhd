@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture fourBfiveB_decoder of decoder_4B5B is
+architecture behavioral of decoder_4B5B is
   -- registers
   signal data_out_tmp: std_logic_vector(word_length_out_4B5B_decoder-1 downto 0);
 begin
@@ -299,4 +299,4 @@ when "0101010101" => data_out_tmp <= "00000000";
   -- output register can be any of num1 or num2
   data_out_4B5B_decoder <= data_out_tmp;
 
-end fourBfiveB_decoder;
+end behavioral;

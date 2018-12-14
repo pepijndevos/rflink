@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture synchronising of siso_gen_synchronising is
+architecture behavioral of deframing is
   -- registers
   signal synchronising_counter_bits : integer range 0 to (synchronising_length*word_length_synchronising);
   signal synchronising_counter_frames : integer range 0 to synchronising_length;
@@ -123,4 +123,4 @@ begin
   data_out_synchronising <= data_out_tmp;
   clk_synchronising_out_serial<=clk_synchronising_in;
   clk_synchronising_out_parallel<=clk_synchronising_out_parallel_temp_buffer2;
-end synchronising;
+end behavioral;

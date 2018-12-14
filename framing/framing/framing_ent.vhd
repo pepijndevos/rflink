@@ -23,11 +23,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity audiobuffer is
-  generic (word_length_buffer: integer := 10);
-  port (data_in_buffer: in std_logic;
-        clk_buffer_parallel: in std_logic;
-        clk_buffer_serial: in std_logic;
+entity framing is
+  generic (word_length_framing: integer := 10;
+	   preamble_transmitter: integer := 785;
+	   framing_length: integer := 20);
+  port (data_in_framing: in std_logic_vector(word_length_framing-1 downto 0);
+        clk_framing: in std_logic;
         reset: in std_logic;
-        data_out_buffer: out std_logic_vector(word_length_buffer-1 downto 0));
-end audiobuffer;
+        data_out_framing: out std_logic_vector(word_length_framing-1 downto 0));
+end framing;

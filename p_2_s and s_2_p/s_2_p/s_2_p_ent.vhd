@@ -23,14 +23,11 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity siso_gen_synchronising is
-  generic (word_length_synchronising: integer := 10;
-	   preamble_receiver: integer := 785;
-	   synchronising_length: integer := 20);
-  port (data_in_synchronising: in std_logic;
-        clk_synchronising_in: in std_logic;
+entity s_2_p is
+  generic (word_length_buffer: integer := 10);
+  port (data_in_buffer: in std_logic;
+        clk_buffer_parallel: in std_logic;
+        clk_buffer_serial: in std_logic;
         reset: in std_logic;
-        data_out_synchronising: out std_logic;
-        clk_synchronising_out_serial: out std_logic;
-        clk_synchronising_out_parallel: out std_logic);
-end siso_gen_synchronising;
+        data_out_buffer: out std_logic_vector(word_length_buffer-1 downto 0));
+end s_2_p;

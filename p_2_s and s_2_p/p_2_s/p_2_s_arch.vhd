@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture unbuffer of siso_gen_unbuffer is
+architecture behavioral of p_2_s is
   -- registers
   signal data_in_temp1, data_in_temp2: std_logic_vector(word_length_unbuffer-1 downto 0);
   signal data_out_temp: std_logic;
@@ -72,4 +72,4 @@ begin
 
   data_out_unbuffer <= data_out_temp;
  
-end unbuffer;
+end behavioral;

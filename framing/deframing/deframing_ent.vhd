@@ -23,7 +23,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity synchroniser is
+entity deframing is
   generic (word_length_synchronising: integer := 10;
 	   preamble_receiver: integer := 785;
 	   synchronising_length: integer := 20);
@@ -33,4 +33,4 @@ entity synchroniser is
         data_out_synchronising: out std_logic;
         clk_synchronising_out_serial: out std_logic;
         clk_synchronising_out_parallel: out std_logic);
-end synchroniser;
+end deframing;
