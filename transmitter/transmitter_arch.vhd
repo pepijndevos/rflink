@@ -11,7 +11,10 @@ architecture Behavioral of transmitter is
   signal win1 : signed(15 downto 0);
   signal win2 : signed(15 downto 0);
   signal encoded_data : std_logic_vector(9 downto 0);
-  signal to_buffer : std_logic_vector(7 downto 0);
+
+  signal buffer_in : std_logic_vector(7 downto 0);
+  signal buffer_out : std_logic_vector(7 downto 0);
+
   signal from_decoder : std_logic_vector(7 downto 0);
   signal wout1 : std_logic_vector(15 downto 0);
   signal wout2 : std_logic_vector(15 downto 0);
@@ -28,13 +31,21 @@ win1 <= signed(socadc(31 downto 16));
 win2 <= signed(socadc(15 downto 0));
 rst <= KEY(0);
 clk <= CLOCK_50;
+GPIO_0(7 downto 0) <= buffer_out;
+GPIO_0(8) <= clk_32_kHz;
 
 process(sndclk)
 begin
 	if rising_edge(sndclk) then
-		to_buffer <= std_logic_vector(win1(15 downto 8));
-		wout1 <= from_decoder & "00000000";
-		wout2 <= from_decoder & "00000000";
+		wout1 <= buffer_out & "00000000";
+		wout2 <= buffer_out & "00000000";
+	end if;
+end process;
+
+process(clk_32_kHz)
+begin
+	if rising_edge(clk_32_kHz) then
+		buffer_in <= std_logic_vector(win1(15 downto 8));
 	end if;
 end process;
 
@@ -61,32 +72,30 @@ end process;
 		
 		
 	clock_gen_3_2_MHz_inst : entity work.clock_gen_3_2_MHz
-	 port map (
-	refclk => clk,  clk 50MHz
-	rst => not rst,  reset active low
-	outclk_0 => clk_3_2_MHz  32 kHz clock
-	);
-	
+	   port map (
+	   refclk => clk, -- clk 50MHz
+	   rst => not rst,  -- reset active low
+	   outclk_0 => clk_3_2_MHz -- 32 kHz clock
+	   );
 	
 	clock_divider_inst : entity work.clock_divider
 		generic map (
-		clk_div => clk_div
-		);
-		 
+		clk_div => clk_div -- the output clock freq will be clk_high_freq / clk_div
+		)		 
 		port map (
-		clk_high_freq => clk_3_2_MHz,
-        reset => rst,
-        clk_low_freq => clk_32_kHz 
+		clk_high_freq => clk_3_2_MHz, -- high freq clock input
+      reset => rst,
+      clk_low_freq => clk_32_kHz -- low freq clock output
 		);
 	
 	audiobuffer_inst : entity work.audiobuffer
 		generic map (
-		word_length_buffer: integer := 8
-		 );
+		word_length => word_length
+		 )
 		port map (
-		clk_in =>,
-		data_in => to_buffer
-		data_out => --GPIO?;
+		clk =>clk_32_kHz,
+		data_in => buffer_in,
+		data_out => buffer_out -- to gpio
 		);
 	
 	

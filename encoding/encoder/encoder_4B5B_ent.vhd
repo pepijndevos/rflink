@@ -20,4 +20,4 @@ entity encoder_4B5B is
         clk_4B5B_encoder: in std_logic;
         reset: in std_logic;
         data_out_4B5B_encoder: out std_logic_vector(word_length_out_4B5B_encoder-1 downto 0));
-end siso_gen_4B5B_encoder;
+end encoder_4B5B;
