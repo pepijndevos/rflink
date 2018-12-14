@@ -1,0 +1,210 @@
+-------------------------------------------------------------------------------
+-- File: sweep_arch.vhd
+-- Description: 
+-- Author: Remi Jonkman
+-- Creation date: 3-12-2018
+--
+-------------------------------------------------------------------------------
+
+-- library and package declarations
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+architecture structure of sweep is
+	signal clk_160_MHz : std_logic;
+	signal clk_40_MHz : std_logic;
+	signal phase_inc : std_logic_vector(31 downto 0) := (others => '0');
+	signal cos_out : std_logic_vector(11 downto 0);
+	signal squ_out : std_logic_vector(11 downto 0);
+	signal saw_out : std_logic_vector(11 downto 0);
+
+	signal dac_input : std_logic_vector(11 downto 0);
+
+	type rom_type is array (0 to 64) of std_logic_vector (31 downto 0);
+	constant frequency_array : rom_type := 
+		(
+			X"0000001b",
+			X"00000036",
+			X"00000051",
+			X"0000006b",
+			X"00000086",
+			X"000000a1",
+			X"000000bc",
+			X"000000d7",
+			X"000000f2",
+			X"0000010c",
+			X"00000219",
+			X"00000325",
+			X"00000432",
+			X"0000053e",
+			X"0000064b",
+			X"00000757",
+			X"00000863",
+			X"00000970",
+			X"00000a7c",
+			X"000014f9",
+			X"00001f75",
+			X"000029f1",
+			X"0000346e",
+			X"00003eea",
+			X"00004966",
+			X"000053e3",
+			X"00005e5f",
+			X"000068dc",
+			X"0000d1b7",
+			X"00013a93",
+			X"0001a36e",
+			X"00020c4a",
+			X"00027525",
+			X"0002de01",
+			X"000346dc",
+			X"0003afb8",
+			X"00041893",
+			X"00083127",
+			X"000c49ba",
+			X"0010624e",
+			X"00147ae1",
+			X"00189375",
+			X"001cac08",
+			X"0020c49c",
+			X"0024dd2f",
+			X"0028f5c3",
+			X"0051eb85",
+			X"007ae148",
+			X"00a3d70a",
+			X"00cccccd",
+			X"00f5c28f",
+			X"011eb852",
+			X"0147ae14",
+			X"0170a3d7",
+			X"0199999a",
+			X"03333333",
+			X"04cccccd",
+			X"06666666",
+			X"08000000",
+			X"0999999a",
+			X"0b333333",
+			X"0ccccccd",
+			X"0e666666",
+			X"10000000",
+			X"20000000"
+		);
+
+	component waveform_gen
+		port (
+			-- system signals
+			clk         : in  std_logic;
+			reset       : in  std_logic;
+			
+			-- clock-enable
+			en          : in  std_logic;
+			
+			-- NCO frequency control
+			phase_inc   : in  std_logic_vector(31 downto 0);
+			
+			-- Output waveforms
+			sin_out     : out std_logic_vector(11 downto 0);
+			cos_out     : out std_logic_vector(11 downto 0);
+			squ_out     : out std_logic_vector(11 downto 0);
+			saw_out     : out std_logic_vector(11 downto 0) 
+		);
+	end component;
+
+	component dac_interface
+		generic(
+			dac_width : natural := 10
+		);
+		port(
+			dac_clk						: out std_logic;	-- DAC clock
+			ready_out 	     	: out std_logic;  -- Enable DAC output
+			clk_40_MHz				: in  std_logic;	-- 40 MHz clock
+			reset_n						: in  std_logic;	-- Active low reset
+			d_out							: out std_logic_vector (dac_width-1 downto 0); 	-- main outputs
+			d_in_i, d_in_q		: in  std_logic_vector (dac_width-1 downto 0) 	-- main input
+		);
+	end component;
+
+	component clock_pll
+		port (
+			refclk 			: in 	std_logic;
+			rst 				: in 	std_logic;
+			outclk_0 		: out std_logic;	-- 160 MHz
+			outclk_1		: out std_logic;	-- 40 MHz
+			locked 			: out std_logic
+		);
+	end component;
+
+begin
+
+	-- Instantiate a PLL clock component
+	clk_pll: clock_pll
+		port map (
+			refclk => clk_50_MHz, 				-- 50 MHz reference clock
+			rst => not reset_n, 					-- Active high reset
+			outclk_0 => clk_160_MHz,			-- 160MHz clock
+			outclk_1 => clk_40_MHz,
+			locked => pll_locked 					-- Returns if the PLL is locked on all frequencies or not
+		);
+
+	-- Instantiate NCO
+	nco: waveform_gen
+	port map (
+		-- system signals
+		clk         => clk_160_MHz,
+		reset       => reset_n,
+		
+		-- clock-enable
+		en          => enable,
+		
+		-- NCO frequency control
+		phase_inc   => phase_inc,
+		
+		-- Output waveforms
+		sin_out     => dac_input,
+		cos_out     => cos_out,
+		squ_out     => squ_out,
+		saw_out     => saw_out 
+	);
+
+	-- Instantiate the DAC Multiplexer
+	dac: dac_interface
+		generic map (
+			dac_width																					-- word size 10 bits
+		)
+		port map (
+			dac_clk => dac_clk,																-- DAC clk
+			ready_out => ready_to_gpio,												-- enable hardware DAC
+			clk_40_MHz => clk_40_MHz,													-- 50 MHz standard clock
+			reset_n => reset_n,																-- Active low reset
+			d_out => sin_out,																	-- Output data (multiplexed)
+			d_in_i => dac_input(dac_width + 1 downto 2), 			-- In phase input
+			d_in_q => dac_input(dac_width + 1 downto 2)				-- Quadrature input
+		);
+
+	-- Instantiate RAMP component (````	```````````````````````````````````									to RAMP phase_inc)
+	ramp: process(clk_50_MHz, reset_n)
+		constant clock_frequency : integer := 50e6; -- 50 MHz
+		variable counter : integer := 0;
+		variable frequency_index : integer := 0;
+	begin
+		if (reset_n = '0') then
+			counter := 0;
+			frequency_index := 0;
+		elsif (rising_edge(clk_50_MHz) and reset_n = '1') then
+			counter := counter + 1;
+			
+			if (counter > clock_frequency) then
+				counter := 0;
+				frequency_index := frequency_index + 1;
+				
+				if (frequency_index >= frequency_array'length - 1) then
+					frequency_index := 0;
+				end if;
+			end if;
+
+			phase_inc <= frequency_array(frequency_index);
+		end if;
+	end process ramp;
+	
+end architecture structure;
