@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture buffer_1 of siso_gen_buffer is
+architecture buffer_1 of audiobuffer is
   -- registers
   signal data_out_temp1, data_out_temp2: std_logic_vector(word_length_buffer-1 downto 0);
 

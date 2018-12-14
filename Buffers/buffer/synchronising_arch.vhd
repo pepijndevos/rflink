@@ -21,7 +21,7 @@
 library ieee;
 use ieee.numeric_std.all;
 
-architecture synchronising of siso_gen_synchronising is
+architecture synchronising of synchroniser is
   -- registers
   signal synchronising_counter_bits : integer range 0 to (synchronising_length*word_length_synchronising);
   signal synchronising_counter_frames : integer range 0 to synchronising_length;
