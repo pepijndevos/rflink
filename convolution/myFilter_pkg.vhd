@@ -1,8 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.fixed_pkg.all;
+--use ieee.fixed_pkg.all;
 use ieee.std_logic_signed.all;
-use ieee.numeric_std.all; 
+use ieee.numeric_std.all;
+use work.fixed_pkg.all;
 
 package myFilter_pkg is
 	 	--define the resolution of the filter poles
