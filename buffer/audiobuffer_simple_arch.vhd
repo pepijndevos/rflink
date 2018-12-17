@@ -5,7 +5,7 @@ begin
 
 process(clk)
 begin
-	if rising_edge(clk_out) then
+	if rising_edge(clk) then
 		data_buf <= data_in;
 		data_out <= data_buf;
 	end if;
