@@ -19,7 +19,7 @@ entity transmitter is
 		FPGA_I2C_SCLK	: out std_logic; 							-- serial interface clock
 		FPGA_I2C_SDAT	: inout std_logic;		 				-- serial interface data
 		GPIO_0 		  	: out std_logic_vector(53 downto 0);-- gpio pins
-		LEDR 					: out std_logic_vector(9 downto 0)  -- leds
+		LEDR 				: out std_logic_vector(9 downto 0)  -- leds
 	);
 
 end transmitter;
