@@ -1,9 +1,10 @@
 library IEEE;  
 use IEEE.STD_LOGIC_1164.ALL;  
 use IEEE.NUMERIC_STD.ALL;
+use work.data_types.all;
 
 architecture structure of transmitter is
-  signal rst : std_logic;
+  signal reset_n : std_logic;
 
   signal socadc : std_logic_vector(31 downto 0);
   signal win1 : signed(15 downto 0);
@@ -13,7 +14,7 @@ architecture structure of transmitter is
   signal buffer_in : std_logic_vector(7 downto 0);
   signal buffer_out : std_logic_vector(7 downto 0);
 
-  signal from_decoder : std_logic_vector(7 downto 0);
+  signal encoder_out : std_logic_vector(9 downto 0);
   signal wout1 : std_logic_vector(15 downto 0);
   signal wout2 : std_logic_vector(15 downto 0);
   
@@ -24,10 +25,10 @@ architecture structure of transmitter is
 begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
-	rst <= KEY(0);
+	reset_n <= KEY(0);
 	clk <= CLOCK_50;
-	GPIO_0(7 downto 0) <= buffer_out;
-	GPIO_0(8) <= clk_32_kHz;
+	GPIO_0(9 downto 0) <= encoder_out;
+	GPIO_0(10) <= clk_32_kHz;
 
 	process(sndclk)
 	begin
@@ -37,12 +38,13 @@ begin
 		end if;
 	end process;
 
+
 	audio_inst : entity work.audio_interface
 		port map (
 			LDATA => (wout1),
 			RDATA => (wout2),
 			clk => clk,
-			Reset	=> rst,
+			Reset	=> reset_n,
 			INIT_FINISH	=> open,
 			adc_full	=> open,
 			AUD_MCLK => AUD_XCK,
@@ -61,7 +63,7 @@ begin
 	clock_gen_3_2_MHz_inst : entity work.clock_gen_3_2_MHz
 	  port map (
 			refclk => clk, -- clk 50MHz
-			rst => not rst,  -- reset active low
+			rst => not reset_n,  -- reset active low
 			outclk_0 => clk_3_2_MHz -- 32 kHz clock
 	  );
 	
@@ -70,9 +72,9 @@ begin
 			clk_div => clk_div -- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
-		clk_high_freq => clk_3_2_MHz, -- high freq clock input
-      reset => rst,
-      clk_low_freq => clk_32_kHz -- low freq clock output
+		clk_high_freq => clk_3_2_MHz, 			-- high freq clock input
+      reset => reset_n,
+      clk_low_freq => clk_32_kHz 				-- low freq clock output
 		);
 	
 	audiobuffer_inst : entity work.audiobuffer
@@ -80,17 +82,16 @@ begin
 			word_length => word_length
 		)
 		port map (
-			clk =>clk_32_kHz,
-			data_in => std_logic_vector(win1(15 downto 8)),
-			data_out => buffer_out -- to gpio
+			clk => clk_32_kHz,
+			data_in => socadc(31 downto 24), 	-- only pick the 8 MSBs
+			data_out => buffer_out 						-- to gpio
 		);
 	
-	
-	--encoder_inst : entity work.siso_gen_4B5B_encoder
-	--	port map (
-	--		data_in_4B5B_encoder => to_encoder,
-	--		clk_4B5B_encoder => sndclk,
-	--		reset => rst,
-	--		data_out_4B5B_encoder => encoded_data		
-	--	);
+	encoder_inst : entity work.encoder_4B5B
+		port map (
+			data_in_4B5B_encoder => buffer_out,
+			clk_4B5B_encoder => clk_32_kHz,
+			reset => reset_n,
+			data_out_4B5B_encoder => encoder_out		
+	);
 end structure;
