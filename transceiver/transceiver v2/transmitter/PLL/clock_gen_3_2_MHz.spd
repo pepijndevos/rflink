@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<simPackage>
- <file path="clock_gen_3_2_MHz_sim/clock_gen_3_2_MHz.vho" type="VHDL" />
- <topLevel name="clock_gen_3_2_MHz" />
- <deviceFamily name="cyclonev" />
-</simPackage>

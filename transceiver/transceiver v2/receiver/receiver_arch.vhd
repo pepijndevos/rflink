@@ -1,6 +1,6 @@
-library IEEE;  
-use IEEE.STD_LOGIC_1164.ALL;  
-use IEEE.NUMERIC_STD.ALL;
+library ieee;  
+use ieee.std_logic_1164.ALL;  
+use ieee.numeric_std.ALL;
 
 architecture behavioral of receiver is
   signal reset_n : std_logic;
@@ -11,7 +11,7 @@ architecture behavioral of receiver is
   signal encoded_data : std_logic_vector(9 downto 0);
 
   signal buffer_in : std_logic_vector(7 downto 0);
-	signal buffer_out : std_logic_vector(7 downto 0);
+	signal buffer_out : signed(7 downto 0);
   
 	signal to_decoder : std_logic_vector(9 downto 0);
 
@@ -33,8 +33,8 @@ begin
 	process(sndclk)
 	begin
 		if rising_edge(sndclk) then
-			wout1 <= buffer_out & "00000000";
-			wout2 <= buffer_out & "00000000";
+			wout1 <= std_logic_vector(buffer_out) & "00000000";
+			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
 	end process;
 
@@ -77,13 +77,16 @@ begin
 	
 	audiobuffer_inst : entity work.audiobuffer
 		generic map (
-			word_length => word_length
+		word_length => word_length
 		 )
 		port map (
-			clk => clk_32_kHz,
-			data_in => buffer_in,
-			data_out => buffer_out
-		);
+			rst => reset_n,
+			clk => clk_50_MHz,
+			clk_in => sndclk,
+			clk_out => clk_32_khz,
+			data_in => signed(buffer_in),
+			data_out => buffer_out-- to gpio
+			);
 
 	decoder_inst: entity work.decoder_4B5B
 		generic map (
