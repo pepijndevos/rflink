@@ -1,0 +1,11 @@
+
+
+/data/git/SOCSweepADC/clock_pll.vhd
+
+Dec 10 04PM:42:07>: Megafunction PLL Intel FPGA IP v18.1 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+/data/git/SOCSweepADC/clock_pll.vhd
+
+Dec 10 04PM:42:14>: Megafunction PLL Intel FPGA IP v18.1 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted

@@ -20,6 +20,8 @@ entity sweep is
 		--clk_160_MHz 		: in std_logic;
 		reset_n					: in std_logic;
 		enable					: in std_logic;
+		next_btn				: in std_logic; -- pin AA14
+		sweep_btn				: in std_logic;	-- pin AA15
 		sin_out 				: out std_logic_vector(dac_width-1 downto 0);
 		pll_locked 			: out std_logic;
 		dac_clk					: out std_logic;

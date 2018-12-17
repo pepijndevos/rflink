@@ -18,9 +18,11 @@ architecture structure of sweep is
 	signal cos_out : std_logic_vector(11 downto 0);
 	signal squ_out : std_logic_vector(11 downto 0);
 	signal saw_out : std_logic_vector(11 downto 0);
-
 	signal dac_input : std_logic_vector(11 downto 0);
 
+	signal freeze : std_logic;
+	signal next_frequency : std_logic;
+	
 	type rom_type is array (0 to 64) of std_logic_vector (31 downto 0);
 	constant frequency_array : rom_type := 
 		(
@@ -181,8 +183,37 @@ begin
 			d_in_i => dac_input(dac_width + 1 downto 2), 			-- In phase input
 			d_in_q => dac_input(dac_width + 1 downto 2)				-- Quadrature input
 		);
-
-	-- Instantiate RAMP component (````	```````````````````````````````````									to RAMP phase_inc)
+	
+	control: process(clk_50_MHz, reset_n)
+		variable next_pressed : std_logic := '0';
+	begin
+		if (reset_n = '0') then
+			next_pressed := '0';
+		elsif (rising_edge(clk_50_MHz)) then
+			-- Next frequency
+			if (next_btn = '1' and next_pressed = '0') then
+				next_pressed := '1';
+				next_frequency <= '1';
+			elsif (next_btn = '1' and next_pressed = '1') then
+				next_pressed := '1';
+				next_frequency <= '0';
+			elsif (next_btn = '0') then
+				next_pressed := '0';
+				next_frequency <= '0';
+			end if;
+		end if;
+	end process control;
+	
+	sweep_freeze: process(reset_n, sweep_btn)
+	begin
+		if (reset_n = '0') then
+			freeze <= '0';
+		elsif (rising_edge(sweep_btn)) then
+			freeze <= not freeze;
+		end if;
+	end process sweep_freeze;
+	
+	-- Instantiate RAMP component
 	ramp: process(clk_50_MHz, reset_n)
 		constant clock_frequency : integer := 50e6; -- 50 MHz
 		variable counter : integer := 0;
@@ -192,17 +223,22 @@ begin
 			counter := 0;
 			frequency_index := 0;
 		elsif (rising_edge(clk_50_MHz) and reset_n = '1') then
-			counter := counter + 1;
-			
-			if (counter > clock_frequency) then
-				counter := 0;
-				frequency_index := frequency_index + 1;
-				
-				if (frequency_index >= frequency_array'length - 1) then
-					frequency_index := 0;
+			if (freeze = '1') then
+				if (next_frequency = '1') then
+					frequency_index := frequency_index + 1;
+				end if;
+			else
+				counter := counter + 1;
+				if (counter > clock_frequency) then
+					counter := 0;
+					frequency_index := frequency_index + 1;
 				end if;
 			end if;
-
+			
+			if (frequency_index >= frequency_array'length - 1) then
+				frequency_index := 0;
+			end if;
+			
 			phase_inc <= frequency_array(frequency_index);
 		end if;
 	end process ramp;
