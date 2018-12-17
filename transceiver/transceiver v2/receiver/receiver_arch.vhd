@@ -20,7 +20,7 @@ architecture behavioral of receiver is
   
   signal sndclk : std_logic;
   signal clk_50_MHz : std_logic;
-  signal clk_3_2_MHz : std_logic;
+  signal clk_3_255_MHz : std_logic;
   signal clk_32_kHz : std_logic;  
 	
 begin
@@ -58,11 +58,11 @@ begin
 			ADCDATA => socadc
 		);
 	
-	clock_gen_3_2_MHz_inst : entity work.clock_gen_3_2_MHz
+	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
 	   port map (
 	   refclk => clk_50_MHz, -- clk 50MHz
 	   rst => not reset_n,  -- reset active high
-	   outclk_0 => clk_3_2_MHz -- 32 kHz clock
+	   outclk_0 => clk_3_255_MHz -- 32 kHz clock
 	   );
 	
 	clock_divider_inst : entity work.clock_divider
@@ -70,7 +70,7 @@ begin
 		clk_div => clk_div -- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
-		clk_high_freq => clk_3_2_MHz, -- high freq clock input
+		clk_high_freq => clk_3_255_MHz, -- high freq clock input
       reset => reset_n,
       clk_low_freq => clk_32_kHz -- low freq clock output
 		);
@@ -81,9 +81,9 @@ begin
 		 )
 		port map (
 			rst => reset_n,
-			clk => clk_50_MHz,
+			clk => clk_32_kHz,
 			clk_in => sndclk,
-			clk_out => clk_32_khz,
+			clk_out => clk_32_kHz,
 			data_in => signed(buffer_in),
 			data_out => buffer_out-- to gpio
 			);
