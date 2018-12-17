@@ -21,7 +21,7 @@ use ieee.fixed_pkg.all;
 use ieee.std_logic_signed.all;
 use ieee.numeric_std.all;  
 
-entity Filter is
+entity convolution is
   generic (
 
 		--Do not change this g_fixInt, g_fixDec without changing
@@ -51,7 +51,7 @@ entity Filter is
 
 end entity;
 
-architecture rtl of Filter is
+architecture Behavioural of convolution is
 
 --type Filter_type is array (0 to g_FilterCoef-1) of sfixed (g_fixInt-1 downto -1*g_fixDec);
 type IterBuffer is array (0 to g_FilterCoef-1) of sfixed (g_fixInt-1 downto -1*g_fixDec);
@@ -423,4 +423,4 @@ begin
 	signal_out_int<='0'  &(g_outputBits-2 downto 0 => '1')  when signal_out > 2**(g_outputBits-1) else --max allowed by #bits
 						 '1' & (g_outputBits-2 downto 0 => '0') when signal_out < -1*2**(g_outputBits-1) else --min allowed by #bits
 						  std_logic_vector(signal_out(g_outputBits-1 downto 0));
-end rtl;
+end Behavioural;
