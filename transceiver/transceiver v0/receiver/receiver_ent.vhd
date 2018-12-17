@@ -16,8 +16,7 @@ entity receiver is
 		 AUD_BCLK     	: in std_logic; 							-- Digital Audio bit clock
 		 AUD_DACLRCK  	: in std_logic; 							-- DAC data left/right select
 		 KEY 			  	: in std_logic_vector(3 downto 0); 	-- reset key
-		 GPIO_0 		  	: in std_logic_vector(53 downto 0); -- gpio pins
-
+		 GPIO_0 		  	: in std_logic_vector(53 downto 0);  -- gpio pins
 		 AUD_DACDAT   	: out std_logic; 							-- DAC data line
 		 AUD_XCK      	: out std_logic; 							-- Codec master clock OUTPUT
 		 FPGA_I2C_SCLK	: out std_logic; 							-- serial interface clock

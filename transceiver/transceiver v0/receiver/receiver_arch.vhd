@@ -31,21 +31,17 @@ win1 <= signed(socadc(31 downto 16));
 win2 <= signed(socadc(15 downto 0));
 rst <= KEY(0);
 clk <= CLOCK_50;
+received 
 
 process(sndclk)
 begin
 	if rising_edge(sndclk) then
 		wout1 <= buffer_out & "00000000";
 		wout2 <= buffer_out & "00000000";
-	end if;
-end process;
-
-process(clk_32_kHz)
-begin
-	if rising_edge(clk_32_kHz) then
 		buffer_in <= GPIO_0(7 downto 0);
 	end if;
 end process;
+
 
 
 	audio_inst : entity work.audio_interface
@@ -89,7 +85,7 @@ end process;
 		word_length => word_length
 		 )
 		port map (
-		clk =>clk_32_kHz,
+		clk =>sndclk,
 		data_in => buffer_in,
 		data_out => buffer_out -- to gpio
 		);

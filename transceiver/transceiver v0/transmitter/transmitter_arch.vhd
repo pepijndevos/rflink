@@ -26,24 +26,17 @@ begin
 	win2 <= signed(socadc(15 downto 0));
 	rst <= KEY(0);
 	clk <= CLOCK_50;
-	GPIO_0(7 downto 0) <= buffer_out;
+	GPIO_0(7 downto 0) <= std_logic_vector(win1(15 downto 8));
 	GPIO_0(8) <= clk_32_kHz;
+	GPIO_0(9) <= sndclk;
 
 	process(sndclk)
 	begin
 		if rising_edge(sndclk) then
-			wout1 <= buffer_out & "00000000";
-			wout2 <= buffer_out & "00000000";
+			wout1 <= std_logic_vector(win1(15 downto 8)) & "00000000";
+			wout2 <= std_logic_vector(win1(15 downto 8)) & "00000000";
 		end if;
 	end process;
-
-	process(clk_32_kHz)
-	begin
-		if rising_edge(clk_32_kHz) then
-			buffer_in <= std_logic_vector(win1(15 downto 8));
-		end if;
-	end process;
-
 
 	audio_inst : entity work.audio_interface
 		port map (
@@ -88,7 +81,7 @@ begin
 			word_length => word_length
 		)
 		port map (
-			clk =>clk_32_kHz,
+			clk => sndclk,
 			data_in => buffer_in,
 			data_out => buffer_out -- to gpio
 		);
