@@ -15,7 +15,7 @@ entity receiver is
 		 AUD_ADCLRCK  	: in std_logic; 							-- ADC data left/right select
 		 AUD_BCLK     	: in std_logic; 							-- Digital Audio bit clock
 		 AUD_DACLRCK  	: in std_logic; 							-- DAC data left/right select
-		 KEY 			  	: in std_logic_vector(3 downto 0); 	-- reset key
+		 KEY 			  		: in std_logic_vector(3 downto 0); 	-- reset key
 		 GPIO_0 		  	: in std_logic_vector(53 downto 0); -- gpio pins
 
 		 AUD_DACDAT   	: out std_logic; 							-- DAC data line
