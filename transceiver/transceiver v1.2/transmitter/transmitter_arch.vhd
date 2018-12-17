@@ -11,7 +11,7 @@ architecture structure of transmitter is
   signal encoded_data : std_logic_vector(9 downto 0);
 
   signal buffer_in : std_logic_vector(7 downto 0);
-  signal buffer_out : std_logic_vector(7 downto 0);
+  signal buffer_out : signed(7 downto 0);
 
   signal from_decoder : std_logic_vector(7 downto 0);
   signal wout1 : std_logic_vector(15 downto 0);
@@ -26,14 +26,14 @@ begin
 	win2 <= signed(socadc(15 downto 0));
 	rst <= KEY(0);
 	clk <= CLOCK_50;
-	GPIO_0(7 downto 0) <= buffer_out;
+	GPIO_0(7 downto 0) <= std_logic_vector(buffer_out);
 	GPIO_0(8) <= clk_32_kHz;
 
 	process(sndclk)
 	begin
 		if rising_edge(sndclk) then
-			wout1 <= buffer_out & "00000000";
-			wout2 <= buffer_out & "00000000";
+			wout1 <= std_logic_vector(buffer_out) & "00000000";
+			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
 	end process;
 
@@ -80,8 +80,11 @@ begin
 			word_length => word_length
 		)
 		port map (
-			clk =>clk_32_kHz,
-			data_in => std_logic_vector(win1(15 downto 8)),
+			rst => rst,
+			clk => clk,
+			clk_in => sndclk,
+			clk_out => clk_32_khz,
+			data_in => win1(15 downto 8),
 			data_out => buffer_out -- to gpio
 		);
 	
