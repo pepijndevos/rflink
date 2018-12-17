@@ -3,7 +3,6 @@
 *.mpf
 *.mti
 *.wlf
-*.qpf
 *~
 c5_pin_model_dump.txt
 *_description.txt
