@@ -1,0 +1,16 @@
+do start_p_2_s.do
+# vsim work.conf_tb_unbuffer 
+# Start time: 21:44:40 on Dec 18,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_unbuffer
+# Loading work.tb_unbuffer_top(top)
+# Loading work.tb_unbuffer(structure)
+# Loading work.p_2_s(behavioral)
+# Loading work.tvc_unbuffer(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 13249 us  Iteration: 1  Process: /tb_unbuffer_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/p_2_s/tvc_p_2_s_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/p_2_s/tvc_p_2_s_file_io_arch.vhd line 66

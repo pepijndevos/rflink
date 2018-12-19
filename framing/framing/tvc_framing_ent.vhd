@@ -26,16 +26,15 @@ use ieee.numeric_std.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
 
-entity tvc_siso_gen is
-  generic (word_length_synchronising: natural := 10;
-	   word_length_buffer: natural := 10;
-	   preamble_receiver: natural := 785;
-	   synchronising_length: natural := 20;
+entity tvc_framing is
+  generic (word_length_framing: natural := 10;
+	   preamble_transmitter: natural := 785;
+	   framing_length: natural := 20;
            in_file_name: string := "siso_gen.in";
            out_file_name: string := "siso_gen.out";
            half_clock_period: time := 100 ns);
-  port (data_in_synchronising: out std_logic;
-        clk_synchronising_in: out std_logic;
+  port (data_in_framing: out std_logic_vector(word_length_framing-1 downto 0);
+        clk_framing: out std_logic;
         reset: out std_logic;
-        data_out_buffer: in std_logic_vector(word_length_buffer-1 downto 0));
-end tvc_siso_gen;
+        data_out_framing: in std_logic_vector(word_length_framing-1 downto 0));
+end tvc_framing;

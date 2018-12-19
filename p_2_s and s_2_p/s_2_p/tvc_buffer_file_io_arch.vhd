@@ -1,34 +1,4 @@
--------------------------------------------------------------------------------
--- File: tvc_siso_gen_file_io_arch.vhd
--- Description: Architecture for tvc_siso_gen meant for functional
---   simulations that supply input from file and store output in file
--- Author: Sabih Gerez, University of Twente
--- Creation date: Wed Aug 11 00:31:04 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 221 $
--- $Author: gerezsh $
--- $Date: 2017-08-28 00:54:24 +0200 (Mon, 28 Aug 2017) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: tvc_siso_gen_file_io_arch.vhd,v $
--- Revision 1.3  2004/08/23 15:27:06  sabih
--- scan_shift permanently zero was missing
---
--- Revision 1.2  2004/08/23 13:15:31  sabih
--- friendlier termination message
---
--- Revision 1.1  2004/08/10 22:41:23  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------
--- 1. generates clock and reset signals for "design under verification" (DUV)
--- 2. reads inputs from file and send data to the DUV
--- 3. collects outputs from DUV and writes data to file
--------------------------------------------------------------------------------
-
-architecture file_io of tvc_siso_gen is
+architecture file_io of tvc_buffer is
   -- internal clock and reset signals (these signals are necessary
   -- because VHDL does not allow that output signals are read in the
   -- entity that generates them)
@@ -41,7 +11,7 @@ architecture file_io of tvc_siso_gen is
 
 begin
   --  connect internal clock and reset to ports
-  clk_framing <= clk_i;
+  clk_deframing_in <= clk_i;
   reset <= rst_i;
 
   -- generate clock
@@ -81,8 +51,8 @@ begin
         time_out_counter := 0;
       else
 	rst_i <= '1';
-
-       output := to_integer(unsigned(data_out_framing));
+	
+       output := to_integer(unsigned(data_out_buffer));
        write(outline, output);
        writeline(out_file, outline);
 
@@ -95,8 +65,14 @@ begin
 	  report "Error during input file processing." severity failure;
 
        -- encode input as a 2's complement signal
-	  data_in_framing <= std_logic_vector(to_unsigned(input, word_length_framing));
-          time_out_counter := 0;
+	   if (input = 1)
+	   then
+		data_in_deframing <= '1';
+	  else
+		data_in_deframing <= '0';
+	  end if;
+	  
+	  time_out_counter := 0;
 	
           time_out_counter := time_out_counter + 1;
           if (time_out_counter > 100000)

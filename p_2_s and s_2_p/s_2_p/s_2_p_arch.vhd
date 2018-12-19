@@ -1,30 +1,9 @@
--------------------------------------------------------------------------------
--- File: siso_gen_gcd_arch.vhd
--- Description: siso_gen architecture for computing greatest common divider
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:37:33 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: siso_gen_gcd_arch.vhd,v $
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
-
-
--- this architecture needs arithmetic functions
 library ieee;
 use ieee.numeric_std.all;
 
-architecture buffer_1 of s_2_p is
+architecture behavioral of s_2_p is
   -- registers
   signal data_out_temp1, data_out_temp2: std_logic_vector(word_length_buffer-1 downto 0);
-
 
 begin
   -- the next process is sequential and only sensitive to clk and reset
@@ -55,4 +34,4 @@ begin
 
   data_out_buffer <= data_out_temp2;
  
-end buffer_1;
+end behavioral;

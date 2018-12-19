@@ -28,15 +28,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity tb_siso_gen is 
+entity tb_framing is 
   generic(word_length_framing: natural := 10;
 	  preamble_transmitter: natural := 785;
-	  framing_length : natural := 20);
-end tb_siso_gen;
+	  framing_length : natural := 30);
+end tb_framing;
 
-architecture structure of tb_siso_gen is
+architecture structure of tb_framing is
   -- declare components to be instantiated
-  component siso_gen_framing
+  component framing
     generic (word_length_framing: natural;
 	     preamble_transmitter: natural;
 	     framing_length: natural);
@@ -47,7 +47,7 @@ architecture structure of tb_siso_gen is
           data_out_framing: out std_logic_vector(word_length_framing-1 downto 0));
   end component;
 
-  component tvc_siso_gen 
+  component tvc_framing 
     generic (word_length_framing: natural := 10;
 	     preamble_transmitter: natural := 785;
 	     framing_length : natural := 20;
@@ -67,13 +67,13 @@ architecture structure of tb_siso_gen is
 begin
   -- instantiate and interconnect components
   -- note that the generic word_length is passed to the subblocks
-  duv: siso_gen_framing
+  duv: framing
     generic map (word_length_framing => word_length_framing,
 		 preamble_transmitter => preamble_transmitter,
 		 framing_length => framing_length)
     port map (data_in_framing => data_in_framing, clk_framing => clk_framing, reset => reset, 
 	      data_out_framing => data_out_framing);
-  tvc: tvc_siso_gen
+  tvc: tvc_framing
     generic map (word_length_framing => word_length_framing,
 		 preamble_transmitter => preamble_transmitter,
 		 framing_length => framing_length)
@@ -85,13 +85,13 @@ end structure;
 -- top level testbench (to bind generic word length)
 -------------------------------------------------------------------------------
 
-entity tb_siso_gen_top is
-end tb_siso_gen_top;
+entity tb_framing_top is
+end tb_framing_top;
 
-architecture top of tb_siso_gen_top is
-  component tb_siso_gen
+architecture top of tb_framing_top is
+  component tb_framing
     generic(word_length: natural := 8);
   end component;
 begin
-  tg: tb_siso_gen;
+  tg: tb_framing;
 end top;

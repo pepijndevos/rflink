@@ -1,23 +1,3 @@
--------------------------------------------------------------------------------
--- File: siso_gen_gcd_arch.vhd
--- Description: siso_gen architecture for computing greatest common divider
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:37:33 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: siso_gen_gcd_arch.vhd,v $
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
-
-
--- this architecture needs arithmetic functions
 library ieee;
 use ieee.numeric_std.all;
 

@@ -18,23 +18,23 @@
 --
 -------------------------------------------------------------------------------
 
-configuration conf_tb_siso_gen_framing of tb_siso_gen_top is
+configuration conf_tb_framing of tb_framing_top is
   for top 
-    for tg: tb_siso_gen use entity work.tb_siso_gen(structure)
+    for tg: tb_framing use entity work.tb_framing(structure)
             generic map (word_length_framing => 10,
 			 preamble_transmitter => 785,
-			 framing_length => 20);
+			 framing_length => 3000);
       for structure
-        for duv: siso_gen_framing use entity work.siso_gen_framing(framing);
+        for duv: framing use entity work.framing(behavioral);
         end for;
-        for tvc: tvc_siso_gen use entity work.tvc_siso_gen(file_io)
+        for tvc: tvc_framing use entity work.tvc_framing(file_io)
             generic map (word_length_framing => 10,
 			 preamble_transmitter => 785,
-			 framing_length => 20,
+			 framing_length => 3000,
                          in_file_name => "framing.in",
                          out_file_name => "framing.out");
         end for;
       end for;
     end for;
   end for;
-end conf_tb_siso_gen_framing;
+end conf_tb_framing;

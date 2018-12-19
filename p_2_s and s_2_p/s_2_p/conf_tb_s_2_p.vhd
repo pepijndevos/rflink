@@ -1,43 +1,23 @@
--------------------------------------------------------------------------------
--- File: conf_tb_siso_gen_gcd.vhd
--- Description: siso_gen configuration for use of gcd architecture
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 01:23:24 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: conf_tb_siso_gen_gcd.vhd,v $
--- Revision 1.2  2004/08/10 22:43:03  sabih
--- adapted for new tvc architecture name
---
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
-configuration conf_tb_siso_gen_buffer of tb_siso_gen_top is
+configuration conf_tb_buffer of tb_buffer_top is
   for top 
-    for tg: tb_siso_gen use entity work.tb_siso_gen(structure)
-            generic map (word_length_synchronising => 10,
+    for tg: tb_buffer use entity work.tb_buffer(structure)
+            generic map (word_length_deframing => 10,
 			 preamble_receiver => 785,
-			 synchronising_length => 20);
+			 deframing_length => 3000);
       for structure
-        for duv: siso_gen_synchronising use entity work.siso_gen_synchronising(synchronising);
+        for duv: deframing use entity work.deframing(behavioral);
         end for;
-        for duv2: siso_gen_buffer use entity work.siso_gen_buffer(buffer_1);
+        for duv2: s_2_p use entity work.s_2_p(behavioral);
         end for;
-        for tvc: tvc_siso_gen use entity work.tvc_siso_gen(file_io)
-            generic map (word_length_synchronising => 10,
+        for tvc: tvc_buffer use entity work.tvc_buffer(file_io)
+            generic map (word_length_deframing => 10,
 			 word_length_buffer => 10,
 			 preamble_receiver => 785,
-			 synchronising_length => 20,
-                         in_file_name => "synchronising.in",
+			 deframing_length => 3000,
+                         in_file_name => "deframing.in",
                          out_file_name => "buffer.out");
         end for;
       end for;
     end for;
   end for;
-end conf_tb_siso_gen_buffer;
+end conf_tb_buffer;

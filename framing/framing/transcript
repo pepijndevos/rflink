@@ -1,0 +1,35 @@
+do start.do
+# vsim work.conf_tb_framing 
+# Start time: 21:39:17 on Dec 18,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_framing
+# Loading work.tb_framing_top(top)
+# Loading work.tb_framing(structure)
+# Loading work.framing(behavioral)
+# Loading work.tvc_framing(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 1324700 ns  Iteration: 1  Process: /tb_framing_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd line 90
+# Compile of conf_tb_framing.vhd was successful.
+do start.do
+# End time: 21:41:00 on Dec 18,2018, Elapsed time: 0:01:43
+# Errors: 0, Warnings: 0
+# vsim work.conf_tb_framing 
+# Start time: 21:41:00 on Dec 18,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_framing
+# Loading work.tb_framing_top(top)
+# Loading work.tb_framing(structure)
+# Loading work.framing(behavioral)
+# Loading work.tvc_framing(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 1324700 ns  Iteration: 1  Process: /tb_framing_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd line 90

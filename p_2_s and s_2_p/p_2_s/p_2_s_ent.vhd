@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- File: siso_gen_ent.vhd
+-- File: unbuffer_ent.vhd
 -- Description: generic serial-in serial-out device, entity declaration
 -- Author: Sabih Gerez, University of Twente
 -- Creation date: Sun Jul 11 00:34:27 CEST 2004
@@ -9,7 +9,7 @@
 -- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
 -- $Log$
 -------------------------------------------------------------------------------
--- $Log: siso_gen_ent.vhd,v $
+-- $Log: unbuffer_ent.vhd,v $
 -- Revision 1.2  2005/07/20 23:52:01  sabih
 -- default values for generics supplied
 --

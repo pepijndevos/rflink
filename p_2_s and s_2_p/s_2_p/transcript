@@ -1,0 +1,18 @@
+# Compile of conf_tb_s_2_p.vhd was successful.
+do start_sim.do
+# vsim work.conf_tb_buffer 
+# Start time: 21:46:45 on Dec 18,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_buffer
+# Loading work.tb_buffer_top(top)
+# Loading work.tb_buffer(structure)
+# Loading work.deframing(behavioral)
+# Loading work.s_2_p(behavioral)
+# Loading work.tvc_buffer(file_io)
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 13249300 ns  Iteration: 1  Process: /tb_buffer_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/s_2_p/tvc_buffer_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/s_2_p/tvc_buffer_file_io_arch.vhd line 60
