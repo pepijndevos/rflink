@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 entity deframing is
   generic (word_length_deframing: integer := 10;
 	   preamble_receiver: integer := 785;
-	   deframing_length: integer := 32000);
+	   deframing_length: integer := 32550);
   port (data_in_deframing: in std_logic;
         clk_deframing_in: in std_logic;
         reset: in std_logic;

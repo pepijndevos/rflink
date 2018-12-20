@@ -73,7 +73,7 @@ begin
 		generic map (
 			word_length_deframing => 10,
 			preamble_receiver => 785,
-			deframing_length => 32000
+			deframing_length => 32550
 			)
 		port map (
 			data_in_deframing => data_in_deframing,

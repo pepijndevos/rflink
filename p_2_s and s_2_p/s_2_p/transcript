@@ -16,3 +16,5 @@ do start_sim.do
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 13249300 ns  Iteration: 1  Process: /tb_buffer_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/s_2_p/tvc_buffer_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/s_2_p/tvc_buffer_file_io_arch.vhd line 60
+# End time: 13:56:58 on Dec 20,2018, Elapsed time: 40:10:13
+# Errors: 0, Warnings: 0
