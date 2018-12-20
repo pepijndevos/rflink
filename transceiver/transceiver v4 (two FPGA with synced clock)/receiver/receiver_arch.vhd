@@ -13,6 +13,8 @@ architecture behavioral of receiver is
   
 	signal data_in_deframing : std_logic;
 	signal data_in_s_2_p : std_logic;
+
+	
 	signal data_out_deframing : std_logic;
 	signal data_out_buffer : std_logic_vector(9 downto 0);
 	signal wout1 : std_logic_vector(15 downto 0);
@@ -27,14 +29,14 @@ architecture behavioral of receiver is
 begin
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
-	clk_32_kHz <= GPIO_0(0); 
-	clk_320_kHz <= GPIO_0(1);
+
+	clk_32_kHz<= GPIO_0(0);
+	clk_320_kHz<= GPIO_0(1);
 	data_in_s_2_p <= GPIO_0(2);
 
 	GPIO_1(0) <= clk_32_kHz;
-	GPIO_1(1) <= clk_320_kHz;
-   GPIO_1(2) <= data_in_s_2_p;
-
+	GPIO_1(1) <= clk_320_kHz;	
+	GPIO_1(2) <= data_in_deframing;
 	
 	process(clk_32_kHz)
 	begin
@@ -91,7 +93,7 @@ begin
 --			--clk_deframing_out_serial => ,
 --			--clk_deframing_out_parallel => clk_32_kHz
 --			);	
-
+	
 			
 		decoder_inst: entity work.decoder_4B5B
 		generic map (
