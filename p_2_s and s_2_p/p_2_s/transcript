@@ -1,6 +1,14 @@
-do start_p_2_s.do
+# Compile of p_2_s_arch.vhd was successful.
+# Compile of p_2_s_ent.vhd was successful.
+# Compile of tb_p_2_s.vhd was successful.
+# Compile of tvc_p_2_s_ent.vhd was successful.
+# Compile of tvc_p_2_s_file_io_arch.vhd was successful.
+# Compile of p_2_s_arch.vhd was successful.
+# Compile of conf_tb_p_2_s.vhd was successful.
+# 6 compiles, 0 failed with no errors.
+vsim work.conf_tb_unbuffer
 # vsim work.conf_tb_unbuffer 
-# Start time: 21:44:40 on Dec 18,2018
+# Start time: 14:40:34 on Dec 20,2018
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -11,6 +19,8 @@ do start_p_2_s.do
 # Loading work.tb_unbuffer(structure)
 # Loading work.p_2_s(behavioral)
 # Loading work.tvc_unbuffer(file_io)
+add wave -position insertpoint sim:/tb_unbuffer_top/tg/duv/*
+run -all
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 13249 us  Iteration: 1  Process: /tb_unbuffer_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/p_2_s/tvc_p_2_s_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/p_2_s and s_2_p/p_2_s/tvc_p_2_s_file_io_arch.vhd line 66

@@ -25,7 +25,7 @@ architecture behavioral of deframing is
   -- registers
   signal deframing_counter_bits : integer range 0 to (deframing_length*word_length_deframing);
   signal deframing_counter_frames : integer range 0 to deframing_length;
-  signal data_out_tmp, clk_deframing_out_parallel_temp, clk_deframing_out_parallel_temp_buffer1, clk_deframing_out_parallel_temp_buffer2: std_logic;
+  signal data_out_tmp, clk_deframing_out_parallel_temp, clk_deframing_out_parallel_temp_buffer1, clk_deframing_out_parallel_temp_buffer2, clk_deframing_out_parallel_temp_buffer3: std_logic;
   signal preamble_receiver_std_logic_vector, data_in_temp_buffer_10_newest_of_20, data_in_temp_buffer_20_newest_of_20 : std_logic_vector(word_length_deframing-1 downto 0);
 begin
   -- the next process is sequential and only sensitive to clk and reset
@@ -116,6 +116,8 @@ begin
 	end if;
 	clk_deframing_out_parallel_temp_buffer1<=clk_deframing_out_parallel_temp;
 	clk_deframing_out_parallel_temp_buffer2<=clk_deframing_out_parallel_temp_buffer1;
+	clk_deframing_out_parallel_temp_buffer3<=clk_deframing_out_parallel_temp_buffer2;
+	
     end if; -- (reset = '0')
   end process seq; 
   

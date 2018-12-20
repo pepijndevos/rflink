@@ -12,6 +12,7 @@ architecture behavioral of receiver is
 	signal buffer_out : signed(7 downto 0);
   
 	signal data_in_deframing : std_logic;
+	signal data_in_s_2_p : std_logic;
 	signal data_out_deframing : std_logic;
 	signal data_out_buffer : std_logic_vector(9 downto 0);
 	signal wout1 : std_logic_vector(15 downto 0);
@@ -26,10 +27,15 @@ architecture behavioral of receiver is
 begin
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
-	data_in_deframing <= GPIO_0(0);
-	GPIO_1(0) <= clk_32_kHz;
-	
+	clk_32_kHz <= GPIO_0(0); 
+	clk_320_kHz <= GPIO_0(1);
+	data_in_s_2_p <= GPIO_0(2);
 
+	GPIO_1(0) <= clk_32_kHz;
+	GPIO_1(1) <= clk_320_kHz;
+   GPIO_1(2) <= data_in_s_2_p;
+
+	
 	process(clk_32_kHz)
 	begin
 		if rising_edge(clk_32_kHz) then
@@ -41,22 +47,22 @@ begin
 	
 	
 	
-	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
-	   port map (
-			refclk => clk_50_MHz, -- clk 50MHz
-			rst => not reset_n,  -- reset active high
-			outclk_0 => clk_3_255_MHz -- 32 kHz clock
-			);
-			
-	clock_divider2_inst : entity work.clock_divider2
-		generic map (
-			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
-			)		 
-		port map (
-			clk_high_freq => clk_3_255_MHz, 			-- high freq clock input
-			reset => reset_n,
-			clk_low_freq => clk_320_kHz 				-- low freq clock output
-			);
+--	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
+--	   port map (
+--			refclk => clk_50_MHz, -- clk 50MHz
+--			rst => not reset_n,  -- reset active high
+--			outclk_0 => clk_3_255_MHz -- 32 kHz clock
+--			);
+--			
+--	clock_divider2_inst : entity work.clock_divider2
+--		generic map (
+--			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
+--			)		 
+--		port map (
+--			clk_high_freq => clk_3_255_MHz, 			-- high freq clock input
+--			reset => reset_n,
+--			clk_low_freq => clk_320_kHz 				-- low freq clock output
+--			);
 	
 	
 	s_2_p_inst : entity work.s_2_p
@@ -64,28 +70,28 @@ begin
 			word_length_buffer => 10
 			)
 		port map (
-			data_in_buffer => data_out_deframing,
+			data_in_buffer => data_in_s_2_p,
          clk_buffer_parallel => clk_32_kHz,
          clk_buffer_serial => clk_320_kHz,
          reset => reset_n,
          data_out_buffer => data_out_buffer
 			); 
 	
-	deframing_inst : entity work.deframing
-		generic map (
-			word_length_deframing => 10,
-			preamble_receiver => 785,
-			deframing_length => 32550
-			)
-		port map (
-			data_in_deframing => data_in_deframing,
-			clk_deframing_in => clk_320_kHz,
-			reset => reset_n,
-			data_out_deframing => data_out_deframing,
-			--clk_deframing_out_serial => ,
-			clk_deframing_out_parallel => clk_32_kHz
-			);	
-	
+--	deframing_inst : entity work.deframing
+--		generic map (
+--			word_length_deframing => 10,
+--			preamble_receiver => 785,
+--			deframing_length => 32550
+--			)
+--		port map (
+--			data_in_deframing => data_in_deframing,
+--			clk_deframing_in => clk_320_kHz,
+--			reset => reset_n,
+--			data_out_deframing => data_out_deframing--,
+--			--clk_deframing_out_serial => ,
+--			--clk_deframing_out_parallel => clk_32_kHz
+--			);	
+
 			
 		decoder_inst: entity work.decoder_4B5B
 		generic map (

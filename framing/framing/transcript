@@ -33,3 +33,5 @@ do start.do
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 1324700 ns  Iteration: 1  Process: /tb_framing_top/tg/tvc/stimuli File: C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/TransmitterModelsim/rflink/framing/framing/tvc_framing_arch.vhd line 90
+# End time: 14:00:59 on Dec 20,2018, Elapsed time: 40:19:59
+# Errors: 0, Warnings: 0
