@@ -32,15 +32,6 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	GPIO_0(0) <= data_out_unbuffer;
 
-	process(sndclk)
-	begin
-		if rising_edge(sndclk) then
-			wout1 <= std_logic_vector(buffer_out) & "00000000";
-			wout2 <= std_logic_vector(buffer_out) & "00000000";
-		end if;
-	end process;
-
-
 	audio_inst : entity work.audio_interface
 		port map (
 			LDATA => (wout1),
@@ -66,7 +57,7 @@ begin
 	  port map (
 			refclk => clk_50_MHz, -- clk 50MHz
 			rst => not reset_n,  -- reset active low
-			outclk_0 => clk_3_255_MHz -- 32 kHz clock
+			outclk_0 => clk_3_255_MHz -- 3.255 MHz clock
 	  );
 	
 	clock_divider_inst : entity work.clock_divider
@@ -97,10 +88,10 @@ begin
 		port map (
 			rst => reset_n,
 			clk => clk_32_kHz,
-			clk_in => sndclk,
-			clk_out => clk_32_kHz,
+			clk_in => sndclk, -- relevant for complex audiobuffer
+			clk_out => clk_32_kHz, -- relevant for complex audiobuffer
 			data_in => signed(socadc(31 downto 24)),
-			data_out => buffer_out -- to gpio
+			data_out => buffer_out
 		);
 	
 	
@@ -112,8 +103,7 @@ begin
 			data_out_4B5B_encoder => encoder_out		
 	);
 	
-	
-	
+		
 	framing_inst : entity work.framing
 	generic map (
 		word_length_framing => 10,
