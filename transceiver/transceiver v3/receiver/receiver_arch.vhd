@@ -27,6 +27,8 @@ begin
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
 	data_in_deframing <= GPIO_0(0);
+	GPIO_1(0) <= clk_32_kHz;
+	
 
 	process(clk_32_kHz)
 	begin
