@@ -102,23 +102,8 @@ begin
 			data_in_4B5B_encoder => std_logic_vector(buffer_out),
 			clk_4B5B_encoder => clk_32_kHz,
 			reset => reset_n,
-			data_out_4B5B_encoder => encoder_out		
+			data_out_4B5B_encoder => data_in_unbuffer		
 	);
-	
-		
-	framing_inst : entity work.framing
-	generic map (
-		word_length_framing => 10,
-		preamble_transmitter => 785,
-		framing_length => 32550
-		)
-	
-	port map (
-		data_in_framing => encoder_out,
-      clk_framing => clk_32_kHz,
-      reset => reset_n,
-      data_out_framing => data_in_unbuffer
-		);	
 	
 	
 	p_2_s_inst : entity work.p_2_s
