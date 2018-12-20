@@ -108,7 +108,7 @@ begin
 	generic map (
 		word_length_framing => 10,
 		preamble_transmitter => 785,
-		framing_length => 32000
+		framing_length => 32550
 		)
 	
 	port map (
