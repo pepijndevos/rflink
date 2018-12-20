@@ -17,7 +17,16 @@ begin
     elsif rising_edge(clk_buffer_serial)
     then
 	    data_in_buffer_temp0<=data_in_buffer;
-	    data_out_temp1 <= data_in_buffer_temp0&data_out_temp1(word_length_buffer-1 downto 1);
+		 data_in_buffer_temp1<=data_in_buffer_temp0;
+	    data_in_buffer_temp2<=data_in_buffer_temp1;
+	    data_in_buffer_temp3<=data_in_buffer_temp2;
+	    data_in_buffer_temp4<=data_in_buffer_temp3;
+	    data_in_buffer_temp5<=data_in_buffer_temp4;
+	    data_in_buffer_temp6<=data_in_buffer_temp5;
+	    data_in_buffer_temp7<=data_in_buffer_temp6;
+	    data_in_buffer_temp8<=data_in_buffer_temp7;
+
+	    data_out_temp1 <= data_in_buffer_temp0&data_in_buffer_temp8(word_length_buffer-1 downto 1);
 	    --data_out_temp <= data_in_temp(0);
     end if; -- (reset = '0')
   end process seq_serial;
