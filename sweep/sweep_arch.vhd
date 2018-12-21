@@ -23,15 +23,50 @@ architecture structure of sweep is
 	signal freeze : std_logic;
 	signal next_frequency : std_logic;
 	
-	type rom_type is array (0 to 5) of std_logic_vector (31 downto 0);
+	type rom_type is array (0 to 40) of std_logic_vector (31 downto 0);
 	constant frequency_array : rom_type := 
 		(
-			X"01000000",
-			X"01800000",
-			X"02000000",
-			X"02800000",
-			X"03000000",
-			X"04000000"
+			X"000068dc",
+			X"0000d1b7",
+			X"00013a93",
+			X"0001a36e",
+			X"00020c4a",
+			X"00027525",
+			X"0002de01",
+			X"000346dc",
+			X"0003afb8",
+			X"00041893",
+			X"00083127",
+			X"000c49ba",
+			X"0010624e",
+			X"00147ae1",
+			X"00189375",
+			X"001cac08",
+			X"0020c49c",
+			X"0024dd2f",
+			X"0028f5c3",
+			X"0051eb85",
+			X"007ae148",
+			X"00a3d70a",
+			X"00cccccd",
+			X"00f5c28f",
+			X"011eb852",
+			X"0147ae14",
+			X"0170a3d7",
+			X"01800000", -- 0.9 MHz
+			X"0199999a", -- 1 MHz
+			X"02000000", -- 1.25 MHz
+			X"03333333", -- 2 MHz
+			X"04000000", -- 2.5 MHz
+			X"04cccccd", -- 3 MHz
+			X"06666666", -- 4 MHz
+			X"08000000", -- 5 MHz
+			X"0999999a", -- 6 MHz
+			X"0b333333", -- 7 MHz
+			X"0ccccccd", -- 8 MHz
+			X"0e666666", -- 9 MHz
+			X"10000000", -- 10 MHz
+			X"20000000"	 -- 20 MHz
 		);
 
 	component waveform_gen
