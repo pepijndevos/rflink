@@ -23,7 +23,7 @@ architecture Behavorial of convolution is
 	signal buff : buff_type;
 	signal signal_out_tmp : std_logic_vector(10-1 downto 0);
  
-	signal filter : filter_type :=
+	signal filter_low : filter_type :=
 	(  
 		0 => "0000000000",
 		1 => "1111111111",
