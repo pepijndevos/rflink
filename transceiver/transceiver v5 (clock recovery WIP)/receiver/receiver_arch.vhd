@@ -25,6 +25,8 @@ architecture behavioral of receiver is
 	signal clk_32_kHz : std_logic;  
 	signal preamble_inserted : std_logic;
 	signal preamble_found : std_logic;
+	signal error_reset : std_logic;
+	signal error_reset_toggle : std_logic;
 	
 begin
 	reset_n <= KEY(0);
@@ -39,8 +41,10 @@ begin
 	GPIO_1(2) <= clk_320_kHz;
 	GPIO_1(3) <= preamble_inserted;
 	GPIO_1(4) <= preamble_found;
+	GPIO_1(5) <= error_reset_toggle;
 
-	LEDR(3 downto 0) <= delay_counter_out;	
+	LEDR(3 downto 0) <= delay_counter_out;
+	LEDR(9) <= error_reset;
 
 	process(clk_32_kHz)
 	begin
@@ -73,13 +77,15 @@ begin
       -- Fclk/Fsampple
       std_period => 614,
       -- clocks to wait before sending an out_clk
-      timeout => 154
+      timeout => 20
      )
     port map (
       rst => reset_n,
       clk => clk_200_MHz,
       input => data_in,
-      out_clk => clk_320_kHz
+      out_clk => clk_320_kHz,
+			error_reset => error_reset,
+			error_reset_toggle => error_reset_toggle
     );
 	
 	deframing_inst : entity work.deframing
