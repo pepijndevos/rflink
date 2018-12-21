@@ -3,13 +3,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 architecture behavioral of clock_recovery is
-	signal period_256 : unsigned(31 downto 0);
-	signal period : unsigned(31 downto 0);
-	signal last_input : std_logic;
-	signal counter : unsigned(31 downto 0);
-	signal multiple : unsigned(3 downto 0);
+	signal period_256 	: unsigned(31 downto 0);
+	signal period 			: unsigned(31 downto 0);
+	signal last_input 	: std_logic;
+	signal counter 			: unsigned(31 downto 0);
+	signal multiple 		: unsigned(3 downto 0);
 begin
-
   period <= resize(period_256/256, period'length);
 
   process(clk, rst)

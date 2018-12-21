@@ -31,29 +31,27 @@ begin
   -- the next process is sequential and only sensitive to clk and reset
   seq: process(clk_deframing_in, reset)
   begin
-    if (reset = '0')
-    then
-	deframing_counter_bits <= 0;
-	deframing_counter_frames <= 0;
-	data_out_tmp <='0';
-	clk_deframing_out_parallel_temp<='1';
-	preamble_receiver_std_logic_vector <= std_logic_vector(to_unsigned(preamble_receiver,word_length_deframing));
-	data_in_temp_buffer_10_newest_of_20 <= (others => '0');
-	data_in_temp_buffer_20_newest_of_20 <= (others => '0');
-    elsif rising_edge(clk_deframing_in)
-    then
+    if (reset = '0') then
+			deframing_counter_bits <= 0;
+			deframing_counter_frames <= 0;
+			data_out_tmp <='0';
+			clk_deframing_out_parallel_temp<='1';
+			preamble_found <= '0';
+			preamble_receiver_std_logic_vector <= std_logic_vector(to_unsigned(preamble_receiver,word_length_deframing));
+			data_in_temp_buffer_10_newest_of_20 <= (others => '0');
+			data_in_temp_buffer_20_newest_of_20 <= (others => '0');
+    elsif rising_edge(clk_deframing_in) then
 	data_in_temp_buffer_10_newest_of_20 <= data_in_deframing&data_in_temp_buffer_10_newest_of_20(word_length_deframing-1 downto 1);
 	data_in_temp_buffer_20_newest_of_20 <= data_in_temp_buffer_10_newest_of_20(0)&data_in_temp_buffer_20_newest_of_20(word_length_deframing-1 downto 1);
 	if((data_in_deframing&data_in_temp_buffer_10_newest_of_20(word_length_deframing-1 downto 1) = preamble_receiver_std_logic_vector) and (deframing_counter_frames = 0) and (deframing_counter_bits = 0))
 	then -- the preamble was found and you are currently not sending anything
 		data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 		deframing_counter_bits<=deframing_counter_bits+1;
-	elsif((deframing_counter_frames > 0) or (deframing_counter_bits > 0))-- you are sending frames
-	then
+		preamble_found <= '1';
+	elsif((deframing_counter_frames > 0) or (deframing_counter_bits > 0)) then -- you are sending frames 
 		if(deframing_counter_frames = 0)
 		then
-			if (deframing_counter_bits=((word_length_deframing/2)-1))
-			then
+			if (deframing_counter_bits=((word_length_deframing/2)-1)) then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
@@ -68,8 +66,7 @@ begin
 				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 			end if;--(deframing_counter_bits=((word_length_deframing/2)-1))
 	
-		elsif(deframing_counter_frames <= deframing_length-1)
-		then
+		elsif(deframing_counter_frames <= deframing_length-1) then
 			if((deframing_counter_bits=0) and (deframing_counter_frames=1))
 			then
 				deframing_counter_bits<=deframing_counter_bits+1;
@@ -91,8 +88,8 @@ begin
 			end if;--(deframing_counter_bits=((word_length_deframing/2)-1))
 
 		else
-			if (deframing_counter_bits=((word_length_deframing/2)-1))
-			then
+		  preamble_found <= '0';
+			if (deframing_counter_bits=((word_length_deframing/2)-1)) then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
@@ -106,14 +103,13 @@ begin
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
 			end if;--(deframing_counter_bits=((word_length_deframing/2)-1))
-
 		end if; -- (deframing_counter_frames = 0)
-
 	else-- you have not found any preamble and are not sending any frames
 		deframing_counter_frames<=0;
 		deframing_counter_bits<=0;	
 		data_out_tmp <= '0';
 	end if;
+	
 	clk_deframing_out_parallel_temp_buffer1<=clk_deframing_out_parallel_temp;
 	clk_deframing_out_parallel_temp_buffer2<=clk_deframing_out_parallel_temp_buffer1;
 	clk_deframing_out_parallel_temp_buffer3<=clk_deframing_out_parallel_temp_buffer2;
