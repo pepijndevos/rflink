@@ -23,6 +23,8 @@ architecture behavioral of receiver is
 	signal clk_3_255_MHz : std_logic;
 	signal clk_320_kHz : std_logic;
 	signal clk_32_kHz : std_logic;  
+	signal preamble_inserted : std_logic;
+	signal preamble_found : std_logic;
 	
 begin
 	reset_n <= KEY(0);
@@ -30,10 +32,13 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	data_in_deframing <= GPIO_0(0);
 	clk_320_kHz <= GPIO_0(1);
+	preamble_inserted <= GPIO_0(2);
 	
 	GPIO_1(0) <= data_in_deframing;
 	GPIO_1(1) <= clk_32_kHz;
 	GPIO_1(2) <= clk_320_kHz;
+	GPIO_1(3) <= preamble_inserted;
+	GPIO_1(4) <= preamble_found;
 
 	LEDR(3 downto 0) <= delay_counter_out;	
 
@@ -92,8 +97,9 @@ begin
 			reset => reset_n,
 			data_out_deframing => data_out_deframing,
 			--clk_deframing_out_serial => ,
-			clk_deframing_out_parallel => clk_32_kHz
-			);	
+			clk_deframing_out_parallel => clk_32_kHz,
+			preamble_found => preamble_found
+		);	
 	
 			
 		decoder_inst: entity work.decoder_4B5B
