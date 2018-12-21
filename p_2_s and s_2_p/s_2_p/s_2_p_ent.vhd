@@ -11,5 +11,6 @@ entity s_2_p is
         clk_buffer_serial: in std_logic;
         reset: in std_logic;
 		  delay: in std_logic;
-        data_out_buffer: out std_logic_vector(word_length_buffer-1 downto 0));
+        data_out_buffer: out std_logic_vector(word_length_buffer-1 downto 0);
+		  delay_counter_out : out std_logic_vector(3 downto 0));
 end s_2_p;

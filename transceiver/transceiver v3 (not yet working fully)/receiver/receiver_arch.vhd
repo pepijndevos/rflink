@@ -16,6 +16,7 @@ architecture behavioral of receiver is
 	signal data_out_buffer : std_logic_vector(9 downto 0);
 	signal wout1 : std_logic_vector(15 downto 0);
 	signal wout2 : std_logic_vector(15 downto 0);
+	signal delay_counter_out : std_logic_vector(3 downto 0);
   
 	signal sndclk : std_logic;
 	signal clk_50_MHz : std_logic;
@@ -31,7 +32,8 @@ begin
 	clk_320_kHz <= GPIO_0(1);
 	
 	GPIO_1(0) <= clk_32_kHz;
-	GPIO_1(1) <= clk_320_kHz;	
+	GPIO_1(1) <= clk_320_kHz;
+	LEDR(3 downto 0) <= delay_counter_out;	
 
 	process(clk_32_kHz)
 	begin
@@ -72,6 +74,7 @@ begin
          clk_buffer_serial => clk_320_kHz,
          reset => reset_n,
 			delay => delay,
+			delay_counter_out => delay_counter_out,
          data_out_buffer => data_out_buffer
 			); 
 	

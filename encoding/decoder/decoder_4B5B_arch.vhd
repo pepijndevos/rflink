@@ -291,7 +291,7 @@ when "1010110101" => data_out_tmp <= "00000010";
 when "1011010101" => data_out_tmp <= "11111111";
 when "1101010101" => data_out_tmp <= "00000001";
 when "0101010101" => data_out_tmp <= "00000000";
-	when others	=> data_out_tmp <= "11111111";
+	when others	=> data_out_tmp <= "00000000";
         end case;
     end if; -- (reset = '0')
   end process seq; 
