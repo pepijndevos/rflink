@@ -61,7 +61,7 @@ entity SignalFromLookUp is
 	(
 		clk		: in std_logic;
 		reset	:	in	std_logic;
-		wave_out : out std_logic_vector(7 downto 0)
+		wave_out : out std_logic_vector(10-1 downto 0)
 	);
 
 end entity;
@@ -2143,7 +2143,7 @@ begin
 			end if;
 			
 			--Minus sin(x);
-			wave_out<=std_logic_vector(SignalFromLookUp_array(counter));
+			wave_out(7 DOWNTO 0)<=std_logic_vector(SignalFromLookUp_array(counter));
 
 	
 		
