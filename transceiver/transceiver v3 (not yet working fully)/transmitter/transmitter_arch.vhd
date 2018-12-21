@@ -31,6 +31,7 @@ begin
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
 	GPIO_0(0) <= data_out_unbuffer;
+	GPIO_0(1) <= clk_320_kHz;
 
 	audio_inst : entity work.audio_interface
 		port map (

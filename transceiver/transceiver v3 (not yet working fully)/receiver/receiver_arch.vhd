@@ -4,7 +4,7 @@ use ieee.numeric_std.ALL;
 
 architecture behavioral of receiver is
 	signal reset_n : std_logic;
-
+	signal delay : std_logic;
 	signal socadc : std_logic_vector(31 downto 0);
 	signal encoded_data : std_logic_vector(9 downto 0);
 
@@ -25,10 +25,13 @@ architecture behavioral of receiver is
 	
 begin
 	reset_n <= KEY(0);
+	delay <= KEY(1);
 	clk_50_MHz <= CLOCK_50;
 	data_in_deframing <= GPIO_0(0);
-	GPIO_1(0) <= clk_32_kHz;
+	clk_320_kHz <= GPIO_0(1);
 	
+	GPIO_1(0) <= clk_32_kHz;
+	GPIO_1(1) <= clk_320_kHz;	
 
 	process(clk_32_kHz)
 	begin
@@ -41,22 +44,22 @@ begin
 	
 	
 	
-	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
-	   port map (
-			refclk => clk_50_MHz, -- clk 50MHz
-			rst => not reset_n,  -- reset active high
-			outclk_0 => clk_3_255_MHz -- 32 kHz clock
-			);
-			
-	clock_divider2_inst : entity work.clock_divider2
-		generic map (
-			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
-			)		 
-		port map (
-			clk_high_freq => clk_3_255_MHz, 			-- high freq clock input
-			reset => reset_n,
-			clk_low_freq => clk_320_kHz 				-- low freq clock output
-			);
+--	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
+--	   port map (
+--			refclk => clk_50_MHz, -- clk 50MHz
+--			rst => not reset_n,  -- reset active high
+--			outclk_0 => clk_3_255_MHz -- 32 kHz clock
+--			);
+--			
+--	clock_divider2_inst : entity work.clock_divider2
+--		generic map (
+--			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
+--			)		 
+--		port map (
+--			clk_high_freq => clk_3_255_MHz, 			-- high freq clock input
+--			reset => reset_n,
+--			clk_low_freq => clk_320_kHz 				-- low freq clock output
+--			);
 	
 	
 	s_2_p_inst : entity work.s_2_p
@@ -68,6 +71,7 @@ begin
          clk_buffer_parallel => clk_32_kHz,
          clk_buffer_serial => clk_320_kHz,
          reset => reset_n,
+			delay => delay,
          data_out_buffer => data_out_buffer
 			); 
 	
