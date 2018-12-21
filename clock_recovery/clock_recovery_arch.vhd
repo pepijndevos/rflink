@@ -35,7 +35,8 @@ begin
 	    end if;
 	    last_input <= input;
 
-	    if multiple > 5 or period <= std_period/2 then
+			-- reset derived period
+	    if multiple > 10 or period <= ((std_period*99)/100) then
 		    period_256 <= to_unsigned(std_period*256, period_256'length);
 	    end if;
     end if;

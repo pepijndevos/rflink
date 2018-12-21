@@ -11,7 +11,7 @@ architecture behavioral of receiver is
 	signal buffer_in : std_logic_vector(7 downto 0);
 	signal buffer_out : signed(7 downto 0);
   
-	signal data_in_deframing : std_logic;
+	signal data_in : std_logic;
 	signal data_out_deframing : std_logic;
 	signal data_out_buffer : std_logic_vector(9 downto 0);
 	signal wout1 : std_logic_vector(15 downto 0);
@@ -20,7 +20,7 @@ architecture behavioral of receiver is
   
 	signal sndclk : std_logic;
 	signal clk_50_MHz : std_logic;
-	signal clk_3_255_MHz : std_logic;
+	signal clk_200_MHz : std_logic;
 	signal clk_320_kHz : std_logic;
 	signal clk_32_kHz : std_logic;  
 	signal preamble_inserted : std_logic;
@@ -30,11 +30,11 @@ begin
 	reset_n <= KEY(0);
 	delay <= KEY(1);
 	clk_50_MHz <= CLOCK_50;
-	data_in_deframing <= GPIO_0(0);
-	clk_320_kHz <= GPIO_0(1);
+	data_in <= GPIO_0(0);
+	--clk_320_kHz <= GPIO_0(1);
 	preamble_inserted <= GPIO_0(2);
 	
-	GPIO_1(0) <= data_in_deframing;
+	GPIO_1(0) <= data_in;
 	GPIO_1(1) <= clk_32_kHz;
 	GPIO_1(2) <= clk_320_kHz;
 	GPIO_1(3) <= preamble_inserted;
@@ -49,17 +49,14 @@ begin
 			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
 	end process;
-
 	
+	clock_gen_200_MHz_inst : entity work.clk_200_MHz
+	 port map (
+			refclk => clk_50_MHz, -- clk 50MHz
+			rst => not reset_n,  -- reset active high
+			outclk_0 => clk_200_MHz -- 32 kHz clock
+	);
 	
-	
---	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
---	   port map (
---			refclk => clk_50_MHz, -- clk 50MHz
---			rst => not reset_n,  -- reset active high
---			outclk_0 => clk_3_255_MHz -- 32 kHz clock
---			);
---			
 --	clock_divider2_inst : entity work.clock_divider2
 --		generic map (
 --			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
@@ -71,19 +68,19 @@ begin
 --			);
 	
 	
-	s_2_p_inst : entity work.s_2_p
-		generic map (
-			word_length_buffer => 10
-			)
-		port map (
-			data_in_buffer => data_out_deframing,
-         clk_buffer_parallel => clk_32_kHz,
-         clk_buffer_serial => clk_320_kHz,
-         reset => reset_n,
-			delay => delay,
-			delay_counter_out => delay_counter_out,
-         data_out_buffer => data_out_buffer
-			); 
+	clk_recovery : entity work.clock_recovery
+    generic map (
+      -- Fclk/Fsampple
+      std_period => 614,
+      -- clocks to wait before sending an out_clk
+      timeout => 154
+     )
+    port map (
+      rst => reset_n,
+      clk => clk_200_MHz,
+      input => data_in,
+      out_clk => clk_320_kHz
+    );
 	
 	deframing_inst : entity work.deframing
 		generic map (
@@ -92,7 +89,7 @@ begin
 			deframing_length => 32550
 			)
 		port map (
-			data_in_deframing => data_in_deframing,
+			data_in_deframing => data_in,
 			clk_deframing_in => clk_320_kHz,
 			reset => reset_n,
 			data_out_deframing => data_out_deframing,
@@ -101,7 +98,20 @@ begin
 			preamble_found => preamble_found
 		);	
 	
-			
+	s_2_p_inst : entity work.s_2_p
+		generic map (
+			word_length_buffer => 10
+		)
+		port map (
+			data_in_buffer => data_out_deframing,
+      clk_buffer_parallel => clk_32_kHz,
+      clk_buffer_serial => clk_320_kHz,
+      reset => reset_n,
+			delay => delay,
+			delay_counter_out => delay_counter_out,
+      data_out_buffer => data_out_buffer
+		); 
+		
 		decoder_inst: entity work.decoder_4B5B
 		generic map (
 			word_length_out_4B5B_decoder => 8
