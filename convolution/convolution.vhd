@@ -55,7 +55,7 @@ begin
 			buff <= (others =>(others => '0'));
 		elsif(rising_edge(clk)) then
 			for i in 0 to 20-1 loop
-				buff(i) <= signed(buff(i)) + signed(signal_in) * signed(filter(i));
+				buff(i) <= signed(buff(i)) + signed(signal_in) * signed(filter_low(i));
 			end loop;
 			signal_out_tmp<=buff(0)(word_length-1 downto 0);
 			
