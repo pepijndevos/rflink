@@ -33,77 +33,26 @@ USE ieee.std_logic_textio.all;
 USE std.textio.all;
 
 use ieee.std_logic_signed.all;
-use ieee.numeric_std.all;  
-
-use work.fixed_pkg.all;
-use work.myFilter_pkg.all;                               
+use ieee.numeric_std.all;                               
 
 ENTITY tb_convolution IS
 END tb_convolution;
 ARCHITECTURE structure OF tb_convolution IS
--- constants  
---these must be smaller than g_fixInt
-constant InputBits : integer :=8; --Number of bits in the input std_logic_vector
-constant	OutputBits : integer :=8;--Number of bits in the output std_logic_vector'
-constant FilterCoef : integer :=21;--Number of filter poles
-
---These numbers should be the same as in the filter package?
---Maybe it works also with different numbers
-constant g_fixInt : integer := 10;
-constant g_fixDec : integer := 12;
                                                
 -- signals                                                   
 SIGNAL clk : STD_LOGIC :='0';
 SIGNAL reset : STD_LOGIC;
-SIGNAL signal_in_int : STD_LOGIC_VECTOR(InputBits-1 DOWNTO 0);
-SIGNAL signal_out_int : STD_LOGIC_VECTOR(OutputBits-1 DOWNTO 0);
-SIGNAL wave_out : std_LOGIC_VECTOR(7 downto 0);
+SIGNAL signal_in : STD_LOGIC_VECTOR(10-1 DOWNTO 0);
+SIGNAL signal_out : STD_LOGIC_VECTOR(10-1 DOWNTO 0);
+SIGNAL wave_out : std_LOGIC_VECTOR(10-1 downto 0);
 FILE out_file : TEXT OPEN WRITE_MODE IS "out_values.txt";
 
-
-signal myFilter : Filter_type(0 to FilterCoef-1) :=
-(  
-0	=>to_sfixed (-0.000164, g_fixInt-1,-1*g_fixDec),
-1	=>to_sfixed (-0.001286, g_fixInt-1,-1*g_fixDec),
-2	=>to_sfixed (0.000000, g_fixInt-1,-1*g_fixDec),
-3	=>to_sfixed (0.008320, g_fixInt-1,-1*g_fixDec),
-4	=>to_sfixed (0.010323, g_fixInt-1,-1*g_fixDec),
-5	=>to_sfixed (-0.019086, g_fixInt-1,-1*g_fixDec),
-6	=>to_sfixed (-0.054476, g_fixInt-1,-1*g_fixDec),
-7	=>to_sfixed (0.000000, g_fixInt-1,-1*g_fixDec),
-8	=>to_sfixed (0.185697, g_fixInt-1,-1*g_fixDec),
-9	=>to_sfixed (0.370673, g_fixInt-1,-1*g_fixDec),
-10	=>to_sfixed (0.370673, g_fixInt-1,-1*g_fixDec),
-11	=>to_sfixed (0.185697, g_fixInt-1,-1*g_fixDec),
-12	=>to_sfixed (0.000000, g_fixInt-1,-1*g_fixDec),
-13	=>to_sfixed (-0.054476, g_fixInt-1,-1*g_fixDec),
-14	=>to_sfixed (-0.019086, g_fixInt-1,-1*g_fixDec),
-15	=>to_sfixed (0.010323, g_fixInt-1,-1*g_fixDec),
-16	=>to_sfixed (0.008320, g_fixInt-1,-1*g_fixDec),
-17	=>to_sfixed (0.000000, g_fixInt-1,-1*g_fixDec),
-18	=>to_sfixed (-0.001286, g_fixInt-1,-1*g_fixDec),
-19	=>to_sfixed (-0.000164, g_fixInt-1,-1*g_fixDec),
-20	=>to_sfixed (-0.000000, g_fixInt-1,-1*g_fixDec)
-);
-
-
 COMPONENT convolution
-  generic (
-		g_fixInt : integer; --N bits infront of the point
-		g_fixDec : integer; --N bits after the point
-		g_FilterCoef : integer ; -- Number of filter coefficients
-		
-		--these must be smaller than g_fixInt
-		g_InputBits : integer; --Number of bits in the input std_logic_vector
-		g_OutputBits : integer --Number of bits in the output std_logic_vector
-    );
-
 	PORT (
 	clk : IN STD_LOGIC;
 	reset : IN STD_LOGIC;
-	Filter : in Filter_type(0 to g_FilterCoef-1);--array with all filter poles
-	signal_in_int : IN STD_LOGIC_VECTOR(InputBits-1 DOWNTO 0);
-	signal_out_int : OUT STD_LOGIC_VECTOR(OutputBits-1 DOWNTO 0)
+	signal_in : IN STD_LOGIC_VECTOR(10-1 DOWNTO 0);
+	signal_out : OUT STD_LOGIC_VECTOR(10-1 DOWNTO 0)
 	);
 END COMPONENT;
 
@@ -111,29 +60,18 @@ COMPONENT SignalFromLookUp
 	PORT (
 	clk : IN STD_LOGIC;
 	reset : IN STD_LOGIC;
-	wave_out : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+	wave_out : OUT STD_LOGIC_VECTOR(10-1 DOWNTO 0)
 	);
 END COMPONENT;
 
 BEGIN
 	duv : convolution
-	  generic map(
-		g_fixInt =>g_fixInt, --N bits infront of the point
-		g_fixDec =>g_fixDec, --N bits after the point
-		g_FilterCoef => FilterCoef, -- Number of filter coefficients
-		
-		--these must be smaller than g_fixInt
-		g_InputBits =>InputBits, --Number of bits in the input std_logic_vector
-		g_OutputBits =>OutputBits --Number of bits in the output std_logic_vector
-    )
-	
 	PORT MAP (
 -- list connections between master ports and signals
 	clk => clk,
 	reset => reset,
-	Filter => myFilter,
-	signal_in_int => signal_in_int,
-	signal_out_int => signal_out_int
+	signal_in => signal_in,
+	signal_out => signal_out
 	);
 	
 	tvc : SignalFromLookUp
@@ -141,11 +79,11 @@ BEGIN
 -- list connections between master ports and signals
 	clk => clk,
 	reset => reset,
-	wave_out => wave_out
+	wave_out => signal_in
 	);
 	
 	clk<=not clk after 50 ns;
-	signal_in_int<=wave_out;
+	signal_in<=wave_out;
 	
 	
 init : PROCESS                                               
@@ -179,7 +117,7 @@ begin
 			WRITE(l, string'(" "));
 			WRITE(l, to_integer(signed(wave_out)));
 			WRITE(l, string'(" "));
-			WRITE(l, to_integer(signed(signal_out_int)));
+			WRITE(l, to_integer(signed(signal_out)));
 			WRITELINE(out_file, l);
 			
 	end loop loop1;
