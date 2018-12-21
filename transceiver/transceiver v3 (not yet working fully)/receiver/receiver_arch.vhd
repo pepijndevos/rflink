@@ -31,8 +31,10 @@ begin
 	data_in_deframing <= GPIO_0(0);
 	clk_320_kHz <= GPIO_0(1);
 	
-	GPIO_1(0) <= clk_32_kHz;
-	GPIO_1(1) <= clk_320_kHz;
+	GPIO_1(0) <= data_in_deframing;
+	GPIO_1(1) <= clk_32_kHz;
+	GPIO_1(2) <= clk_320_kHz;
+
 	LEDR(3 downto 0) <= delay_counter_out;	
 
 	process(clk_32_kHz)
