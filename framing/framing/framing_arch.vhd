@@ -39,9 +39,11 @@ begin
 	then
 	    data_out_tmp <= std_logic_vector(to_unsigned(preamble_transmitter,word_length_framing));
 	    framing_counter <= 0;
+		 frame_ins <= '1';
 	else
 	    data_out_tmp <= data_in_framing;
 	    framing_counter <= framing_counter + 1;
+		 frame_ins <= '0';
 	end if; -- (frame_counter >= framing_length)
     end if; -- (reset = '0')
   end process seq; 

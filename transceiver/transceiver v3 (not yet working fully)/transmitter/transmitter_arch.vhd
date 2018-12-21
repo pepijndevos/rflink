@@ -25,6 +25,8 @@ architecture structure of transmitter is
   
   signal data_in_unbuffer : std_logic_vector(9 downto 0);
   signal data_out_unbuffer : std_logic;
+  signal frame_ins : std_logic;
+  
 begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
@@ -32,6 +34,7 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	GPIO_0(0) <= data_out_unbuffer;
 	GPIO_0(1) <= clk_320_kHz;
+	GPIO_0(2) <= frame_ins;
 
 	audio_inst : entity work.audio_interface
 		port map (
@@ -116,6 +119,7 @@ begin
 		data_in_framing => encoder_out,
       clk_framing => clk_32_kHz,
       reset => reset_n,
+		frame_ins => frame_ins,
       data_out_framing => data_in_unbuffer
 		);	
 	
