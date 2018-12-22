@@ -887,16 +887,17 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name BOARD "DE1-SoC Board"
-set_global_assignment -name VHDL_FILE ../../../clocks/clk_3_255_MHz/clk_3_255_MHz.vhd
-set_global_assignment -name QIP_FILE ../../../clocks/clk_3_255_MHz/clk_3_255_MHz.qip
-set_global_assignment -name SOURCE_FILE ../../../clocks/clk_3_255_MHz/clk_3_255_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.vhd
+set_global_assignment -name QIP_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.qip
+set_global_assignment -name SOURCE_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../fir/fir_arch_and_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider3/clock_divider3_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider3/clock_divider3_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/waveform_gen.vhd
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/types.vhd
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/sincos_lut.vhd
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../fir/fir_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../fir/fir_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../Framing/framing/framing_ent.vhd

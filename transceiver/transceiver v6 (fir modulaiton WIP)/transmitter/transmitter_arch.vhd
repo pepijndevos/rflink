@@ -1,8 +1,8 @@
 library IEEE;  
 use IEEE.STD_LOGIC_1164.ALL;  
 use IEEE.NUMERIC_STD.ALL;
-library types; 
-use types.data_types.all; 
+use work.data_types.all;
+
 
 architecture structure of transmitter is
   signal reset_n : std_logic;
@@ -28,6 +28,8 @@ architecture structure of transmitter is
   signal clk_3_255_MHz : std_logic;
   signal clk_320_kHz : std_logic;
   signal clk_32_kHz : std_logic; 
+  signal clk_40_MHz : std_logic; 
+  signal clk_20_MHz : std_logic; 
   
   -- parallel to serial
   signal data_in_unbuffer : std_logic_vector(9 downto 0);
@@ -72,11 +74,12 @@ begin
 		);
 		
 		
-	clock_3_255_MHz_inst : entity work.clk_3_255_MHz
+	clock_3_255_MHz_40_MHz_inst : entity work.clk_3_40_MHz
 		port map (
 			refclk => clk_50_MHz, -- clk 50MHz
 			rst => not reset_n,  -- reset active low
-			outclk_0 => clk_3_255_MHz -- 3.255 MHz clock
+			outclk_0 => clk_3_255_MHz, -- 3.255 MHz clock
+			outclk_1 => clk_40_MHz -- 40 MHz clock
 		);
 	
 	clock_divider_inst : entity work.clock_divider
@@ -99,6 +102,16 @@ begin
 			clk_low_freq => clk_320_kHz 				-- low freq clock output
 		);
 	
+	
+	clock_divider3_inst : entity work.clock_divider3
+		generic map (
+			clk_div => 2 -- the output clock freq will be clk_high_freq / clk_div
+		)		 
+		port map (
+			clk_high_freq => clk_40_MHz, 			-- high freq clock input
+			reset => reset_n,
+			clk_low_freq => clk_20_MHz 				-- low freq clock output
+		);	
 	
 	audiobuffer_inst : entity work.audiobuffer
 		generic map (
@@ -151,26 +164,25 @@ begin
          data_out_unbuffer => data_out_unbuffer
 		); 
 	
-	fir_inst: entity work.fir(behavioral)
-	generic map (
-		coef_scale => 4,
-		w_acc => 16,
-		w_out => pulse'length,
-		coef => (262, 498, 262)
-	)
-	port map (
-		rst => reset_n,
-		clk => clk_3_255_MHz, -- This clock is 10*clk_320_kHz?
-		sndclk => clk_320_kHz, -- is this clock correct?
-		word => data_out_unbuffer,
-		resp => pulse
-	);
-
-	mod_inst: entity work.modulator(behavioral)
+--	fir_inst: entity work.fir(behavioral) -- Compiler gives a fatal error when fir is added
+--		generic map (
+--			coef_scale => 4,
+--			w_acc => 16,
+--			w_out => pulse'length,
+--			coef => (262, 498, 262)
+--		)
+--		port map (
+--			rst => reset_n,
+--			clk => clk_3_255_MHz, -- This clock is 10*clk_320_kHz?
+--			sndclk => clk_320_kHz, -- is this clock correct?
+--			word => data_out_unbuffer,
+--			resp => pulse
+--		);
+--
+	mod_inst: entity work.modulator(behavioral) -- gives a normal error when modulation is added
 		port map (
 			rst => reset_n,
-			clk => clk, -- this is not the correct clock
-			-- should it be 20 MHz
+			clk => clk_20_MHz, -- should it be 20 MHz
 			input => pulse,
 			output => sine
 		);
