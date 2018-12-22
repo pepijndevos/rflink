@@ -1,3 +1,8 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.NUMERIC_STD.ALL;
+use work.data_types.all;
+
 entity fir is
 Generic (
     coef_scale : integer;
