@@ -49,27 +49,6 @@ begin
 			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
 	end process;
-
-	
-	
-	
---	clock_gen_3_255_MHz_inst : entity work.clk_3_255_MHz
---	   port map (
---			refclk => clk_50_MHz, -- clk 50MHz
---			rst => not reset_n,  -- reset active high
---			outclk_0 => clk_3_255_MHz -- 32 kHz clock
---			);
---			
---	clock_divider2_inst : entity work.clock_divider2
---		generic map (
---			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
---			)		 
---		port map (
---			clk_high_freq => clk_3_255_MHz, 			-- high freq clock input
---			reset => reset_n,
---			clk_low_freq => clk_320_kHz 				-- low freq clock output
---			);
-	
 	
 	s_2_p_inst : entity work.s_2_p
 		generic map (
