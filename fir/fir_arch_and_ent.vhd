@@ -8,7 +8,7 @@ Generic (
     coef_scale : integer;
     w_acc : integer;
     w_out : integer := 16;
-    coef : array_of_integers
+    coef : array_of_integers(0 to 2)
 );
     port (
       rst    : in std_logic;
@@ -25,8 +25,7 @@ begin
     variable lastsnd : std_logic;
     variable counter : integer range coef'low to coef'high+1;
     variable acc : unsigned(w_acc-1 downto 0);
-    type buf_type is array (coef'low to coef'high) of std_logic;
-    variable buf : buf_type;
+    variable buf : std_logic_vector (coef'low to coef'high);
   begin
     if rst = '0' then
       lastsnd := '0';

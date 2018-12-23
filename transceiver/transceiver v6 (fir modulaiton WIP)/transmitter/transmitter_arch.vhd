@@ -164,21 +164,21 @@ begin
          data_out_unbuffer => data_out_unbuffer
 		); 
 	
---	fir_inst: entity work.fir(behavioral) -- Compiler gives a fatal error when fir is added
---		generic map (
---			coef_scale => 4,
---			w_acc => 16,
---			w_out => pulse'length,
---			coef => (262, 498, 262)
---		)
---		port map (
---			rst => reset_n,
---			clk => clk_3_255_MHz, -- This clock is 10*clk_320_kHz?
---			sndclk => clk_320_kHz, -- is this clock correct?
---			word => data_out_unbuffer,
---			resp => pulse
---		);
---
+	fir_inst: entity work.fir(behavioral) -- Compiler gives a fatal error when fir is added
+		generic map (
+			coef_scale => 4,
+			w_acc => 16,
+			w_out => pulse'length,
+			coef => (262, 498, 262)
+		)
+		port map (
+			rst => reset_n,
+			clk => clk_50_MHz, -- logic clock that drives the fir logic
+			sndclk => clk_3_255_MHz, -- oversampled pulse clock, 10 times bit clock
+			word => data_out_unbuffer,
+			resp => pulse
+		);
+
 	mod_inst: entity work.modulator(behavioral) -- gives a normal error when modulation is added
 		port map (
 			rst => reset_n,
