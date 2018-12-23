@@ -164,7 +164,7 @@ begin
          data_out_unbuffer => data_out_unbuffer
 		); 
 	
-	fir_inst: entity work.fir(behavioral) -- Compiler gives a fatal error when fir is added
+	fir_inst: entity work.fir(behavioral) 
 		generic map (
 			coef_scale => 4,
 			w_acc => 16,
@@ -179,7 +179,7 @@ begin
 			resp => pulse
 		);
 
-	mod_inst: entity work.modulator(behavioral) -- gives a normal error when modulation is added
+	mod_inst: entity work.modulator(behavioral) 
 		port map (
 			rst => reset_n,
 			clk => clk_20_MHz, -- should it be 20 MHz
