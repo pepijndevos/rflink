@@ -118,7 +118,7 @@ begin
 	demodulation_inst: entity work.demodulator(behavioral)
 		port map (
 			rst => reset_n,									-- active low reset
-			clk => clk_50_MHz,								-- clock 50MHz (should this be 20MHz?)
+			clk => clk_20_MHz,								-- clock 20MHz
 			input => signed(data_in),						-- signed data in 10 bits
 			output => binary									-- binary output
 			);
