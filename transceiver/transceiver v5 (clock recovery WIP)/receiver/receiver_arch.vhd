@@ -55,11 +55,11 @@ begin
 	end process;
 	
 	clock_gen_200_MHz_inst : entity work.clk_200_MHz
-	 port map (
+		port map (
 			refclk => clk_50_MHz, -- clk 50MHz
 			rst => not reset_n,  -- reset active high
 			outclk_0 => clk_200_MHz -- 32 kHz clock
-	);
+		);
 	
 --	clock_divider2_inst : entity work.clock_divider2
 --		generic map (
@@ -73,20 +73,18 @@ begin
 	
 	
 	clk_recovery : entity work.clock_recovery
-    generic map (
-      -- Fclk/Fsampple
-      std_period => 614,
-      -- clocks to wait before sending an out_clk
-      timeout => 20
-     )
-    port map (
-      rst => reset_n,
-      clk => clk_200_MHz,
-      input => data_in,
-      out_clk => clk_320_kHz,
+		generic map (
+			std_period => 614, -- Fclk/Fsampple
+			timeout => 20 -- clocks to wait before sending an out_clk
+		)
+		port map (
+			rst => reset_n,
+			clk => clk_200_MHz,
+			input => data_in,
+			out_clk => clk_320_kHz,
 			error_reset => error_reset,
 			error_reset_toggle => error_reset_toggle
-    );
+		);
 	
 	deframing_inst : entity work.deframing
 		generic map (
@@ -110,15 +108,15 @@ begin
 		)
 		port map (
 			data_in_buffer => data_out_deframing,
-      clk_buffer_parallel => clk_32_kHz,
-      clk_buffer_serial => clk_320_kHz,
-      reset => reset_n,
+			clk_buffer_parallel => clk_32_kHz,
+			clk_buffer_serial => clk_320_kHz,
+			reset => reset_n,
 			delay => delay,
 			delay_counter_out => delay_counter_out,
-      data_out_buffer => data_out_buffer
+			data_out_buffer => data_out_buffer
 		); 
 		
-		decoder_inst: entity work.decoder_4B5B
+	decoder_inst: entity work.decoder_4B5B
 		generic map (
 			word_length_out_4B5B_decoder => 8
 		)
@@ -132,7 +130,7 @@ begin
 		
 	audiobuffer_inst : entity work.audiobuffer
 		generic map (
-		word_length => word_length
+			word_length => word_length
 		 )
 		port map (
 			rst => reset_n,
