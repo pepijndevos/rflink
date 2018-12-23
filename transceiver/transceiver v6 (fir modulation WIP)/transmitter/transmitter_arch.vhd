@@ -5,44 +5,44 @@ use work.data_types.all;
 
 
 architecture structure of transmitter is
-  signal reset_n : std_logic;
+	signal reset_n : std_logic;
 
-  -- audio codec
-  signal socadc : std_logic_vector(31 downto 0);
-  signal win1 : signed(15 downto 0);
-  signal win2 : signed(15 downto 0);
-  signal wout1 : std_logic_vector(15 downto 0);
-  signal wout2 : std_logic_vector(15 downto 0);
+	-- audio codec
+	signal socadc : std_logic_vector(31 downto 0);
+	signal win1 : signed(15 downto 0);
+	signal win2 : signed(15 downto 0);
+	signal wout1 : std_logic_vector(15 downto 0);
+	signal wout2 : std_logic_vector(15 downto 0);
     
-  -- encoder
-  signal encoded_data : std_logic_vector(9 downto 0);
-  signal encoder_out : std_logic_vector(9 downto 0);
+	-- encoder
+	signal encoded_data : std_logic_vector(9 downto 0);
+	signal encoder_out : std_logic_vector(9 downto 0);
 
-  -- buffer
-  signal buffer_in : std_logic_vector(7 downto 0);
-  signal buffer_out : signed(7 downto 0);
+	-- buffer
+	signal buffer_in : std_logic_vector(7 downto 0);
+	signal buffer_out : signed(7 downto 0);
 
-  -- clock
-  signal sndclk : std_logic;
-  signal clk_50_MHz : std_logic;
-  signal clk_3_255_MHz : std_logic;
-  signal clk_320_kHz : std_logic;
-  signal clk_32_kHz : std_logic; 
-  signal clk_40_MHz : std_logic; 
-  signal clk_20_MHz : std_logic; 
+	-- clock
+	signal sndclk : std_logic;
+	signal clk_50_MHz : std_logic;
+	signal clk_3_255_MHz : std_logic;
+	signal clk_320_kHz : std_logic;
+	signal clk_32_kHz : std_logic; 
+	signal clk_40_MHz : std_logic; 
+	signal clk_20_MHz : std_logic; 
   
-  -- parallel to serial
-  signal data_in_unbuffer : std_logic_vector(9 downto 0);
-  signal data_out_unbuffer : std_logic;
+	-- parallel to serial
+	signal data_in_unbuffer : std_logic_vector(9 downto 0);
+	signal data_out_unbuffer : std_logic;
   
-  -- fir
-  signal pulse : unsigned(7 downto 0) := "00000000";
+	-- fir
+	signal pulse : unsigned(7 downto 0) := "00000000";
 
-  -- modulation
-  signal sine : signed(9 downto 0);
+	-- modulation
+	signal sine : signed(9 downto 0);
 
-  -- debug signals
-  signal frame_ins : std_logic;
+	-- debug signals
+	signal frame_ins : std_logic;
   
 begin
 	win1 <= signed(socadc(31 downto 16));

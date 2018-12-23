@@ -18,7 +18,7 @@ entity ADC_interface is
         data_width : natural := 10
     );
     port(
-				enable						: in 	std_logic;
+			enable						: in 	std_logic;
 	    	ready_out					: out std_logic;
         -- Clock input: maximal (1/1) frequency
         clk_20_MHz				: in  std_logic;
