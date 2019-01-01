@@ -1,11 +1,12 @@
-library IEEE;  
-use IEEE.STD_LOGIC_1164.ALL;  
-use IEEE.NUMERIC_STD.ALL;
+library ieee;  
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity receiver is
   generic(
 		clk_div : integer := 100;
-		word_length : integer := 8  
+		word_length : integer := 8;
+		adc_resolution : integer := 10
   );
   port(
 	 CLOCK_50     	: in std_logic; 							-- 50 MHz Clock

@@ -9,6 +9,7 @@
 -- library and package declarations
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity DAC_interface is
 	generic(
@@ -19,8 +20,8 @@ entity DAC_interface is
 		ready_out 	     	: out std_logic;  -- Enable DAC output
 		clk_40_MHz				: in  std_logic;	-- 40 MHz clock
 		reset_n						: in  std_logic;	-- Active low reset
-		d_out							: out std_logic_vector (dac_width-1 downto 0); 	-- main outputs
-		d_in_i, d_in_q		: in  std_logic_vector (dac_width-1 downto 0) 	-- main input
+		d_out							: out unsigned(dac_width-1 downto 0); 	-- main outputs
+		d_in_i, d_in_q		: in  signed(dac_width-1 downto 0) 	-- main input
 	);
 end DAC_interface;
 

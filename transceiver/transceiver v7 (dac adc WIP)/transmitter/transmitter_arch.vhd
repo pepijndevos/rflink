@@ -1,10 +1,10 @@
-library IEEE;  
-use IEEE.STD_LOGIC_1164.ALL;  
-use IEEE.NUMERIC_STD.ALL;
+library ieee;  
+use ieee.std_logic_1164.ALL;  
+use ieee.numeric_std.ALL;
 use work.data_types.all;
 
-
 architecture structure of transmitter is
+	-- asynchronous reset
 	signal reset_n : std_logic;
 
 	-- audio codec
@@ -22,7 +22,7 @@ architecture structure of transmitter is
 	signal buffer_in : std_logic_vector(7 downto 0);
 	signal buffer_out : signed(7 downto 0);
 
-	-- clock
+	-- clocks
 	signal sndclk : std_logic;
 	signal clk_50_MHz : std_logic;
 	signal clk_3_255_MHz : std_logic;
@@ -39,24 +39,22 @@ architecture structure of transmitter is
 	signal pulse : unsigned(7 downto 0) := "00000000";
 
 	-- modulation
-	signal sine : signed(9 downto 0);
+	signal sine : signed(dac_width-1 downto 0);
   
 	-- dac interface
-	signal sin_out : std_logic_vector(9 downto 0); 
+	signal sin_out : unsigned(dac_width-1 downto 0); 
 	signal ready_to_gpio : std_logic;
 	signal dac_clk : std_logic; 
   
 	-- debug signals
 	signal frame_ins : std_logic;
-	
-  
 begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
 	
-	GPIO_0(9 downto 0) <= sin_out;
+	GPIO_0(9 downto 0) <= std_logic_vector(sin_out);
 	GPIO_0(10) <= ready_to_gpio;
 	GPIO_0(11) <= dac_clk;
 	
@@ -70,7 +68,7 @@ begin
 			LDATA => (wout1),
 			RDATA => (wout2),
 			clk => clk_50_MHz,
-			Reset	=> reset_n,										-- Active low reset
+			Reset	=> reset_n,					-- Active low reset
 			INIT_FINISH	=> open,
 			adc_full	=> open,
 			AUD_MCLK => AUD_XCK,
@@ -85,49 +83,48 @@ begin
 			ADCDATA => socadc
 		);
 		
-		
 	-- Instantiate the PLL with output 3.255MHz and 40MHz
 	clock_3_255_MHz_40_MHz_inst : entity work.clk_3_40_MHz
 		port map (
-			refclk => clk_50_MHz, 								-- clk 50MHz
-			rst => not reset_n,									-- Active low reset
-			outclk_0 => clk_3_255_MHz, 						-- 3.255 MHz clock
-			outclk_1 => clk_40_MHz 								-- 40 MHz clock
+			refclk => clk_50_MHz, 			-- clk 50MHz
+			rst => not reset_n,					-- Active low reset
+			outclk_0 => clk_3_255_MHz, 	-- 3.255 MHz clock
+			outclk_1 => clk_40_MHz 			-- 40 MHz clock
 		);
 	
 	
 	-- Instantiate the clock divider
 	clock_divider_inst : entity work.clock_divider
 		generic map (
-			clk_div => 100 -- the output clock freq will be clk_high_freq / clk_div
+			clk_div => 100 										-- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
-			clk_high_freq => clk_3_255_MHz, 					-- high freq clock input
-			reset => reset_n,										-- Active low reset
-			clk_low_freq => clk_32_kHz 						-- low freq clock output
+			clk_high_freq => clk_3_255_MHz, 	-- high freq clock input
+			reset => reset_n,									-- Active low reset
+			clk_low_freq => clk_32_kHz 				-- low freq clock output
 		);
 	
 	-- Instantiate the clock divider 2
 	clock_divider2_inst : entity work.clock_divider2
 		generic map (
-			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
+			clk_div => 10 											-- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
-			clk_high_freq => clk_3_255_MHz, 					-- high freq clock input
+			clk_high_freq => clk_3_255_MHz, 		-- high freq clock input
 			reset => reset_n,										-- Active low reset
-			clk_low_freq => clk_320_kHz 						-- low freq clock output
+			clk_low_freq => clk_320_kHz 				-- low freq clock output
 		);
 	
 	
 	-- Instantiate the clock divider 3	
 	clock_divider3_inst : entity work.clock_divider3
 		generic map (
-			clk_div => 2 -- the output clock freq will be clk_high_freq / clk_div
+			clk_div => 2 												-- the output clock freq will be clk_high_freq / clk_div
 		)		 
 		port map (
-			clk_high_freq => clk_40_MHz, 						-- high freq clock input
+			clk_high_freq => clk_40_MHz, 				-- high freq clock input
 			reset => reset_n,										-- Active low reset
-			clk_low_freq => clk_20_MHz 						-- low freq clock output
+			clk_low_freq => clk_20_MHz 					-- low freq clock output
 		);	
 	
 	
@@ -137,10 +134,10 @@ begin
 			word_length => word_length
 		)
 		port map (
-			rst => reset_n,										-- Active low reset
+			rst => reset_n,											-- Active low reset
 			clk => clk_32_kHz,									-- 32 kHz clock
 			clk_in => sndclk, 									-- relevant for complex audiobuffer
-			clk_out => clk_32_kHz, 								-- relevant for complex audiobuffer
+			clk_out => clk_32_kHz, 							-- relevant for complex audiobuffer
 			data_in => signed(socadc(31 downto 24)),		-- data in
 			data_out => buffer_out								-- data out
 		);
@@ -151,8 +148,8 @@ begin
 		port map (
 			data_in_4B5B_encoder => std_logic_vector(buffer_out), -- data in
 			clk_4B5B_encoder => clk_32_kHz,					-- 32 kHz clock
-			reset => reset_n,										-- Active low reset
-			data_out_4B5B_encoder => encoder_out			-- data out
+			reset => reset_n,												-- Active low reset
+			data_out_4B5B_encoder => encoder_out		-- data out
 		);
 	
 	
@@ -165,10 +162,10 @@ begin
 		)
 	
 		port map (
-			data_in_framing => encoder_out,					-- data in
-			clk_framing => clk_32_kHz,							-- 32 kHz
-			reset => reset_n,										-- Active low reset
-			frame_ins => frame_ins,								-- debug high if preamble is added
+			data_in_framing => encoder_out,						-- data in
+			clk_framing => clk_32_kHz,								-- 32 kHz
+			reset => reset_n,													-- Active low reset
+			frame_ins => frame_ins,										-- debug high if preamble is added
 			data_out_framing => data_in_unbuffer			-- data out
 		);	
 	
@@ -179,11 +176,11 @@ begin
 			word_length_unbuffer => 10
 		)
 		port map (
-			data_in_unbuffer => data_in_unbuffer,			-- data in 10 parallel
+			data_in_unbuffer => data_in_unbuffer,				-- data in 10 parallel
          clk_unbuffer_parallel => clk_32_kHz,			-- clock data in
-         clk_unbuffer_serial => clk_320_kHz,				-- clock data out
-         reset => reset_n,										-- Active low reset
-         data_out_unbuffer => data_out_unbuffer			-- data out serial
+         clk_unbuffer_serial => clk_320_kHz,			-- clock data out
+         reset => reset_n,												-- Active low reset
+         data_out_unbuffer => data_out_unbuffer		-- data out serial
 		); 
 
 		
@@ -196,20 +193,20 @@ begin
 			coef => (262, 498, 262)
 		)
 		port map (
-			rst => reset_n,										-- Active low reset
+			rst => reset_n,											-- Active low reset
 			clk => clk_50_MHz, 									-- logic clock that drives the fir logic
-			sndclk => clk_3_255_MHz, 							-- oversampled pulse clock, 10 times bit clock
-			word => data_out_unbuffer,							-- data in
-			resp => pulse											-- data out
+			sndclk => clk_3_255_MHz, 						-- oversampled pulse clock, 10 times bit clock
+			word => data_out_unbuffer,					-- data in
+			resp => pulse												-- data out
 		);
 
 		
 	-- Instantiate the modulator  
 	mod_inst: entity work.modulator(behavioral) 
 		port map (
-			rst => reset_n,										-- Active low reset
+			rst => reset_n,											-- Active low reset
 			clk => clk_20_MHz, 									-- should it be 20 MHz
-			input => pulse,										-- data in
+			input => pulse,											-- data in
 			output => sine											-- data out
 		);
 	
@@ -217,15 +214,15 @@ begin
 	-- Instantiate the DAC Multiplexer
 	dac_inst: entity work.dac_interface(dac_mux)
 		generic map (
-			dac_width => dac_width -- word size 10 bits
+			dac_width => dac_width 							-- word size 10 bits
 		)
 		port map (
 			dac_clk => dac_clk,									-- DAC clk (this seems to be the 40MHz clock?)
-			ready_out => ready_to_gpio,						-- enable hardware DAC
-			clk_40_MHz => clk_40_MHz,							-- 50 MHz standard clock
+			ready_out => ready_to_gpio,					-- enable hardware DAC
+			clk_40_MHz => clk_40_MHz,						-- 50 MHz standard clock
 			reset_n => reset_n,									-- Active low reset
 			d_out => sin_out,										-- Output data (multiplexed)
-			d_in_i => std_logic_vector(sine),		 		-- In phase input (sine is 10 bits)
-			d_in_q => std_logic_vector(sine)    			-- Quadrature input (sine is 10 bits)
+			d_in_i => sine,		 									-- In phase input (sine is 10 bits)
+			d_in_q => sine    									-- Quadrature input (sine is 10 bits)
 		);
 end structure;

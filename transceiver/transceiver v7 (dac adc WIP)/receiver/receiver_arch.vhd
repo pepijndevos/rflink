@@ -1,14 +1,14 @@
 library ieee;  
-use ieee.std_logic_1164.ALL;  
-use ieee.numeric_std.ALL;
+use ieee.std_logic_1164.all;  
+use ieee.numeric_std.all;
 
 architecture behavioral of receiver is
 	signal reset_n : std_logic;
 
 	-- adc interface
 	signal ready_out : std_logic;
-	signal data_in : std_logic_vector(9 downto 0); 
-	signal data_out : std_logic_vector(9 downto 0); 
+	signal data_in : unsigned(adc_resolution-1 downto 0); 
+	signal data_out : signed(adc_resolution-1 downto 0); 
 	
 	-- demodulation
 	signal binary : std_logic;
@@ -55,7 +55,7 @@ begin
 	reset_n <= KEY(0);
 	delay <= KEY(1);
 	clk_50_MHz <= CLOCK_50;
-	data_in <= GPIO_0(9 downto 0);
+	data_in <= unsigned(GPIO_0(9 downto 0));
 	ready_out <= GPIO_0(10);
 	--clk_320_kHz <= GPIO_0(1);
 	--preamble_inserted <= GPIO_0(2);
@@ -104,13 +104,11 @@ begin
 	adc_inst: entity work.ADC_interface(adc_arch)
 		port map (
 			enable => '1',										-- should this alwasy be '1'?
-	    	ready_out => ready_out,							-- ready_out for adc
-			clk_20_MHz => clk_20_MHz, 						-- Clock input: maximal (1/1) frequency
+	    ready_out => ready_out,						-- ready_out for adc
+			clk_20_MHz => clk_20_MHz, 				-- Clock input: maximal (1/1) frequency
 			reset_n => reset_n,								-- High active reset (I think this is a old comment)
-			d_out_i => data_out,								-- data output i channel
-			d_out_q => data_out,								-- data output q channel
-			d_in_i => data_in,								-- data input i channel
-			d_in_q => data_in									-- data input q channel
+			d_out => data_out,								-- data output i channel
+			d_in => data_in										-- data input i channel
 		);
 		
 			

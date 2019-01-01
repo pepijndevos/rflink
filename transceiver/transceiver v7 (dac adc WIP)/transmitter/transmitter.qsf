@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE 5CSEMA5F31C6
 set_global_assignment -name TOP_LEVEL_ENTITY transmitter
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:16:13  DECEMBER 14, 2018"
-set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
@@ -890,6 +890,8 @@ set_global_assignment -name BOARD "DE1-SoC Board"
 set_global_assignment -name VHDL_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.vhd
 set_global_assignment -name QIP_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.qip
 set_global_assignment -name SOURCE_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../framing/framing/framing_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../framing/framing/framing_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../dac/DAC_interface_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../dac/DAC_interface_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../fir/fir_arch_and_ent.vhd
@@ -902,8 +904,6 @@ set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_en
 set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../Framing/framing/framing_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../Framing/framing/framing_arch.vhd
 set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/p_2_s/p_2_s_ent.vhd"
 set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/p_2_s/p_2_s_arch.vhd"
 set_global_assignment -name VHDL_FILE ../../../buffer/audiobuffer_simple_arch.vhd
