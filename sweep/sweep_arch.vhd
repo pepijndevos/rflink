@@ -19,6 +19,17 @@ architecture structure of sweep is
 	signal squ_out : std_logic_vector(11 downto 0);
 	signal saw_out : std_logic_vector(11 downto 0);
 	signal dac_input : std_logic_vector(11 downto 0);
+	
+	signal next_btn : std_logic;
+	signal pll_locked : std_logic;
+	signal reset_n : std_logic;
+	signal enable : std_logic;
+	signal sweep_btn : std_logic;
+	signal sin_out : std_logic_vector(dac_width-1 downto 0);
+	signal dac_clk : std_logic;
+	signal ready_to_gpio : std_logic;
+	signal clk_50_MHz : std_logic;
+	signal is_running : std_logic;
 
 	signal freeze : std_logic;
 	signal next_frequency : std_logic;
@@ -114,7 +125,20 @@ architecture structure of sweep is
 	end component;
 
 begin
-
+	-- Write to output
+	reset_n <= KEY(0);
+	next_btn <= KEY(1);
+	sweep_btn <= KEY(2);
+	clk_50_MHz <= CLOCK_50;
+	enable <= GPIO_1(0); -- active high
+	
+	GPIO_0(9 downto 0) <= sin_out;
+	GPIO_0(10) <= dac_clk;
+	GPIO_0(11) <= enable;
+	GPIO_0(12) <= ready_to_gpio;
+	LEDR(0) <= dac_input(2);
+	LEDR(1) <= dac_input(11);
+	
 	-- Instantiate a PLL clock component
 	clk_pll: clock_pll
 		port map (
@@ -198,7 +222,9 @@ begin
 		if (reset_n = '0') then
 			counter := 0;
 			frequency_index := 0;
+			is_running <= '0';
 		elsif (rising_edge(clk_50_MHz) and reset_n = '1') then
+			is_running <= '1';
 			if (freeze = '1') then
 				if (next_frequency = '1') then
 					frequency_index := frequency_index + 1;

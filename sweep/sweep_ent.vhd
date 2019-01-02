@@ -16,15 +16,20 @@ entity sweep is
 		data_width      : natural := 8
 	);
 	port (
-		clk_50_MHz 			: in std_logic;
+		--clk_50_MHz 			: in std_logic;
 		--clk_160_MHz 		: in std_logic;
-		reset_n					: in std_logic;
-		enable					: in std_logic;
-		next_btn				: in std_logic; -- pin AA14
-		sweep_btn				: in std_logic;	-- pin AA15
-		sin_out 				: out std_logic_vector(dac_width-1 downto 0);
-		pll_locked 			: out std_logic;
-		dac_clk					: out std_logic;
-		ready_to_gpio		: out std_logic
+		--reset_n					: in std_logic;
+		--enable					: in std_logic;
+		--next_btn				: in std_logic; -- pin AA14
+		--sweep_btn				: in std_logic;	-- pin AA15
+		--sin_out 				: out std_logic_vector(dac_width-1 downto 0);
+		--pll_locked 			: out std_logic;
+		--dac_clk					: out std_logic;
+		--ready_to_gpio		: out std_logic
+		CLOCK_50     			: in std_logic; 											-- 50 MHz Clock
+		KEY 			  			: in std_logic_vector(3 downto 0); 		-- reset key
+		GPIO_0 		  			: out std_logic_vector(53 downto 0);	-- gpio pins
+		GPIO_1 		  			: in std_logic_vector(53 downto 0);	-- gpio pins
+		LEDR 							: out std_logic_vector(9 downto 0)  	-- leds
 	);	
 end sweep;

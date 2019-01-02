@@ -37,6 +37,8 @@ architecture structure of transmitter is
   
 	-- fir
 	signal pulse : unsigned(7 downto 0) := "00000000";
+	signal fir_enable : std_logic;
+	signal fir_led : std_logic;
 
 	-- modulation
 	signal sine : signed(dac_width-1 downto 0);
@@ -52,15 +54,26 @@ begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
 	reset_n <= KEY(0);
+	fir_enable <= KEY(1);
 	clk_50_MHz <= CLOCK_50;
 	
 	GPIO_0(9 downto 0) <= std_logic_vector(sin_out);
-	GPIO_0(10) <= ready_to_gpio;
-	GPIO_0(11) <= dac_clk;
+	GPIO_0(10) <= dac_clk;
+	GPIO_0(11) <= ready_to_gpio; -- chip select, sort of
+	LEDR(0) <= fir_led;
+	LEDR(9) <= reset_n;
 	
-	GPIO_0(12) <= clk_320_kHz;
-	GPIO_0(13) <= frame_ins;
-
+	-- debug datastream output
+	GPIO_0(12) <= data_out_unbuffer;
+	
+	-- I think this does not have to be done in a seperate process like this because buffer out already works on 32.55kHz
+	process(clk_32_kHz)
+	begin
+		if rising_edge(clk_32_kHz) then
+			wout1 <= socadc(31 downto 24) & "00000000";
+			wout2 <= socadc(31 downto 24) & "00000000";
+		end if;
+	end process;
 	
 	-- Instantiate the audio codec
 	audio_inst : entity work.audio_interface
@@ -177,10 +190,10 @@ begin
 		)
 		port map (
 			data_in_unbuffer => data_in_unbuffer,				-- data in 10 parallel
-         clk_unbuffer_parallel => clk_32_kHz,			-- clock data in
-         clk_unbuffer_serial => clk_320_kHz,			-- clock data out
-         reset => reset_n,												-- Active low reset
-         data_out_unbuffer => data_out_unbuffer		-- data out serial
+      clk_unbuffer_parallel => clk_32_kHz,			-- clock data in
+			clk_unbuffer_serial => clk_320_kHz,			-- clock data out
+			reset => reset_n,												-- Active low reset
+			data_out_unbuffer => data_out_unbuffer		-- data out serial
 		); 
 
 		
@@ -193,19 +206,26 @@ begin
 			coef => (262, 498, 262)
 		)
 		port map (
-			rst => reset_n,											-- Active low reset
+			reset_n => reset_n,									-- Active low reset
 			clk => clk_50_MHz, 									-- logic clock that drives the fir logic
 			sndclk => clk_3_255_MHz, 						-- oversampled pulse clock, 10 times bit clock
 			word => data_out_unbuffer,					-- data in
+			btn => fir_enable,									-- button to enable or disable fir filter
+			fir_led => fir_led,									-- debug output led
 			resp => pulse												-- data out
 		);
 
 		
 	-- Instantiate the modulator  
-	mod_inst: entity work.modulator(behavioral) 
+	mod_inst: entity work.modulator(behavioral)
+		generic map (
+			Fclk => 20000000,										-- 20 MHz reference clock (see clk input)
+			Fhi => 2500000,											-- Low frequency
+			Flo => 1250000											-- high frequency
+		)
 		port map (
 			rst => reset_n,											-- Active low reset
-			clk => clk_20_MHz, 									-- should it be 20 MHz
+			clk => clk_20_MHz, 									-- 20 MHz
 			input => pulse,											-- data in
 			output => sine											-- data out
 		);
