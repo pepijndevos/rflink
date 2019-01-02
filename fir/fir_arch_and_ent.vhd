@@ -11,23 +11,26 @@ Generic (
     coef : array_of_integers(0 to 2)
 );
     port (
-      rst    : in std_logic;
+      reset_n    : in std_logic;
       clk    : in std_logic;
       sndclk : in std_logic;
       word   : in std_logic;
+			btn		 : in std_logic;
+			fir_led : out std_logic;
       resp   : out unsigned(w_out-1 downto 0)
     );
 end;
 
 architecture behavioral of fir is
+	signal fir_enable : std_logic;
 begin
-  process(clk, rst)
+  process(clk, reset_n)
     variable lastsnd : std_logic;
     variable counter : integer range coef'low to coef'high+1;
     variable acc : unsigned(w_acc-1 downto 0);
     variable buf : std_logic_vector (coef'low to coef'high);
   begin
-    if rst = '0' then
+    if reset_n = '0' then
       lastsnd := '0';
       counter := coef'low;
       acc := to_unsigned(0, acc'length);
@@ -44,10 +47,28 @@ begin
         end if;
         counter := counter + 1;
       else
-        resp <= resize(acc/coef_scale, resp'length);
+				if (fir_enable = '1') then
+					resp <= resize(acc/coef_scale, resp'length);
+				else
+					if (word = '1') then
+						resp <= (others => '1');
+					else
+						resp <= (others => '0');
+					end if;
+				end if;
+				
       end if;
       lastsnd := sndclk;
     end if;
   end process;
-
+	
+	fir_filter_enable: process(reset_n, btn)
+	begin
+		if (reset_n = '0') then
+			fir_enable <= '1';
+		elsif (rising_edge(btn)) then
+			fir_enable <= not fir_enable;
+		end if;
+		fir_led <= fir_enable;
+	end process fir_filter_enable;
 end;
