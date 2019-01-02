@@ -37,6 +37,8 @@ architecture structure of transmitter is
   
 	-- fir
 	signal pulse : unsigned(7 downto 0) := "00000000";
+	signal fir_enable : std_logic;
+	signal fir_led : std_logic;
 
 	-- modulation
 	signal sine : signed(9 downto 0);
@@ -48,11 +50,15 @@ begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
 	reset_n <= KEY(0);
+	fir_enable <= KEY(1);
 	clk_50_MHz <= CLOCK_50;
+
 	GPIO_0(9 downto 0) <= std_logic_vector(sine);
 	GPIO_0(10) <= clk_320_kHz;
 	GPIO_0(11) <= frame_ins;
-
+	LEDR(0) <= fir_led;
+	LEDR(9) <= reset_n;
+	
 	audio_inst : entity work.audio_interface
 		port map (
 			LDATA => (wout1),
@@ -164,27 +170,35 @@ begin
          data_out_unbuffer => data_out_unbuffer
 		); 
 	
+		
 	fir_inst: entity work.fir(behavioral) 
 		generic map (
-			coef_scale => 4,
+			coef_scale => 4,				
 			w_acc => 16,
 			w_out => pulse'length,
 			coef => (262, 498, 262)
 		)
 		port map (
-			rst => reset_n,
-			clk => clk_50_MHz, -- logic clock that drives the fir logic
-			sndclk => clk_3_255_MHz, -- oversampled pulse clock, 10 times bit clock
-			word => data_out_unbuffer,
-			resp => pulse
+			reset_n => reset_n,									-- Active low reset
+			clk => clk_50_MHz, 									-- logic clock that drives the fir logic
+			sndclk => clk_3_255_MHz, 						-- oversampled pulse clock, 10 times bit clock
+			word => data_out_unbuffer,					-- data in
+			btn => fir_enable,									-- button to enable or disable fir filter
+			fir_led => fir_led,									-- debug output led
+			resp => pulse												-- data out
 		);
-
-	mod_inst: entity work.modulator(behavioral) 
+ 
+	mod_inst: entity work.modulator(behavioral)
+		generic map (
+			Fclk => 20000000,										-- 20 MHz reference clock (see clk input)
+			Fhi => 2500000,											-- Low frequency
+			Flo => 1250000											-- high frequency
+		)
 		port map (
-			rst => reset_n,
-			clk => clk_20_MHz, -- should it be 20 MHz
-			input => pulse,
-			output => sine
+			rst => reset_n,											-- Active low reset
+			clk => clk_20_MHz, 									-- 20 MHz
+			input => pulse,											-- data in
+			output => sine											-- data out
 		);
-	
+		
 end structure;

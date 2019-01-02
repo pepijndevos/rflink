@@ -50,6 +50,7 @@ architecture structure of transmitter is
   
 	-- debug signals
 	signal frame_ins : std_logic;
+	
 begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
