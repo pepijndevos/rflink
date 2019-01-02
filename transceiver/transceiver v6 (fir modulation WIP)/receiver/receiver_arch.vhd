@@ -91,22 +91,28 @@ begin
 	clock_divider_inst : entity work.clock_divider
 		generic map (
 			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
-			)		 
+		)		 
 		port map (
 			clk_high_freq => clk_200_MHz, 				-- high freq clock input
 			reset => reset_n,									-- active low reset
 			clk_low_freq => clk_20_MHz 					-- low freq clock output
-			);
+		);
 			
 			
 	-- Instantiate the demodulator	
 	demodulation_inst: entity work.demodulator(behavioral)
+	   generic map (
+			Fclk => 20000000,								-- inpupt clock frequency
+			Fhi => 2500000,								-- high input frequency
+			Flo => 1250000,								-- low input frequency
+			min_bounce => 4								-- minimum bounce?
+		)
 		port map (
 			rst => reset_n,									-- active low reset
 			clk => clk_20_MHz,								-- clock 20MHz
 			input => signed(data_in),						-- signed data in 10 bits
 			output => binary									-- binary output
-			);
+		);
 		
 	
 	-- Instantiate the clock recovery
@@ -131,7 +137,7 @@ begin
 			word_length_deframing => 10,
 			preamble_receiver => 785,
 			deframing_length => 32550
-			)
+		)
 		port map (
 			data_in_deframing => binary,					-- binary input data stream			
 			clk_deframing_in => clk_320_kHz,				-- 320kHz clock input
