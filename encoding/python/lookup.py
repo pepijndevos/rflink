@@ -24,13 +24,13 @@ for inp, outp in lookup.items():
 
 print("\n")
 
-values = sorted(range(2**10), key=runs)[-257:]
-inputs = sorted(range(-128,127), key=abs, reverse=True)+[555555]
-lookup = dict(zip(inputs, values))
+#values = sorted(range(2**10), key=runs)[-257:]
+#inputs = sorted(range(-128,127), key=abs, reverse=True)
+#lookup = dict(zip(inputs, values))
 
-for inp, outp in lookup.items():
-    inp = twos_comp(inp, 8)
-    print("when \"{0:08b}\" => data_out_tmp <= \"{1:010b}\";".format(inp, outp))
+#for inp, outp in lookup.items():
+#    inp = twos_comp(inp, 8)
+#    print("when \"{0:08b}\" => data_out_tmp <= \"{1:010b}\";".format(inp, outp))
 
 
 #for inp, outp in lookup.items():
