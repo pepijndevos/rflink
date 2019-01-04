@@ -18,9 +18,9 @@ def twos_comp(val, bits):
         val = 2**bits - abs(val)       # compute negative value
     return val    
 
-for inp, outp in lookup.items():
-    inp = twos_comp(inp, 8)
-    print("when \"{0:08b}\" => data_out_tmp <= \"{1:010b}\";".format(inp, outp))
+#for inp, outp in lookup.items():
+#    inp = twos_comp(inp, 8)
+#    print("when \"{0:08b}\" => data_out_tmp <= \"{1:010b}\";".format(inp, outp))
 
 print("\n")
 
@@ -33,9 +33,9 @@ print("\n")
 #    print("when \"{0:08b}\" => data_out_tmp <= \"{1:010b}\";".format(inp, outp))
 
 
-#for inp, outp in lookup.items():
-#    inp = twos_comp(inp, 8)
-#    print("when \"{0:010b}\" => data_out_tmp <= \"{1:08b}\";".format(outp, inp))
+for inp, outp in lookup.items():
+    inp = twos_comp(inp, 8)
+    print("when \"{0:010b}\" => data_out_tmp <= \"{1:08b}\";".format(outp, inp))
 
 #print("\n")
 
