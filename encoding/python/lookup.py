@@ -9,7 +9,7 @@ def runs(x):
 #values = sorted(range(2**10), key=runs)[:256]
 #inputs = sorted(range(-128,127), key=abs) 
 values = sorted(range(2**10), key=runs)[-256:]
-inputs = sorted(range(-128,127), key=abs, reverse=True) 
+inputs = sorted(range(-128,128), key=abs, reverse=True)
 lookup = dict(zip(inputs, values))
 
 def twos_comp(val, bits):
