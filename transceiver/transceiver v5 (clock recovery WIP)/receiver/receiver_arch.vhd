@@ -75,7 +75,7 @@ begin
 	clk_recovery : entity work.clock_recovery
 		generic map (
 			std_period => 614, -- Fclk/Fsampple
-			timeout => 20 -- clocks to wait before sending an out_clk
+			timeout => 154 -- clocks to wait before sending an out_clk
 		)
 		port map (
 			rst => reset_n,
