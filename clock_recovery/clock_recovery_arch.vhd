@@ -5,16 +5,85 @@ use IEEE.NUMERIC_STD.ALL;
 architecture behavioral of clock_recovery is
 	signal period_256 						: unsigned(31 downto 0);
 	signal period 								: unsigned(31 downto 0);
+	signal counter_period					: integer;
 	signal last_input 						: std_logic;
-	signal counter 								: unsigned(31 downto 0);
-	signal counter_timeout				: unsigned(31 downto 0);
+	signal counter 							: unsigned(31 downto 0);
+	signal counter_timeout					: unsigned(31 downto 0);
 	signal multiple 							: unsigned(3 downto 0);
-	signal error_multiple_toggle	: std_logic;
+	signal error_multiple_toggle			: std_logic;
 	signal error_period_toggle_low		: std_logic;
 	signal error_period_toggle_high		: std_logic;
 	signal out_clk_tmp						: std_logic;
+	signal dynamic_enable					: std_logic;
 begin
-  period <= resize(period_256/256, period'length);
+
+	dynamic_clock_enable: process(rst, dynamic_enable_btn)
+	begin
+		if (rst = '0') then
+			dynamic_enable <= '1';
+		elsif (rising_edge(dynamic_enable_btn)) then
+			dynamic_enable <= not dynamic_enable;
+		end if;
+		dynamic_enable_led <= dynamic_enable;
+	end process dynamic_clock_enable;
+	
+	
+	extra_period_btn: process(clk, rst)
+	variable next_pressed_up : std_logic := '0';
+	variable next_pressed_down : std_logic := '0';
+	begin
+		if (rst = '0') then
+			next_pressed_up := '0';
+			counter_period <= 0;
+		elsif (rising_edge(clk)) then
+			-- period higher
+			if (period_up_btn = '1' and next_pressed_up = '0') then
+				next_pressed_up := '1';
+				counter_period <= counter_period + 1;
+				
+				if (counter_period > 120) then
+					counter_period <= 0;
+				end if;
+			elsif (period_up_btn = '1' and next_pressed_up = '1') then
+				next_pressed_up := '1';
+			elsif (period_up_btn = '0') then
+				next_pressed_up := '0';
+			end if;
+			
+			-- period lower
+			if (period_down_btn = '1' and next_pressed_down = '0') then
+				next_pressed_down := '1';
+				counter_period <= counter_period - 1;
+				
+				if (counter_period < -120) then
+					counter_period <= 0;
+				end if;
+			elsif (period_down_btn = '1' and next_pressed_down = '1') then
+				next_pressed_down := '1';
+			elsif (period_down_btn = '0') then
+				next_pressed_down := '0';
+			end if;
+			
+			-- counter should not be lower then std_period
+			if abs(counter_period) >= std_period then
+				counter_period <= 0;
+			end if;
+			
+		end if;
+	end process extra_period_btn; 
+	
+
+	comb_proc : process(period_256)
+	begin
+		if dynamic_enable = '1' then
+			period <= resize(period_256/256, period'length);
+			period_out <= std_logic_vector(resize(period_256/256, 9));
+		else 
+			period <= to_unsigned(std_period+counter_period, period'length);
+			period_out <= std_logic_vector(to_unsigned(std_period+counter_period, 9));
+		end if;
+	end process comb_proc;
+	
 	error_reset_multiple <= error_multiple_toggle;
 	error_reset_period_low <= error_period_toggle_low;
 	error_reset_period_high <= error_period_toggle_high;

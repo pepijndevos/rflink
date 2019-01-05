@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.ALL;
 
 architecture behavioral of receiver is
-	signal reset_n : std_logic;
+	signal reset_n, reset1_n, reset2_n : std_logic;
 	signal delay : std_logic;
 	signal socadc : std_logic_vector(31 downto 0);
 	signal encoded_data : std_logic_vector(9 downto 0);
@@ -29,10 +29,16 @@ architecture behavioral of receiver is
 	signal error_reset_multiple : std_logic;
 	signal error_reset_period_low : std_logic;
 	signal error_reset_period_high : std_logic;
+	signal dynamic_enable_led : std_logic;
+	signal period_up_btn	: std_logic;
+   signal period_down_btn: std_logic;
+	signal dynamic_enable_btn: std_logic;
+	signal period_out : std_logic_vector(8 downto 0);
+	
 	
 begin
-	reset_n <= KEY(0);
-	delay <= KEY(1);
+	--reset_n <= KEY_0000000000(0);
+	--delay <= KEY_0000000000(1);
 	clk_50_MHz <= CLOCK_50;
 	data_in <= GPIO_0(0);
 	--clk_320_kHz <= GPIO_0(1);
@@ -47,13 +53,14 @@ begin
 	GPIO_1(6) <= error_reset_period_low;
 	GPIO_1(7) <= error_reset_period_high;
 
-	LEDR(3 downto 0) <= delay_counter_out;
-	LEDR(9) <= reset_n;
-	LEDR(8) <= error_reset;
-	LEDR(7) <= error_reset_multiple;
-	LEDR(6) <= error_reset_period_low;
-	LEDR(5) <= error_reset_period_high;
-
+			
+	--LEDR(3 downto 0) <= delay_counter_out;
+	--LEDR(9) <= reset_n;
+	--LEDR(8) <= error_reset;
+	--LEDR(7) <= error_reset_multiple;
+	--LEDR(6) <= error_reset_period_low;
+	--LEDR(5) <= error_reset_period_high;
+	reset_n <= (reset1_n or reset2_n);
 	process(clk_32_kHz)
 	begin
 		if rising_edge(clk_32_kHz) then
@@ -61,6 +68,36 @@ begin
 			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
 	end process;
+
+	multiplexer_inst : entity work.multiplexer
+		port map (
+			clk => clk_50_MHz, 											-- clk 50MHz
+			reset =>  reset_n,  											-- reset active low
+			switches => SW,												-- swithces input
+			buttons => KEY,												-- buttons input
+			leds => LEDR,													-- leds output	
+			-- switch combination "00000000000"
+			leds_0000000000(9) => reset_n, 							-- leds input 		
+			leds_0000000000(8) => error_reset, 						-- leds input 		
+			leds_0000000000(7) => error_reset_multiple, 			-- leds input 		
+			leds_0000000000(6) => error_reset_period_low, 		-- leds input 		
+			leds_0000000000(5) => error_reset_period_high, 		-- leds input 		
+			leds_0000000000(4) => open, 								-- leds input 		
+			leds_0000000000(3 downto 0) => delay_counter_out, 	-- leds input 			
+			buttons_0000000000(3) => open,							-- button 3 output
+			buttons_0000000000(2) => open,							-- button 2 output
+			buttons_0000000000(1) => delay,							-- button 1 output
+			buttons_0000000000(0) => reset1_n,						-- button 0 output
+			
+			-- switch combination "10000000000"
+			leds_1000000000(9) => dynamic_enable_led, 			-- leds input 		
+			leds_1000000000(8 downto 0) => period_out,			-- leds input 				
+			buttons_1000000000(3) => period_down_btn,				-- button 3 output
+			buttons_1000000000(2) => period_up_btn,				-- button 2 output
+			buttons_1000000000(1) => dynamic_enable_btn,			-- button 1 output
+			buttons_1000000000(0) => reset2_n						-- button 0 output				
+	
+		);
 	
 	clock_gen_200_MHz_inst : entity work.clk_200_MHz
 		port map (
@@ -93,7 +130,12 @@ begin
 			error_reset => error_reset,
 			error_reset_multiple => error_reset_multiple,
 			error_reset_period_low => error_reset_period_low,
-			error_reset_period_high => error_reset_period_high
+			error_reset_period_high => error_reset_period_high,
+			period_out => period_out,
+			dynamic_enable_led => dynamic_enable_led,
+		   period_up_btn =>period_up_btn,
+			period_down_btn => period_down_btn,
+			dynamic_enable_btn => dynamic_enable_btn
 		);
 	
 	deframing_inst : entity work.deframing

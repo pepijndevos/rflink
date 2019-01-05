@@ -890,6 +890,8 @@ set_global_assignment -name BOARD "DE1-SoC Board"
 set_global_assignment -name VHDL_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.vhd
 set_global_assignment -name QIP_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.qip
 set_global_assignment -name SOURCE_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../multiplexer/multiplexer_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../multiplexer/multiplexer_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../clock_recovery/clock_recovery_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../clock_recovery/clock_recovery_ent.vhd
 set_global_assignment -name VHDL_FILE ../../../framing/deframing/deframing_ent.vhd

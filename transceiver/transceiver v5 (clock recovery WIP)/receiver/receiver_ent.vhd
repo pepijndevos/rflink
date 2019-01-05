@@ -20,7 +20,8 @@ entity receiver is
 	 AUD_XCK      	: out std_logic; 							-- Codec master clock OUTPUT
 	 FPGA_I2C_SCLK	: out std_logic; 							-- serial interface clock
 	 FPGA_I2C_SDAT	: inout std_logic;		 				-- serial interface data
-	 LEDR 					: out std_logic_vector(9 downto 0)  -- leds
+	 LEDR 					: out std_logic_vector(9 downto 0);  -- leds
+	 SW				: in std_logic_vector(9 downto 0)  -- switches
 	);
 
 end receiver;
