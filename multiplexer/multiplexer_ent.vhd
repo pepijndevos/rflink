@@ -2,6 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity multiplexer is
+    generic (
+       button_value : std_logic:='1'
+
+      );
   port (
 		reset				: in std_logic;
 		clk					: in std_logic;

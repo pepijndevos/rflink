@@ -60,7 +60,7 @@ begin
 	--LEDR(7) <= error_reset_multiple;
 	--LEDR(6) <= error_reset_period_low;
 	--LEDR(5) <= error_reset_period_high;
-	reset_n <= (reset1_n or reset2_n);
+	reset_n <= not ((not reset1_n) or (not reset2_n));
 	process(clk_32_kHz)
 	begin
 		if rising_edge(clk_32_kHz) then
