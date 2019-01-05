@@ -26,7 +26,9 @@ architecture behavioral of receiver is
 	signal preamble_inserted : std_logic;
 	signal preamble_found : std_logic;
 	signal error_reset : std_logic;
-	signal error_reset_toggle : std_logic;
+	signal error_reset_multiple : std_logic;
+	signal error_reset_period_low : std_logic;
+	signal error_reset_period_high : std_logic;
 	
 begin
 	reset_n <= KEY(0);
@@ -41,10 +43,16 @@ begin
 	GPIO_1(2) <= clk_320_kHz;
 	GPIO_1(3) <= preamble_inserted;
 	GPIO_1(4) <= preamble_found;
-	GPIO_1(5) <= error_reset_toggle;
+	GPIO_1(5) <= error_reset_multiple;
+	GPIO_1(6) <= error_reset_period_low;
+	GPIO_1(7) <= error_reset_period_high;
 
 	LEDR(3 downto 0) <= delay_counter_out;
-	LEDR(9) <= error_reset;
+	LEDR(9) <= reset_n;
+	LEDR(8) <= error_reset;
+	LEDR(7) <= error_reset_multiple;
+	LEDR(6) <= error_reset_period_low;
+	LEDR(5) <= error_reset_period_high;
 
 	process(clk_32_kHz)
 	begin
@@ -74,23 +82,25 @@ begin
 	
 	clk_recovery : entity work.clock_recovery
 		generic map (
-			std_period => 614, -- Fclk/Fsampple
-			timeout => 154 -- clocks to wait before sending an out_clk
+			std_period => 154, -- Fclk/Fsampple
+			timeout => 39 -- clocks to wait before sending an out_clk
 		)
 		port map (
 			rst => reset_n,
-			clk => clk_200_MHz,
+			clk => clk_50_MHz,
 			input => data_in,
 			out_clk => clk_320_kHz,
 			error_reset => error_reset,
-			error_reset_toggle => error_reset_toggle
+			error_reset_multiple => error_reset_multiple,
+			error_reset_period_low => error_reset_period_low,
+			error_reset_period_high => error_reset_period_high
 		);
 	
 	deframing_inst : entity work.deframing
 		generic map (
 			word_length_deframing => 10,
 			preamble_receiver => 785,
-			deframing_length => 32550
+			deframing_length => 3255
 			)
 		port map (
 			data_in_deframing => data_in,

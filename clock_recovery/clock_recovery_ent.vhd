@@ -5,9 +5,9 @@ use IEEE.NUMERIC_STD.ALL;
 entity clock_recovery is
     generic (
       -- Fclk/Fsampple
-      std_period : integer := 20;
+      std_period : integer := 614;
       -- clocks to wait before sending an out_clk
-      timeout : integer := 5
+      timeout : integer := 154
       );
     port (
       rst    			: in std_logic;
@@ -15,6 +15,8 @@ entity clock_recovery is
       input  			: in std_logic;
       out_clk			: out std_logic;
 			error_reset : out std_logic;
-			error_reset_toggle : out std_logic
+			error_reset_multiple : out std_logic;
+			error_reset_period_low : out std_logic;
+			error_reset_period_high : out std_logic
     );
 end;
