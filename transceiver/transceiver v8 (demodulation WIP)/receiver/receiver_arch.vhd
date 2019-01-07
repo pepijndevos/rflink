@@ -57,7 +57,7 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	data_in <= unsigned(GPIO_0(9 downto 0));
 	ready_out <= GPIO_0(10);
-	--clk_320_kHz <= GPIO_0(1);
+	clk_320_kHz <= GPIO_0(11);
 	--preamble_inserted <= GPIO_0(2);
 	
 	--GPIO_1(0) <= data_in;
@@ -65,10 +65,10 @@ begin
 	GPIO_1(2) <= clk_320_kHz;
 	GPIO_1(3) <= preamble_inserted;
 	GPIO_1(4) <= preamble_found;
-	GPIO_1(5) <= error_reset_toggle;
+	--GPIO_1(5) <= error_reset_toggle;
 
 	LEDR(3 downto 0) <= delay_counter_out;
-	LEDR(9) <= error_reset;
+	--LEDR(9) <= error_reset;
 
 	--	 I think this does not have to be done in a seperate process like this because buffer out already works on 32.55kHz
 	process(clk_32_kHz)
@@ -101,47 +101,47 @@ begin
 		);
 
 	-- Instantiate the adc interface		
-	adc_inst: entity work.ADC_interface(adc_arch)
-		port map (
-			enable => '1',										-- should this alwasy be '1'?
-			ready_out => ready_out,						-- ready_out for adc
-			clk_20_MHz => clk_20_MHz, 				-- Clock input: maximal (1/1) frequency
-			reset_n => reset_n,								-- High active reset (I think this is a old comment)
-			d_out => data_out,								-- data output i channel
-			d_in => data_in										-- data input i channel
-		);
+--	adc_inst: entity work.ADC_interface(adc_arch)
+--		port map (
+--			enable => '1',										-- should this alwasy be '1'?
+--			ready_out => ready_out,						-- ready_out for adc
+--			clk_20_MHz => clk_20_MHz, 				-- Clock input: maximal (1/1) frequency
+--			reset_n => reset_n,								-- High active reset (I think this is a old comment)
+--			d_out => data_out,								-- data output i channel
+--			d_in => data_in										-- data input i channel
+--		);
 		
 			
 	-- Instantiate the demodulator	
 	demodulation_inst: entity work.demodulator(behavioral)
 		generic map (
 			Fclk => 20000000,								-- inpupt clock frequency
-			Fhi => 2500000,								-- high input frequency
-			Flo => 1250000,								-- low input frequency
-			min_bounce => 4								-- minimum bounce?
+			Fhi => 2500000,									-- high input frequency
+			Flo => 1250000,									-- low input frequency
+			min_bounce => 4									-- minimum bounce?
 		)
 		port map (
 			rst => reset_n,									-- active low reset
-			clk => clk_20_MHz,								-- clock 20MHz
-			input => signed(data_in),						-- signed data in 10 bits
-			output => binary									-- binary output
+			clk => clk_20_MHz,							-- clock 20MHz
+			input => signed(data_in),				-- signed data in 10 bits
+			output => binary								-- binary output
 		);
 		
 	
 	-- Instantiate the clock recovery
-	clk_recovery : entity work.clock_recovery
-		generic map (
-			std_period => 614, -- Fclk/Fsampple
-			timeout => 154 -- clocks to wait before sending an out_clk
-		)
-		port map (
-			rst => reset_n,									-- active low reset
-			clk => clk_200_MHz,								-- input clock higher is better
-			input => binary,									-- binary input stream
-			out_clk => clk_320_kHz,							-- 320kHz clock for each bit output
-			error_reset => error_reset,					-- the clock had to be reset
-			error_reset_toggle => error_reset_toggle	-- each time the clock is reset
-		);
+--	clk_recovery : entity work.clock_recovery
+--		generic map (
+--			std_period => 614, -- Fclk/Fsampple
+--			timeout => 154 -- clocks to wait before sending an out_clk
+--		)
+--		port map (
+--			rst => reset_n,									-- active low reset
+--			clk => clk_200_MHz,								-- input clock higher is better
+--			input => binary,									-- binary input stream
+--			out_clk => clk_320_kHz,							-- 320kHz clock for each bit output
+--			error_reset => error_reset,					-- the clock had to be reset
+--			error_reset_toggle => error_reset_toggle	-- each time the clock is reset
+--		);
 		
 		
 	-- Instantiate the deframer	
@@ -152,13 +152,13 @@ begin
 			deframing_length => 32550
 		)
 		port map (
-			data_in_deframing => binary,					-- binary input data stream			
-			clk_deframing_in => clk_320_kHz,				-- 320kHz clock input
-			reset => reset_n,									-- active low reset
+			data_in_deframing => binary,							-- binary input data stream			
+			clk_deframing_in => clk_320_kHz,					-- 320kHz clock input
+			reset => reset_n,													-- active low reset
 			data_out_deframing => data_out_deframing,	-- binary output data stream
-			--clk_deframing_out_serial => ,				-- 320kHz clock output not needed
+			--clk_deframing_out_serial => ,						-- 320kHz clock output not needed
 			clk_deframing_out_parallel => clk_32_kHz,	-- output clock 32kHz
-			preamble_found => preamble_found				-- debug signal high if preamble is found
+			preamble_found => preamble_found					-- debug signal high if preamble is found
 		);	
 	
 	
