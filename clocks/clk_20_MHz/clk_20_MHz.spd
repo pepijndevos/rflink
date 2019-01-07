@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="clk_20_MHz_sim/clk_20_MHz.vho" type="VHDL" />
+ <topLevel name="clk_20_MHz" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
