@@ -6,12 +6,14 @@ def runs(x):
     lengths = [len(b) for b in runs]
     lengths[0] *= 2
     lengths[-1] *= 2
-    return max(lengths)
+    return max(lengths), -len(runs)
     #return len(runs)
 
+symbols = list(range(2**10))
+symbols.remove(785)
 #values = sorted(range(2**10), key=runs)[:256]
 #inputs = sorted(range(-128,127), key=abs)
-values = sorted(range(2**10), key=runs, reverse=True)[-256:]
+values = sorted(symbols, key=runs, reverse=True)[-256:]
 inputs = sorted(range(-128,128), key=abs, reverse=True)
 lookup = dict(zip(inputs, values))
 
