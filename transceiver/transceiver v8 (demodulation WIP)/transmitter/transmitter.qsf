@@ -25,7 +25,7 @@
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		receiver_assignment_defaults.qdf
+#		transmitter_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY receiver
+set_global_assignment -name TOP_LEVEL_ENTITY transmitter
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:16:13  DECEMBER 14, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -882,31 +882,37 @@ set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_RESET_N
 set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CK_P -entity DE1_SoC
 set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CK_N -entity DE1_SoC
 
+
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-
 set_global_assignment -name BOARD "DE1-SoC Board"
-set_global_assignment -name VHDL_FILE ../../../adc/ADC_interface_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../adc/ADC_interface_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../modulation/demodulator/demodulator_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../modulation/demodulator/demodulator_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../clock_recovery/clock_recovery_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../clock_recovery/clock_recovery_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../framing/deframing/deframing_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../framing/deframing/deframing_arch.vhd
-set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/s_2_p/s_2_p_ent.vhd"
-set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/s_2_p/s_2_p_arch.vhd"
+set_global_assignment -name VHDL_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.vhd
+set_global_assignment -name QIP_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.qip
+set_global_assignment -name SOURCE_FILE ../../../clocks/clk_3_40_MHz/clk_3_40_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../framing/framing/framing_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../framing/framing/framing_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../dac/DAC_interface_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../dac/DAC_interface_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../fir/fir_arch_and_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider3/clock_divider3_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider3/clock_divider3_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../modulation/modulator/waveform_gen.vhd
+set_global_assignment -name VHDL_FILE ../../../modulation/modulator/types.vhd
+set_global_assignment -name VHDL_FILE ../../../modulation/modulator/sincos_lut.vhd
+set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../modulation/modulator/modulator_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider2/clock_divider2_arch.vhd
+set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/p_2_s/p_2_s_ent.vhd"
+set_global_assignment -name VHDL_FILE "../../../p_2_s and s_2_p/p_2_s/p_2_s_arch.vhd"
 set_global_assignment -name VHDL_FILE ../../../buffer/audiobuffer_simple_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../codec/audio_interface.vhd
-set_global_assignment -name VHDL_FILE ../../../encoding/decoder/decoder_4B5B_ent.vhd
-set_global_assignment -name VHDL_FILE ../../../encoding/decoder/decoder_4B5B_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider/clock_divider_arch.vhd
 set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider/clock_divider_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../clocks/clock_divider/clock_divider_arch.vhd
+set_global_assignment -name VHDL_FILE ../../../codec/audio_interface.vhd
 set_global_assignment -name VHDL_FILE ../../../buffer/audiobuffer_ent.vhd
-set_global_assignment -name VHDL_FILE receiver_ent.vhd
-set_global_assignment -name VHDL_FILE receiver_arch.vhd
-set_global_assignment -name VHDL_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.vhd
-set_global_assignment -name QIP_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.qip
-set_global_assignment -name SOURCE_FILE ../../../clocks/clk_200_MHz/clk_200_MHz.cmp
+set_global_assignment -name VHDL_FILE ../../../encoding/encoder/encoder_4B5B_ent.vhd
+set_global_assignment -name VHDL_FILE ../../../encoding/encoder/encoder_4B5B_arch.vhd
+set_global_assignment -name VHDL_FILE transmitter_ent.vhd
+set_global_assignment -name VHDL_FILE transmitter_arch.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
