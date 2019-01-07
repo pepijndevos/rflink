@@ -20,8 +20,10 @@ architecture behavioral of receiver is
   
 	signal sndclk : std_logic;
 	signal clk_50_MHz : std_logic;
-	signal clk_200_MHz : std_logic;
+	signal clk_20MHz : std_logic;
 	signal clk_320_kHz : std_logic;
+	signal clk_320_kHz_ext : std_logic;
+	signal clk_320_kHz_int : std_logic;
 	signal clk_32_kHz : std_logic;  
 	signal preamble_inserted : std_logic;
 	signal preamble_found : std_logic;
@@ -34,26 +36,40 @@ architecture behavioral of receiver is
 	signal period_down_btn : std_logic;
 	signal dynamic_enable_btn : std_logic;
 	
+		component clk_20_MHz is
+		port (
+			refclk   : in  std_logic := 'X'; -- clk
+			rst      : in  std_logic := 'X'; -- reset
+			outclk_0 : out std_logic;        -- clk
+			locked   : out std_logic         -- export
+		);
+	end component clk_20_MHz;
+
+
+	
 begin
 	reset_n <= KEY(0);
-	--delay <= KEY(1);
+	delay <= SW(0);
 	dynamic_enable_btn <= KEY(1);
 	period_up_btn <= KEY(2);
 	period_down_btn <= KEY(3);
 	
 	clk_50_MHz <= CLOCK_50;
 	data_in <= GPIO_0(0);
-	--clk_320_kHz <= GPIO_0(1);
+	clk_320_kHz_ext <= GPIO_0(1);
 	preamble_inserted <= GPIO_0(2);
+	
+	clk_320_Khz <= clk_320_Khz_int when SW(1) = '1' else clk_320_Khz_ext;
 	
 	GPIO_1(0) <= data_in;
 	GPIO_1(1) <= clk_32_kHz;
-	GPIO_1(2) <= clk_320_kHz;
+	GPIO_1(2) <= clk_320_kHz_int;
 	GPIO_1(3) <= preamble_inserted;
 	GPIO_1(4) <= preamble_found;
 	GPIO_1(5) <= error_reset_multiple;
 	GPIO_1(6) <= error_reset_period_low;
 	GPIO_1(7) <= error_reset_period_high;
+	GPIO_1(8) <= clk_320_kHz_ext;
 
 	LEDR(9) <= reset_n;
 	LEDR(8) <= error_reset;
@@ -71,11 +87,11 @@ begin
 		end if;
 	end process;
 	
-	clock_gen_200_MHz_inst : entity work.clk_200_MHz
+	clock_gen_20_MHz_inst : clk_20_MHz
 		port map (
 			refclk => clk_50_MHz, -- clk 50MHz
 			rst => not reset_n,  -- reset active high
-			outclk_0 => clk_200_MHz -- 32 kHz clock
+			outclk_0 => clk_20MHz -- 32 kHz clock
 		);
 	
 --	clock_divider2_inst : entity work.clock_divider2
@@ -91,28 +107,20 @@ begin
 	
 	clk_recovery : entity work.clock_recovery
 		generic map (
-			std_period => 154, -- Fclk/Fsampple
-			timeout => 39 -- clocks to wait before sending an out_clk
+			std_period => 61, -- Fclk/Fsampple
+			timeout => 15 -- clocks to wait before sending an out_clk
 		)
 		port map (
 			rst => reset_n,
-			clk => clk_50_MHz,
+			clk => clk_20MHz,
 			input => data_in,
-			out_clk => clk_320_kHz,
-			error_reset => error_reset,
-			error_reset_multiple => error_reset_multiple,
-			error_reset_period_low => error_reset_period_low,
-			error_reset_period_high => error_reset_period_high,
+			out_clk => clk_320_kHz_int,
 			HEX0 => HEX0,
 			HEX1 => HEX1,
 			HEX2 => HEX2,
 			HEX3 => HEX3,
 			HEX4 => HEX4,
-			HEX5 => HEX5,	
-			period_up_btn => period_up_btn,
-			period_down_btn=>period_down_btn,
-			dynamic_enable_btn=>dynamic_enable_btn,
-			dynamic_enable_led=>dynamic_enable_led		
+			HEX5 => HEX5
 		);
 	
 	deframing_inst : entity work.deframing

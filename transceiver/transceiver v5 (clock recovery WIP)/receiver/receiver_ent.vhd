@@ -26,7 +26,8 @@ entity receiver is
 	 HEX2				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX3				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX4				: out std_logic_vector(6 downto 0);	-- hex desplay
-	 HEX5				: out std_logic_vector(6 downto 0)	-- hex desplay
+	 HEX5				: out std_logic_vector(6 downto 0);	-- hex desplay
+	 SW 				: in std_logic_vector(9 downto 0)
 	);
 
 end receiver;

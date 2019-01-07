@@ -7,9 +7,11 @@ architecture behavioral of clock_recovery is
 	signal period 								: unsigned(31 downto 0);
 		signal counter_period					: integer;
 
+	signal input_buf 						: std_logic;
 	signal last_input 						: std_logic;
-	signal counter 								: unsigned(31 downto 0);
-	signal counter_timeout				: unsigned(31 downto 0);
+	signal counter 								: unsigned(15 downto 0);
+	signal counter_timeout				: unsigned(15 downto 0);
+	signal on_timer				: unsigned(15 downto 0);
 	signal multiple 							: unsigned(3 downto 0);
 	signal error_multiple_toggle	: std_logic;
 	signal error_period_toggle_low		: std_logic;
@@ -42,69 +44,10 @@ FUNCTION hex2display (n:std_logic_vector(3 DOWNTO 0)) RETURN std_logic_vector IS
 	
 begin
 
-	extra_period_btn: process(clk, rst)
-	variable next_pressed_up : std_logic := '0';
-	variable next_pressed_down : std_logic := '0';
-	begin
-		if (rst = '0') then
-			next_pressed_up := '0';
-			counter_period <= 0;
-		elsif (rising_edge(clk)) then
-			-- period higher
-			if (period_up_btn = '1' and next_pressed_up = '0') then
-				next_pressed_up := '1';
-				counter_period <= counter_period + 1;
-				
-				if (counter_period > 120) then
-					counter_period <= 0;
-				end if;
-			elsif (period_up_btn = '1' and next_pressed_up = '1') then
-				next_pressed_up := '1';
-			elsif (period_up_btn = '0') then
-				next_pressed_up := '0';
-			end if;
-			
-			-- period lower
-			if (period_down_btn = '1' and next_pressed_down = '0') then
-				next_pressed_down := '1';
-				counter_period <= counter_period - 1;
-				
-				if (counter_period < -120) then
-					counter_period <= 0;
-				end if;
-			elsif (period_down_btn = '1' and next_pressed_down = '1') then
-				next_pressed_down := '1';
-			elsif (period_down_btn = '0') then
-				next_pressed_down := '0';
-			end if;
-			
-			-- counter should not be lower then std_period
-			if abs(counter_period) >= std_period then
-				counter_period <= 0;
-			end if;
-			
-		end if;
-	end process extra_period_btn; 
-	
-	dynamic_clock_enable: process(rst, dynamic_enable_btn)
-	begin
-		if (rst = '0') then
-			dynamic_enable <= '1';
-		elsif (rising_edge(dynamic_enable_btn)) then
-			dynamic_enable <= not dynamic_enable;
-		end if;
-		dynamic_enable_led <= dynamic_enable;
-	end process dynamic_clock_enable;
-	
 	
   comb_proc : process(period_256)
   begin
-		if dynamic_enable = '1' then
-			period <= resize(period_256/256, period'length);
-		else 
-			period <= to_unsigned(std_period+counter_period, period'length);
-		end if;		
-		dynamic_enable_led <= dynamic_enable;
+		period <= resize(period_256/256, period'length);	
 		HEX0 <= hex2display(std_logic_vector(period(3 downto 0)));
 		HEX1 <= hex2display(std_logic_vector(period(7 downto 4)));
 		HEX2 <= hex2display(std_logic_vector(period(11 downto 8)));
@@ -112,50 +55,8 @@ begin
 		HEX4 <= hex2display(std_logic_vector(period(19 downto 16)));
 		HEX5 <= hex2display(std_logic_vector(period(23 downto 20)));
   end process comb_proc;
-	error_reset_multiple <= error_multiple_toggle;
-	error_reset_period_low <= error_period_toggle_low;
-	error_reset_period_high <= error_period_toggle_high;
 
---  process(clk, rst)
---	  variable polarity : std_logic;
---  begin
---    if rst = '0' then
---	    period_256 <= to_unsigned(std_period*256, period_256'length);
---	    counter <= (others => '0');
---	    multiple <= to_unsigned(1, multiple'length);
---	    last_input <= '0';
---			error_reset <= '0';
---			error_toggle <= '0';
---    elsif rising_edge(clk) then
---	    if input /= last_input then
---		    counter <= (others => '0');
---		    period_256 <= resize((period_256*127 + (counter+1)*256/multiple)/128, period_256'length);
---		    out_clk <= '1';
---		    multiple <= to_unsigned(1, multiple'length);
---	    elsif counter > period*multiple+timeout then
---		    out_clk <= '1';
---		    multiple <= multiple+1;
---		    counter <= counter + 1;
---	    else
---		    out_clk <= '0';
---		    counter <= counter + 1;
---	    end if;
---	    last_input <= input;
---
---			-- reset derived period
---	    if multiple > 10 then
---		    period_256 <= to_unsigned(std_period*256, period_256'length);
---				error_reset <= '1';
---				error_toggle <= not error_toggle;
---	    end if;
---			
---			-- reset when the period is getting too small (0.5 of orignal frequency)
---			if period <= ((std_period*50)/100) then
---				period_256 <= to_unsigned(std_period*256, period_256'length);
---			end if;
---    end if;
---  end process;
-  
+
   process(clk, rst)
 	  variable polarity : std_logic;
   begin
@@ -163,58 +64,59 @@ begin
 	    period_256 <= to_unsigned(std_period*256, period_256'length);
 	    counter <= (others => '0');
 	    counter_timeout <= (others => '0');
+	    on_timer <= (others => '0');
 	    multiple <= to_unsigned(1, multiple'length);
 	    last_input <= '0';
-			out_clk_tmp <= '0';
-      out_clk <= '0';
-			error_reset <= '0';
-			error_multiple_toggle <= '0';
-			error_period_toggle_low <= '0';
-			error_period_toggle_high <= '0';
+		 out_clk_tmp <= '0';
+       out_clk <= '0';
     elsif rising_edge(clk) then
-	    if input /= last_input then
-				if multiple = 1 then
-					period_256 <= resize((period_256*127 + (counter+1)*256/multiple)/128, period_256'length);
-				end if;
-		    
-				counter <= (others => '0');
-		    out_clk_tmp <= '1';
-        out_clk <= '0';
-		    multiple <= to_unsigned(1, multiple'length);
-	    elsif counter > period*multiple+timeout then
-		    out_clk <= '1';
-		    multiple <= multiple+1;
-		    counter <= counter + 1;
-	    else
-			 if (out_clk_tmp = '1') and (counter_timeout <= timeout) then
-				counter_timeout <= counter_timeout + 1;
-			 elsif (out_clk_tmp = '1') and (counter_timeout > timeout) then
-				out_clk_tmp <= '0';
-				out_clk <= '1';
-				counter_timeout <= (others => '0');
-			 else
-				out_clk <= '0';
+	    input_buf <= input;
+	    if input_buf /= last_input then
+			 if multiple = 1 then
+			   period_256 <= resize((period_256*127 + (counter+1)*256)/128, period_256'length);
 			 end if;
-		    counter <= counter + 1;
+		    
+			 counter <= (others => '0');
+		    out_clk_tmp <= '1';
+		    multiple <= to_unsigned(1, multiple'length);
+			 counter_timeout <= (others => '0');
+
+		 else
+			counter <= counter + 1;
 	    end if;
-	    last_input <= input;
+		 last_input <= input_buf;
+
+
+		 
+		 if counter > period*multiple+timeout then
+		   out_clk <= '1';
+		   multiple <= multiple+1;
+			on_timer <= (others => '0');
+	    elsif (out_clk_tmp = '1') and (counter_timeout <= timeout) then
+			counter_timeout <= counter_timeout + 1;
+	    elsif (out_clk_tmp = '1') and (counter_timeout > timeout) then
+			out_clk_tmp <= '0';
+			out_clk <= '1';
+			counter_timeout <= (others => '0');
+			on_timer <= (others => '0');
+		 elsif on_timer > period/2 then
+			out_clk <= '0';
+		 else
+			on_timer <= on_timer + 1;
+	    end if;
 
 			-- reset derived period
-	    if multiple > 10 then
-		    period_256 <= to_unsigned(std_period*256, period_256'length);
-				error_reset <= '1';
-				error_multiple_toggle <= not error_multiple_toggle;
-	    end if;
-			
-			if period <= ((std_period*95)/100) then
-				error_period_toggle_low <= not error_period_toggle_low;
-				period_256 <= to_unsigned(std_period*256, period_256'length);
-			end if;
-			
-			if period >= ((std_period*105)/100) then
-				error_period_toggle_high <= not error_period_toggle_high;
-				period_256 <= to_unsigned(std_period*256, period_256'length);
-			end if;
+--	    if multiple > 10 then
+--		    period_256 <= to_unsigned(std_period*256, period_256'length);
+--	    end if;
+--			
+--			if period <= ((std_period*95)/100) then
+--				period_256 <= to_unsigned(std_period*256, period_256'length);
+--			end if;
+--			
+--			if period >= ((std_period*105)/100) then
+--				period_256 <= to_unsigned(std_period*256, period_256'length);
+--			end if;
     end if;
   end process;
 
