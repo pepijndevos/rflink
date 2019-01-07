@@ -7,7 +7,7 @@ entity demodulator is
       Fclk : integer := 50000000;
       Fhi : integer := 2500000;
       Flo : integer := 1250000;
-      min_bounce : integer := 4
+      min_bounce : integer := 2
       );
     port (
       rst    : in std_logic;

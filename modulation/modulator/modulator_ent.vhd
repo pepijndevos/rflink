@@ -11,7 +11,7 @@ entity modulator is
     port (
       rst    	: in std_logic;
       clk    	: in std_logic;
-      input   : in unsigned(7 downto 0);
+      input   	: in unsigned(7 downto 0);
       output 	: out signed(9 downto 0)
     );
 end;
