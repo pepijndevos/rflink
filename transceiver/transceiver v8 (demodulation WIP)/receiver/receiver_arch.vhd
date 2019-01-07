@@ -58,6 +58,7 @@ begin
 	data_in <= unsigned(GPIO_0(9 downto 0));
 	ready_out <= GPIO_0(10);
 	clk_320_kHz <= GPIO_0(11);
+	clk_20_MHz <= GPIO_0(13);
 	--preamble_inserted <= GPIO_0(2);
 	
 	--GPIO_1(0) <= data_in;
@@ -65,6 +66,7 @@ begin
 	GPIO_1(2) <= clk_320_kHz;
 	GPIO_1(3) <= preamble_inserted;
 	GPIO_1(4) <= preamble_found;
+	GPIO_1(5) <= binary;
 	--GPIO_1(5) <= error_reset_toggle;
 
 	LEDR(3 downto 0) <= delay_counter_out;
@@ -90,26 +92,26 @@ begin
 		
 	
 	-- Instantiate the clock divider
-	clock_divider_inst : entity work.clock_divider
-		generic map (
-			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
-		)		 
-		port map (
-			clk_high_freq => clk_200_MHz, 				-- high freq clock input
-			reset => reset_n,									-- active low reset
-			clk_low_freq => clk_20_MHz 					-- low freq clock output
-		);
+--	clock_divider_inst : entity work.clock_divider
+--		generic map (
+--			clk_div => 10 -- the output clock freq will be clk_high_freq / clk_div
+--		)		 
+--		port map (
+--			clk_high_freq => clk_200_MHz, 				-- high freq clock input
+--			reset => reset_n,									-- active low reset
+--			clk_low_freq => clk_20_MHz 					-- low freq clock output
+--		);
 
 	-- Instantiate the adc interface		
---	adc_inst: entity work.ADC_interface(adc_arch)
---		port map (
---			enable => '1',										-- should this alwasy be '1'?
---			ready_out => ready_out,						-- ready_out for adc
---			clk_20_MHz => clk_20_MHz, 				-- Clock input: maximal (1/1) frequency
---			reset_n => reset_n,								-- High active reset (I think this is a old comment)
---			d_out => data_out,								-- data output i channel
---			d_in => data_in										-- data input i channel
---		);
+	adc_inst: entity work.ADC_interface(adc_arch)
+		port map (
+			enable => '1',										-- should this alwasy be '1'?
+			ready_out => ready_out,						-- ready_out for adc
+			clk_20_MHz => clk_20_MHz, 				-- Clock input: maximal (1/1) frequency
+			reset_n => reset_n,								-- High active reset (I think this is a old comment)
+			d_out => data_out,								-- data output i channel
+			d_in => data_in										-- data input i channel
+		);
 		
 			
 	-- Instantiate the demodulator	
@@ -123,7 +125,7 @@ begin
 		port map (
 			rst => reset_n,									-- active low reset
 			clk => clk_20_MHz,							-- clock 20MHz
-			input => signed(data_in),				-- signed data in 10 bits
+			input => data_out,							-- signed 10 bits
 			output => binary								-- binary output
 		);
 		
