@@ -29,10 +29,18 @@ architecture behavioral of receiver is
 	signal error_reset_multiple : std_logic;
 	signal error_reset_period_low : std_logic;
 	signal error_reset_period_high : std_logic;
+	signal dynamic_enable_led : std_logic;
+	signal period_up_btn	: std_logic;
+	signal period_down_btn : std_logic;
+	signal dynamic_enable_btn : std_logic;
 	
 begin
 	reset_n <= KEY(0);
-	delay <= KEY(1);
+	--delay <= KEY(1);
+	dynamic_enable_btn <= KEY(1);
+	period_up_btn <= KEY(2);
+	period_down_btn <= KEY(3);
+	
 	clk_50_MHz <= CLOCK_50;
 	data_in <= GPIO_0(0);
 	--clk_320_kHz <= GPIO_0(1);
@@ -47,12 +55,13 @@ begin
 	GPIO_1(6) <= error_reset_period_low;
 	GPIO_1(7) <= error_reset_period_high;
 
-	LEDR(3 downto 0) <= delay_counter_out;
 	LEDR(9) <= reset_n;
 	LEDR(8) <= error_reset;
 	LEDR(7) <= error_reset_multiple;
 	LEDR(6) <= error_reset_period_low;
 	LEDR(5) <= error_reset_period_high;
+	LEDR(4) <= dynamic_enable_led;
+	LEDR(3 downto 0) <= delay_counter_out;
 
 	process(clk_32_kHz)
 	begin
@@ -93,7 +102,17 @@ begin
 			error_reset => error_reset,
 			error_reset_multiple => error_reset_multiple,
 			error_reset_period_low => error_reset_period_low,
-			error_reset_period_high => error_reset_period_high
+			error_reset_period_high => error_reset_period_high,
+			HEX0 => HEX0,
+			HEX1 => HEX1,
+			HEX2 => HEX2,
+			HEX3 => HEX3,
+			HEX4 => HEX4,
+			HEX5 => HEX5,	
+			period_up_btn => period_up_btn,
+			period_down_btn=>period_down_btn,
+			dynamic_enable_btn=>dynamic_enable_btn,
+			dynamic_enable_led=>dynamic_enable_led		
 		);
 	
 	deframing_inst : entity work.deframing
