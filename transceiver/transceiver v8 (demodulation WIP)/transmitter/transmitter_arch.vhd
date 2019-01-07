@@ -51,6 +51,8 @@ architecture structure of transmitter is
 	-- debug signals
 	signal frame_ins : std_logic;
 	
+	signal gpioclock : std_logic;
+	
 begin
 	win1 <= signed(socadc(31 downto 16));
 	win2 <= signed(socadc(15 downto 0));
@@ -60,9 +62,12 @@ begin
 	
 	GPIO_0(9 downto 0) <= std_logic_vector(sin_out);
 	GPIO_0(10) <= dac_clk;
-	GPIO_0(11) <= ready_to_gpio; -- chip select, sort of
+	--GPIO_0(11) <= ready_to_gpio; -- chip select, sort of
+	GPIO_0(11) <= clk_320_khz;
+	
 	LEDR(0) <= fir_led;
 	LEDR(9) <= reset_n;
+	
 	
 	-- debug datastream output
 	GPIO_0(12) <= data_out_unbuffer;
