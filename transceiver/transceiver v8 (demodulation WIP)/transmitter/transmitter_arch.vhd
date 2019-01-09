@@ -64,6 +64,8 @@ begin
 	GPIO_0(10) <= dac_clk;
 	--GPIO_0(11) <= ready_to_gpio; -- chip select, sort of
 	GPIO_0(11) <= clk_320_khz;
+	GPIO_0(13) <= clk_20_MHz;
+	GPIO_0(15) <= data_out_unbuffer;
 	
 	LEDR(0) <= fir_led;
 	LEDR(9) <= reset_n;
