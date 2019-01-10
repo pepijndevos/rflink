@@ -8,6 +8,10 @@ architecture behavioral of demodulator is
 	signal last_polarity : std_logic;
 	signal counter : unsigned(31 downto 0);
 	signal counter_avg_256 : unsigned(31 downto 0);
+	signal glitch_filter_in : std_logic;
+	signal glitch_filter_out : std_logic;
+	signal glitch_filter_mem : std_logic;
+	
 begin
 
   process(clk, rst)
@@ -28,12 +32,12 @@ begin
 			
 	    if polarity /= last_polarity and counter > min_bounce then
 		    if (counter-1)*220 < counter_avg_256 then
-			    output <= '1';
+			    glitch_filter_in <= '1';
 				 scalea := to_unsigned(254, scalea'length);
 				 scaleb := to_unsigned(512, scaleb'length);
 
 		    else
-			    output <= '0';
+			    glitch_filter_in <= '0';
 				 scalea := to_unsigned(255, scalea'length);
 				 scaleb := to_unsigned(256, scaleb'length);
 		    end if;
@@ -46,6 +50,12 @@ begin
 	    last_polarity <= polarity;
 	    input_avg_256 <= resize((input_avg_256*127 + input_buf*256)/128, 32);
 		 input_buf <= input;
+		 
+		 if (glitch_filter_in = glitch_filter_mem) then
+			output <= glitch_filter_out;
+		 end if;
+		 glitch_filter_mem <= glitch_filter_in;
+		 
     end if;
   end process;
 
