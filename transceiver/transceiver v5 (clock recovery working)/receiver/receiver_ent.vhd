@@ -13,21 +13,21 @@ entity receiver is
 	 AUD_ADCLRCK  	: in std_logic; 							-- ADC data left/right select
 	 AUD_BCLK     	: in std_logic; 							-- Digital Audio bit clock
 	 AUD_DACLRCK  	: in std_logic; 							-- DAC data left/right select
-	 KEY 			  		: in std_logic_vector(3 downto 0); 	-- reset key
+	 KEY 			  	: in std_logic_vector(3 downto 0); 	-- reset key
 	 GPIO_0 		  	: in std_logic_vector(53 downto 0); -- gpio input pins
-	 GPIO_1					: out std_logic_vector(53 downto 0); -- gpio output pins
+	 SW 				: in std_logic_vector(9 downto 0);	-- switches input	
+	GPIO_1			: out std_logic_vector(53 downto 0);-- gpio output pins
 	 AUD_DACDAT   	: out std_logic; 							-- DAC data line
 	 AUD_XCK      	: out std_logic; 							-- Codec master clock OUTPUT
 	 FPGA_I2C_SCLK	: out std_logic; 							-- serial interface clock
 	 FPGA_I2C_SDAT	: inout std_logic;		 				-- serial interface data
-	 LEDR 					: out std_logic_vector(9 downto 0);  -- leds
+	 LEDR 			: out std_logic_vector(9 downto 0); -- leds
 	 HEX0				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX1				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX2				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX3				: out std_logic_vector(6 downto 0);	-- hex desplay
 	 HEX4				: out std_logic_vector(6 downto 0);	-- hex desplay
-	 HEX5				: out std_logic_vector(6 downto 0);	-- hex desplay
-	 SW 				: in std_logic_vector(9 downto 0)
+	 HEX5				: out std_logic_vector(6 downto 0)	-- hex desplay
 	);
 
 end receiver;
