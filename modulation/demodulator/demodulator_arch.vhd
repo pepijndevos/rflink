@@ -27,7 +27,7 @@ begin
 	    end if;
 			
 	    if polarity /= last_polarity and counter > min_bounce then
-		    if (counter-1)*256 < counter_avg_256 then
+		    if (counter-1)*220 < counter_avg_256 then
 			    output <= '1';
 				 scalea := to_unsigned(254, scalea'length);
 				 scaleb := to_unsigned(512, scaleb'length);
