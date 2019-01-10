@@ -106,17 +106,17 @@ begin
 	    end if;
 
 			-- reset derived period
---	    if multiple > 10 then
---		    period_256 <= to_unsigned(std_period*256, period_256'length);
---	    end if;
---			
---			if period <= ((std_period*95)/100) then
---				period_256 <= to_unsigned(std_period*256, period_256'length);
---			end if;
---			
---			if period >= ((std_period*105)/100) then
---				period_256 <= to_unsigned(std_period*256, period_256'length);
---			end if;
+	    if multiple > 10 then
+		    period_256 <= to_unsigned(std_period*256, period_256'length);
+	    end if;
+			
+			if period <= ((std_period*95)/100) then
+				period_256 <= to_unsigned(std_period*256, period_256'length);
+			end if;
+			
+			if period >= ((std_period*105)/100) then
+				period_256 <= to_unsigned(std_period*256, period_256'length);
+			end if;
     end if;
   end process;
 
