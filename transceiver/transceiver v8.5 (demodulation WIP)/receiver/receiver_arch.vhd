@@ -81,14 +81,14 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	
 	clk_320_kHz_ext <= GPIO_0(11);
-	clk_320_KHz <= clk_320_KHz_int;
+	clk_320_KHz <= clk_320_KHz_ext;
 	
 	clk_20MHz_ext <= GPIO_0(13);
 	clk_20MHz <= clk_20MHz_int;
 
 	-- binary data
 	binary_ext <= GPIO_0(12);
-	binary <= binary_int;
+	binary <= binary_ext;
 	
 	-- debugging inputs
 	preamble_inserted <= GPIO_0(2);
@@ -142,7 +142,7 @@ begin
 			Fclk => 20000000,								-- inpupt clock frequency
 			Fhi => 2500000,									-- high input frequency
 			Flo => 1250000,									-- low input frequency
-			min_bounce => 2									-- minimum bounce?
+			min_bounce => 1									-- minimum bounce?
 		)
 		port map (
 			rst => reset_n,									-- active low reset
