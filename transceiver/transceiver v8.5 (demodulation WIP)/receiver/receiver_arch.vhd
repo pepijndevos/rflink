@@ -100,7 +100,7 @@ begin
 	GPIO_1(4) <= preamble_inserted;
 	GPIO_1(5) <= preamble_found;
 	GPIO_1(6) <= binary_int;
-	GPIO_1(6) <= binary_ext;
+	GPIO_1(7) <= binary_ext;
 
 	-- led outputs
 	LEDR(9) <= reset_n;
