@@ -13,6 +13,8 @@ architecture behavioral of receiver is
 	
 	-- demodulation
 	signal binary : std_logic;
+	signal binary_ext : std_logic;
+	signal binary_int : std_logic;
 	
 	-- clock recovery
 	-- empty because this has a clock output
@@ -79,11 +81,14 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	
 	clk_320_kHz_ext <= GPIO_0(11);
-	clk_320_Khz <= clk_320_Khz_int;
+	clk_320_KHz <= clk_320_KHz_int;
 	
 	clk_20MHz_ext <= GPIO_0(13);
 	clk_20MHz <= clk_20MHz_int;
 
+	-- binary data
+	binary_ext <= GPIO_0(12);
+	binary <= binary_int;
 	
 	-- debugging inputs
 	preamble_inserted <= GPIO_0(2);
@@ -94,8 +99,9 @@ begin
 	GPIO_1(3) <= clk_320_kHz_int;
 	GPIO_1(4) <= preamble_inserted;
 	GPIO_1(5) <= preamble_found;
-	GPIO_1(6) <= binary;
-	
+	GPIO_1(6) <= binary_int;
+	GPIO_1(6) <= binary_ext;
+
 	-- led outputs
 	LEDR(9) <= reset_n;
 	LEDR(8) <= SW(0);
@@ -142,7 +148,7 @@ begin
 			rst => reset_n,									-- active low reset
 			clk => clk_20MHz,							-- clock 20MHz
 			input => data_out,							-- signed 10 bits
-			output => binary								-- binary output
+			output => binary_int								-- binary output
 		);
 		
 	
