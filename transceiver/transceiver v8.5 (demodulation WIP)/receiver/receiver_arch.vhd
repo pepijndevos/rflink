@@ -142,7 +142,7 @@ begin
 			Fclk => 20000000,								-- inpupt clock frequency
 			Fhi => 2500000,									-- high input frequency
 			Flo => 1250000,									-- low input frequency
-			min_bounce => 2									-- minimum bounce?
+			min_bounce => 1									-- minimum bounce?
 		)
 		port map (
 			rst => reset_n,									-- active low reset
