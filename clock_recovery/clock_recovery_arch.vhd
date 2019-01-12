@@ -3,15 +3,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 architecture behavioral of clock_recovery is
-	signal period_256 						: unsigned(31 downto 0);
-	signal period 								: unsigned(31 downto 0);
-		signal counter_period					: integer;
+	signal period_256 						: unsigned(15 downto 0);
+	signal period 								: unsigned(7 downto 0);
+	
+	signal period_256_127_tmp 				: unsigned(22 downto 0);
+	signal counter_256_tmp 					: unsigned(16 downto 0);
+	signal period_256_tmp 					: unsigned(22 downto 0);
+
+	signal counter_period					: integer;
 
 	signal input_buf 						: std_logic;
 	signal last_input 						: std_logic;
-	signal counter 								: unsigned(15 downto 0);
-	signal counter_timeout				: unsigned(15 downto 0);
-	signal on_timer				: unsigned(15 downto 0);
+	signal counter 								: unsigned(7 downto 0);
+	signal edge_counter				: unsigned(7 downto 0);
+	signal on_timer				: unsigned(7 downto 0);
 	signal multiple 							: unsigned(3 downto 0);
 	signal error_multiple_toggle	: std_logic;
 	signal error_period_toggle_low		: std_logic;
@@ -45,15 +50,15 @@ FUNCTION hex2display (n:std_logic_vector(3 DOWNTO 0)) RETURN std_logic_vector IS
 begin
 
 	
-  comb_proc : process(period_256)
+  comb_proc : process(period_256, period)
   begin
 		period <= resize(period_256/256, period'length);	
 		HEX0 <= hex2display(std_logic_vector(period(3 downto 0)));
 		HEX1 <= hex2display(std_logic_vector(period(7 downto 4)));
-		HEX2 <= hex2display(std_logic_vector(period(11 downto 8)));
-		HEX3 <= hex2display(std_logic_vector(period(15 downto 12)));
-		HEX4 <= hex2display(std_logic_vector(period(19 downto 16)));
-		HEX5 <= hex2display(std_logic_vector(period(23 downto 20)));
+		--HEX2 <= hex2display(std_logic_vector(period(11 downto 8)));
+		--HEX3 <= hex2display(std_logic_vector(period(15 downto 12)));
+		--HEX4 <= hex2display(std_logic_vector(period(19 downto 16)));
+		--HEX5 <= hex2display(std_logic_vector(period(23 downto 20)));
   end process comb_proc;
 
 
@@ -63,60 +68,48 @@ begin
     if rst = '0' then
 	    period_256 <= to_unsigned(std_period*256, period_256'length);
 	    counter <= (others => '0');
-	    counter_timeout <= (others => '0');
+	    edge_counter <= (others => '0');
 	    on_timer <= (others => '0');
 	    multiple <= to_unsigned(1, multiple'length);
 	    last_input <= '0';
 		 out_clk_tmp <= '0';
        out_clk <= '0';
     elsif rising_edge(clk) then
-	    input_buf <= input;
+		 --period_256_127_tmp <= period_256*to_unsigned(127, 7);
+		 --counter_256_tmp <= (counter+2)*to_unsigned(256, 9);
+		 --period_256_tmp <= (period_256_127_tmp + counter_256_tmp)/128;
 	    if input_buf /= last_input then
-			 if multiple = 1 then
-			   period_256 <= resize((period_256*127 + (counter+1)*256)/128, period_256'length);
-			 end if;
+			 --if multiple = 1 then
+			 --  period_256 <= resize((period_256*to_unsigned(127, 7) + (edge_counter+1)*to_unsigned(256, 9))/128, period_256'length);
+			 --end if;
 		    
-			 counter <= (others => '0');
-		    out_clk_tmp <= '1';
-		    multiple <= to_unsigned(1, multiple'length);
-			 counter_timeout <= (others => '0');
-
+			 counter <= period/4;
+		    out_clk_tmp <= '0';
 		 else
 			counter <= counter + 1;
 	    end if;
-		 last_input <= input_buf;
-
-
 		 
-		 if counter > period*multiple+timeout then
-		   out_clk <= '1';
-		   multiple <= multiple+1;
-			on_timer <= (others => '0');
-	    elsif (out_clk_tmp = '1') and (counter_timeout <= timeout) then
-			counter_timeout <= counter_timeout + 1;
-	    elsif (out_clk_tmp = '1') and (counter_timeout > timeout) then
-			out_clk_tmp <= '0';
-			out_clk <= '1';
-			counter_timeout <= (others => '0');
-			on_timer <= (others => '0');
-		 elsif on_timer > period/2 then
-			out_clk <= '0';
-		 else
-			on_timer <= on_timer + 1;
-	    end if;
+		 if counter > period/2 then
+		    out_clk_tmp <= not out_clk_tmp;
+			 counter <= (others => '0');
+		 end if;
+		 input_buf <= input;
+		 last_input <= input_buf;
+		 out_clk <= out_clk_tmp;
+
 
 			-- reset derived period
-	    if multiple > 10 then
-		    period_256 <= to_unsigned(std_period*256, period_256'length);
-	    end if;
-			
-			if period <= ((std_period*95)/100) then
-				period_256 <= to_unsigned(std_period*256, period_256'length);
-			end if;
-			
-			if period >= ((std_period*105)/100) then
-				period_256 <= to_unsigned(std_period*256, period_256'length);
-			end if;
+--	    if multiple > 10 then
+--		    period_256 <= to_unsigned(std_period*256, period_256'length);
+--	    end if;
+--			
+--			if period <= ((std_period*95)/100) then
+--				period_256 <= to_unsigned(std_period*256, period_256'length);
+--			end if;
+--			
+--			if period >= ((std_period*105)/100) then
+--				period_256 <= to_unsigned(std_period*256, period_256'length);
+--			end if;
     end if;
   end process;
 
