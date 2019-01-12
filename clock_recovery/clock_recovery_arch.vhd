@@ -82,7 +82,6 @@ begin
 			 --if multiple = 1 then
 			 --  period_256 <= resize((period_256*to_unsigned(127, 7) + (edge_counter+1)*to_unsigned(256, 9))/128, period_256'length);
 			 --end if;
-		    
 			 counter <= period/4;
 		    out_clk_tmp <= '0';
 		 else
@@ -90,6 +89,9 @@ begin
 	    end if;
 		 
 		 if counter > period/2 then
+		    if out_clk_tmp = '0' then
+				out_dat <= input_buf;
+			 end if;
 		    out_clk_tmp <= not out_clk_tmp;
 			 counter <= (others => '0');
 		 end if;

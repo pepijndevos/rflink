@@ -15,6 +15,7 @@ architecture behavioral of receiver is
 	signal binary : std_logic;
 	signal binary_ext : std_logic;
 	signal binary_int : std_logic;
+	signal binary_rec : std_logic;
 	
 	-- clock recovery
 	-- empty because this has a clock output
@@ -81,26 +82,26 @@ begin
 	clk_50_MHz <= CLOCK_50;
 	
 	clk_320_kHz_ext <= GPIO_0(11);
-	clk_320_KHz <= clk_320_KHz_int;
+	clk_320_KHz <= clk_320_KHz_ext;
 	
 	clk_20MHz_ext <= GPIO_0(13);
 	clk_20MHz <= clk_20MHz_int;
 
 	-- binary data
 	binary_ext <= GPIO_0(12);
-	binary <= binary_int;
+	binary <= binary_ext;
 	
 	-- debugging inputs
 	preamble_inserted <= GPIO_0(2);
 
 	-- debugging outputs
-	GPIO_1(1) <= clk_32_kHz;
-	GPIO_1(2) <= clk_320_kHz_ext;
-	GPIO_1(3) <= clk_320_kHz_int;
-	GPIO_1(4) <= preamble_inserted;
-	GPIO_1(5) <= preamble_found;
-	GPIO_1(6) <= binary_int;
-	GPIO_1(7) <= binary_ext;
+--	GPIO_1(1) <= clk_32_kHz;
+--	GPIO_1(2) <= clk_320_kHz_ext;
+--	GPIO_1(3) <= clk_320_kHz_int;
+--	GPIO_1(4) <= preamble_inserted;
+--	GPIO_1(5) <= preamble_found;
+--	GPIO_1(6) <= binary_int;
+--	GPIO_1(7) <= binary_ext;
 
 	-- led outputs
 	LEDR(9) <= reset_n;
@@ -155,14 +156,14 @@ begin
 	-- Instantiate the clock recovery
 	clk_recovery : entity work.clock_recovery
 		generic map (
-			std_period => 61, -- Fclk/Fsampple
-			timeout => 15 -- clocks to wait before sending an out_clk
+			std_period => 61 -- Fclk/Fsampple
 		)
 		port map (
 			rst => reset_n,
 			clk => clk_20MHz,
 			input => binary,
 			out_clk => clk_320_kHz_int,
+			out_dat => binary_rec,
 			HEX0 => HEX0,
 			HEX1 => HEX1,
 			HEX2 => HEX2,
@@ -180,7 +181,7 @@ begin
 			deframing_length => 32550
 		)
 		port map (
-			data_in_deframing => binary,
+			data_in_deframing => binary_rec,
 			clk_deframing_in => clk_320_kHz,
 			reset => reset_n,
 			data_out_deframing => data_out_deframing,
