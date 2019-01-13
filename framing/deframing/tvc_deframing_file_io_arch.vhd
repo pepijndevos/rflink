@@ -28,7 +28,7 @@
 -- 3. collects outputs from DUV and writes data to file
 -------------------------------------------------------------------------------
 
-architecture file_io of tvc_siso_gen is
+architecture file_io of tvc_deframing is
   -- internal clock and reset signals (these signals are necessary
   -- because VHDL does not allow that output signals are read in the
   -- entity that generates them)
@@ -41,7 +41,7 @@ architecture file_io of tvc_siso_gen is
 
 begin
   --  connect internal clock and reset to ports
-  clk_synchronising_in <= clk_i;
+  clk_deframing_in <= clk_i;
   reset <= rst_i;
 
   -- generate clock
@@ -82,7 +82,7 @@ begin
       else
 	rst_i <= '1';
 	
-	if (data_out_synchronising = '1')
+	if (data_out_deframing = '1')
 	then 
        output := 1;
 	else
@@ -103,9 +103,9 @@ begin
        -- encode input as a 2's complement signal
 	   if (input = 1)
 	   then
-		data_in_synchronising <= '1';
+		data_in_deframing <= '1';
 	  else
-		data_in_synchronising <= '0';
+		data_in_deframing <= '0';
 	  end if;
 	  
 	  time_out_counter := 0;

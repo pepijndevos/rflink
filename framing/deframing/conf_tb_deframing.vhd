@@ -18,23 +18,23 @@
 --
 -------------------------------------------------------------------------------
 
-configuration conf_tb_siso_gen_synchronising of tb_siso_gen_top is
+configuration conf_tb_deframing of tb_top is
   for top 
-    for tg: tb_siso_gen use entity work.tb_siso_gen(structure)
-            generic map (word_length_synchronising => 10,
+    for tg: tb_deframing use entity work.tb_deframing(structure)
+            generic map (word_length_deframing => 10,
 			 preamble_receiver => 785,
-			 synchronising_length => 20);
+			 deframing_length => 20);
       for structure
-        for duv: siso_gen_synchronising use entity work.siso_gen_synchronising(synchronising);
+        for duv: deframing use entity work.deframing(behavioral);
         end for;
-        for tvc: tvc_siso_gen use entity work.tvc_siso_gen(file_io)
-            generic map (word_length_synchronising => 10,
+        for tvc: tvc_deframing use entity work.tvc_deframing(file_io)
+            generic map (word_length_deframing => 10,
 			 preamble_receiver => 785,
-			 synchronising_length => 20,
-                         in_file_name => "synchronising.in",
-                         out_file_name => "synchronising.out");
+			 deframing_length => 20,
+                         in_file_name => "deframing.in",
+                         out_file_name => "deframing.out");
         end for;
       end for;
     end for;
   end for;
-end conf_tb_siso_gen_synchronising;
+end conf_tb_deframing;
