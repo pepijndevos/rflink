@@ -227,7 +227,7 @@ begin
 		 )
 		port map (
 			rst => reset_n,
-			clk => clk_32_kHz,
+			clk => sndclk,
 			clk_in => sndclk,
 			clk_out => clk_32_kHz,
 			data_in => signed(buffer_in),
