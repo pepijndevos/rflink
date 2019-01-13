@@ -111,7 +111,7 @@ begin
 
 	process(clk_32_kHz)
 	begin
-		if rising_edge(clk_32_kHz) then
+		if rising_edge(sndclk) then
 			wout1 <= std_logic_vector(buffer_out) & "00000000";
 			wout2 <= std_logic_vector(buffer_out) & "00000000";
 		end if;
