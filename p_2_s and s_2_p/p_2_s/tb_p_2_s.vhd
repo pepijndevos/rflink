@@ -1,13 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity tb_unbuffer is 
+entity tb_p_2_s is 
   generic(word_length_unbuffer: natural := 10);
-end tb_unbuffer;
+end tb_p_2_s;
 
-architecture structure of tb_unbuffer is
+architecture structure of tb_p_2_s is
   -- declare components to be instantiated
-  component unbuffer
+  component p_2_s
     generic (word_length_unbuffer: natural);
     port (data_in_unbuffer: in std_logic_vector(word_length_unbuffer-1 downto 0);
           clk_unbuffer_parallel: in std_logic;
@@ -17,7 +17,7 @@ architecture structure of tb_unbuffer is
           data_out_unbuffer: out std_logic);
   end component;
 
-  component tvc_unbuffer 
+  component tvc_p_2_s 
     generic (word_length_unbuffer: natural := 10;
              in_file_name: string := "p_2_s.in";
              out_file_name: string := "p_2_s.out");
@@ -36,11 +36,11 @@ architecture structure of tb_unbuffer is
 begin
   -- instantiate and interconnect components
   -- note that the generic word_length is passed to the subblocks
-  duv: unbuffer
+  duv: p_2_s
     generic map (word_length_unbuffer => word_length_unbuffer)
     port map (data_in_unbuffer => data_in_unbuffer, clk_unbuffer_parallel => clk_unbuffer_parallel, clk_unbuffer_serial => clk_unbuffer_serial, reset => reset, 
 	      data_out_unbuffer => data_out_unbuffer);
-  tvc: tvc_unbuffer
+  tvc: tvc_p_2_s
     generic map (word_length_unbuffer => word_length_unbuffer)
     port map (data_in_unbuffer => data_in_unbuffer, clk_unbuffer_parallel => clk_unbuffer_parallel, clk_unbuffer_serial => clk_unbuffer_serial, reset => reset, 
               data_out_unbuffer => data_out_unbuffer);
@@ -50,13 +50,13 @@ end structure;
 -- top level testbench (to bind generic word length)
 -------------------------------------------------------------------------------
 
-entity tb_unbuffer_top is
-end tb_unbuffer_top;
+entity tb_p_2_s_top is
+end tb_p_2_s_top;
 
-architecture top of tb_unbuffer_top is
-  component tb_unbuffer
+architecture top of tb_p_2_s_top is
+  component tb_p_2_s
     generic(word_length: natural := 8);
   end component;
 begin
-  tg: tb_unbuffer;
+  tg: tb_p_2_s;
 end top;

@@ -32,7 +32,7 @@ begin
 	win2 <= signed(socadc(15 downto 0));
 	reset_n <= KEY(0);
 	clk_50_MHz <= CLOCK_50;
-	GPIO_0(0) <= data_out_unbuffer;
+	GPIO_0(9) <= data_out_unbuffer;
 	GPIO_0(1) <= clk_320_kHz;
 	GPIO_0(2) <= frame_ins;
 

@@ -23,7 +23,7 @@ configuration conf_tb_deframing of tb_top is
     for tg: tb_deframing use entity work.tb_deframing(structure)
             generic map (word_length_deframing => 10,
 			 preamble_receiver => 785,
-			 deframing_length => 20);
+			 deframing_length => 3000);
       for structure
         for duv: deframing use entity work.deframing(behavioral);
         end for;

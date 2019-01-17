@@ -1,4 +1,4 @@
-architecture file_io of tvc_unbuffer is
+architecture file_io of tvc_p_2_s is
   -- internal clock and reset signals (these signals are necessary
   -- because VHDL does not allow that output signals are read in the
   -- entity that generates them)

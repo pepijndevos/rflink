@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
 
-entity tvc_unbuffer is
+entity tvc_p_2_s is
   generic (word_length_unbuffer: natural := 10;
            in_file_name: string := "unbuffer.in";
            out_file_name: string := "unbuffer.out";
@@ -15,4 +15,4 @@ entity tvc_unbuffer is
         clk_unbuffer_serial: out std_logic;
         reset: out std_logic;
         data_out_unbuffer: in std_logic);
-end tvc_unbuffer;
+end tvc_p_2_s;

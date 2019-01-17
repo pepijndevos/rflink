@@ -1,0 +1,21 @@
+# Reading C:/intelFPGA_lite/18.0/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile C:/Gedeeld/Project/master/framing/deframing/p2s.mpf
+# Loading project p2s
+vsim work.conf_tb_deframing
+# vsim work.conf_tb_deframing 
+# Start time: 16:20:45 on Jan 17,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.conf_tb_deframing
+# Loading work.tb_top(top)
+# Loading work.tb_deframing(structure)
+# Loading work.deframing(behavioral)
+# Loading work.tvc_deframing(file_io)
+add wave -position insertpoint sim:/tb_top/tg/duv/*
+run -all
+# ** Failure: OK! Simulation stopped at end of input file.
+#    Time: 13249300 ns  Iteration: 1  Process: /tb_top/tg/tvc/stimuli File: C:/Gedeeld/Project/master/framing/deframing/tvc_deframing_file_io_arch.vhd
+# Break in Process stimuli at C:/Gedeeld/Project/master/framing/deframing/tvc_deframing_file_io_arch.vhd line 96
