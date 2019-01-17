@@ -8,6 +8,10 @@ architecture behavioral of demodulator is
 	signal last_polarity : std_logic;
 	signal counter : unsigned(31 downto 0);
 	signal counter_avg_256 : unsigned(31 downto 0);
+	signal glitch_filter_in : std_logic;
+	signal glitch_filter_out : std_logic;
+	signal glitch_filter_mem : std_logic_vector(7 downto 0);
+	
 begin
 
   process(clk, rst)
@@ -26,23 +30,26 @@ begin
 	    end if;
 			
 	    if polarity /= last_polarity and counter > min_bounce then
-		    if (counter-1)*256 < counter_avg_256 then
-			    output <= '1';
-				 counter_avg_256 <= resize((counter_avg_256*127 + counter*256)/128, 32);
-
+		    if (counter-1)*220 < counter_avg_256 then
+			    glitch_filter_in <= '1';
 		    else
-			    output <= '0';
-				 counter_avg_256 <= resize((counter_avg_256*255 + counter*256)/256, 32);
-
+			    glitch_filter_in <= '0';
 		    end if;
 		    
 		    counter <= (others => '0');
+			 counter_avg_256 <= resize((counter_avg_256*255 + counter*256)/256, 32);
 	    else
 		    counter <= counter + 1;
 	    end if;
 	    last_polarity <= polarity;
 	    input_avg_256 <= resize((input_avg_256*127 + input_buf*256)/128, 32);
 		 input_buf <= input;
+		 
+		 if glitch_filter_in = glitch_filter_mem(0) and glitch_filter_mem(6 downto 0) = glitch_filter_mem(7 downto 1) then
+			glitch_filter_out <= glitch_filter_mem(7);
+		 end if;
+		 glitch_filter_mem <= glitch_filter_mem(6 downto 0) & glitch_filter_in;
+		 output <= glitch_filter_out;
     end if;
   end process;
 
