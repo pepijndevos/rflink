@@ -1,5 +1,11 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 configuration conf_tb_buffer of tb_buffer_top is
-  for top 
+  for top
     for tg: tb_buffer use entity work.tb_buffer(structure)
             generic map (word_length_deframing => 10,
 			 preamble_receiver => 785,

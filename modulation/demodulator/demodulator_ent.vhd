@@ -1,5 +1,11 @@
+-------------------------------------------------------------------------------
+-- File: demodulator_ent.vhd
+-- Description: Demodulates a digital sine wave into a bit stream
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity demodulator is

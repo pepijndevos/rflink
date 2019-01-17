@@ -1,5 +1,12 @@
-library IEEE;  
-use IEEE.STD_LOGIC_1164.ALL;  
+-------------------------------------------------------------------------------
+-- File: audiobuffer_ent.vhd
+-- Description: An interface for connecting an audio signal acros clock domains
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity audiobuffer is

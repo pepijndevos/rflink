@@ -1,21 +1,7 @@
 -------------------------------------------------------------------------------
--- File: tb_siso_gen.vhd
--- Description: testbench for siso with generic word length
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:46:01 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: tb_siso_gen.vhd,v $
--- Revision 1.2  2004/08/10 22:44:07  sabih
--- tvc declarations now in separate files
---
--- Revision 1.1  2004/07/10 23:46:57  sabih
--- initial check in
---
+-- File: conf_tb_decoder_4B5B.vhd
+-- Description: 8B10B test bench
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
 
 
@@ -28,7 +14,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity tb_siso_gen is 
+entity tb_siso_gen is
   generic(word_length_in_4B5B_decoder: natural := 10;
 	  word_length_out_4B5B_decoder: natural := 8);
 end tb_siso_gen;
@@ -41,11 +27,11 @@ architecture structure of tb_siso_gen is
     port (data_in_4B5B_decoder: in std_logic_vector(word_length_in_4B5B_decoder-1 downto 0);
           clk_4B5B_decoder: in std_logic;
           reset: in std_logic;
-  
+
           data_out_4B5B_decoder: out std_logic_vector(word_length_out_4B5B_decoder-1 downto 0));
   end component;
 
-  component tvc_siso_gen 
+  component tvc_siso_gen
     generic (word_length_in_4B5B_decoder: natural := 10;
 	     word_length_out_4B5B_decoder: natural := 8;
              in_file_name: string := "siso_gen.in";
@@ -53,12 +39,12 @@ architecture structure of tb_siso_gen is
     port (data_in_4B5B_decoder: out std_logic_vector(word_length_in_4B5B_decoder-1 downto 0);
           clk_4B5B_decoder: out std_logic;
           reset: out std_logic;
-  
+
           data_out_4B5B_decoder: in std_logic_vector(word_length_out_4B5B_decoder-1 downto 0));
   end component;
 
   -- declare local signals
-  signal data_in_4B5B_decoder: std_logic_vector(word_length_in_4B5B_decoder-1 downto 0); 
+  signal data_in_4B5B_decoder: std_logic_vector(word_length_in_4B5B_decoder-1 downto 0);
   signal data_out_4B5B_decoder: std_logic_vector(word_length_out_4B5B_decoder-1 downto 0);
   signal clk_4B5B_decoder, reset: std_logic;
 begin
@@ -67,12 +53,12 @@ begin
   duv: siso_gen_4B5B_decoder
     generic map (word_length_in_4B5B_decoder => word_length_in_4B5B_decoder,
 		 word_length_out_4B5B_decoder => word_length_out_4B5B_decoder)
-    port map (data_in_4B5B_decoder => data_in_4B5B_decoder, clk_4B5B_decoder => clk_4B5B_decoder, reset => reset, 
+    port map (data_in_4B5B_decoder => data_in_4B5B_decoder, clk_4B5B_decoder => clk_4B5B_decoder, reset => reset,
 	      data_out_4B5B_decoder => data_out_4B5B_decoder);
   tvc: tvc_siso_gen
     generic map (word_length_in_4B5B_decoder => word_length_in_4B5B_decoder,
 		 word_length_out_4B5B_decoder => word_length_out_4B5B_decoder)
-    port map (data_in_4B5B_decoder => data_in_4B5B_decoder, clk_4B5B_decoder => clk_4B5B_decoder, reset => reset, 
+    port map (data_in_4B5B_decoder => data_in_4B5B_decoder, clk_4B5B_decoder => clk_4B5B_decoder, reset => reset,
               data_out_4B5B_decoder => data_out_4B5B_decoder);
 end structure;
 

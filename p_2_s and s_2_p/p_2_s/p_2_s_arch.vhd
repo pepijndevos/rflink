@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s_arch.vhd
+-- Description: Parallel to serial conversion
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.numeric_std.all;
 
@@ -39,17 +45,17 @@ data_in_temp1 <= data_in_unbuffer;
 	then
 	    data_in_temp2 <= '0'&data_in_temp2(word_length_unbuffer-1 downto 1);
 	    counter_unbuffer <= 0;
-	    data_out_temp <= data_in_temp2(0);		
+	    data_out_temp <= data_in_temp2(0);
 	else
 	    data_in_temp2 <= '0'&data_in_temp2(word_length_unbuffer-1 downto 1);
 	    counter_unbuffer <= counter_unbuffer+1;
-	    data_out_temp <= data_in_temp2(0);		
+	    data_out_temp <= data_in_temp2(0);
 	end if;--(counter_buffer = 0)
     end if; -- (reset = '0')
   end process seq_serial;
 
- 
+
 
   data_out_unbuffer <= data_out_temp;
- 
+
 end behavioral;

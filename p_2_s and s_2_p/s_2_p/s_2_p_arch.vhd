@@ -1,10 +1,16 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.numeric_std.all;
 
 architecture behavioral of s_2_p is
   -- registers
   signal data_out_temp1, data_out_temp2, data_out_temp3: std_logic_vector(word_length_buffer-1 downto 0);
-  signal data_in_buffer_temp0, data_in_buffer_temp1, data_in_buffer_temp2, data_in_buffer_temp3, data_in_buffer_temp4, data_in_buffer_temp5, data_in_buffer_temp6, data_in_buffer_temp7, data_in_buffer_temp8: std_logic; 
+  signal data_in_buffer_temp0, data_in_buffer_temp1, data_in_buffer_temp2, data_in_buffer_temp3, data_in_buffer_temp4, data_in_buffer_temp5, data_in_buffer_temp6, data_in_buffer_temp7, data_in_buffer_temp8: std_logic;
   signal counter_delay : integer;
 begin
 	btn: process(clk_buffer_serial, reset)
@@ -18,7 +24,7 @@ begin
 			if (delay = '1' and next_pressed = '0') then
 				next_pressed := '1';
 				counter_delay <= counter_delay + 1;
-				
+
 				if (counter_delay > 8) then
 					counter_delay <= 0;
 				end if;
@@ -28,7 +34,7 @@ begin
 				next_pressed := '0';
 			end if;
 		end if;
-	end process btn;  
+	end process btn;
 
 	-- the next process is sequential and only sensitive to clk and reset
   seq_serial: process(clk_buffer_serial, reset)
@@ -54,7 +60,7 @@ begin
 	data_out_temp2 <= data_out_temp1; --data_in_buffer&data_out_temp1(word_length_buffer-1 downto 1);
 	--data_out_temp <= data_in_temp(0);
     end if; -- (reset = '0')
-  end process seq_parallel; 
+  end process seq_parallel;
 
   data_out_buffer <= data_out_temp2;
   delay_counter_out <= std_logic_vector(to_unsigned(counter_delay,4));

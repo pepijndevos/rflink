@@ -1,5 +1,11 @@
-configuration conf_tb_unbuffer of tb_unbuffer_top is  
-  for top 
+-------------------------------------------------------------------------------
+-- File: tb_p_2_s.vhd
+-- Description: Parallel to serial conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
+configuration conf_tb_unbuffer of tb_unbuffer_top is
+  for top
     for tg: tb_unbuffer use entity work.tb_unbuffer(structure)
             generic map (word_length_unbuffer => 10);
       for structure

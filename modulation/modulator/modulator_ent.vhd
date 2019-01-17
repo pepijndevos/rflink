@@ -1,5 +1,12 @@
+-------------------------------------------------------------------------------
+-- File: modulator_ent.vhd
+-- Description:  A thin wrapper around waveform_gen
+-- maps 8 bit input to the correct frequencies
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
 library ieee;
-use ieee.std_logic_1164.ALL;  
+use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.ALL;
 
 entity modulator is

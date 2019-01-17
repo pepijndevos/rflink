@@ -1,7 +1,13 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity tb_buffer is 
+entity tb_buffer is
   generic(word_length_deframing: natural := 10;
 	  word_length_buffer: natural :=10;
 	  preamble_receiver: natural := 785;
@@ -28,7 +34,7 @@ architecture structure of tb_buffer is
           clk_buffer_parallel: in std_logic;
 	  clk_buffer_serial: in std_logic;
           reset: in std_logic;
-  
+
           data_out_buffer: out std_logic_vector(word_length_buffer-1 downto 0));
   end component;
 
@@ -42,16 +48,16 @@ architecture structure of tb_buffer is
     port (data_in_deframing: out std_logic;
           clk_deframing_in: out std_logic;
           reset: out std_logic;
-  
+
           data_out_buffer: in std_logic_vector(word_length_buffer-1 downto 0));
   end component;
 
   -- declare local signals
-  signal data_in_deframing, data_out_deframing, data_in_buffer: std_logic; 
+  signal data_in_deframing, data_out_deframing, data_in_buffer: std_logic;
   signal data_out_buffer: std_logic_vector(word_length_buffer-1 downto 0);
   signal clk_deframing_out_serial, clk_deframing_out_parallel, clk_deframing_in: std_logic;
   signal clk_buffer_serial, clk_buffer_parallel, reset: std_logic;
-	  
+
 begin
   -- instantiate and interconnect components
   -- note that the generic word_length is passed to the subblocks
@@ -59,19 +65,19 @@ begin
     generic map (word_length_deframing => word_length_deframing,
 		 preamble_receiver => preamble_receiver,
 		 deframing_length => deframing_length)
-    port map (data_in_deframing => data_in_deframing, clk_deframing_in => clk_deframing_in, reset => reset, 
+    port map (data_in_deframing => data_in_deframing, clk_deframing_in => clk_deframing_in, reset => reset,
 	      data_out_deframing => data_out_deframing, clk_deframing_out_parallel => clk_deframing_out_parallel,
 	      clk_deframing_out_serial => clk_deframing_out_serial);
   duv2: s_2_p
     generic map (word_length_buffer => word_length_buffer)
-    port map (data_in_buffer => data_out_deframing, clk_buffer_serial => clk_deframing_out_serial, reset => reset, 
+    port map (data_in_buffer => data_out_deframing, clk_buffer_serial => clk_deframing_out_serial, reset => reset,
 	      clk_buffer_parallel=>clk_deframing_out_parallel, data_out_buffer => data_out_buffer);
   tvc: tvc_buffer
     generic map (word_length_deframing => word_length_deframing,
 		 word_length_buffer => word_length_buffer,
 		 preamble_receiver => preamble_receiver,
 		 deframing_length => deframing_length)
-    port map (data_in_deframing => data_in_deframing, clk_deframing_in => clk_deframing_in, reset => reset, 
+    port map (data_in_deframing => data_in_deframing, clk_deframing_in => clk_deframing_in, reset => reset,
               data_out_buffer => data_out_buffer);
 end structure;
 

@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: audiobuffer_simple_arch.vhd
+-- Description: An implementation that just uses a flip-flop
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
 architecture simple of audiobuffer is
 	 signal data_buf: signed(word_length-1 downto 0);
 begin

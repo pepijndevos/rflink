@@ -1,21 +1,8 @@
 -------------------------------------------------------------------------------
--- File: siso_gen_gcd_arch.vhd
--- Description: siso_gen architecture for computing greatest common divider
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:37:33 CEST 2004
+-- File: framing_arch.vhd
+-- Description: Replace evey nth byte with a preamble byte for synchronization
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: siso_gen_gcd_arch.vhd,v $
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
-
 
 -- this architecture needs arithmetic functions
 library ieee;
@@ -46,8 +33,8 @@ begin
 		 frame_ins <= '0';
 	end if; -- (frame_counter >= framing_length)
     end if; -- (reset = '0')
-  end process seq; 
-  
+  end process seq;
+
   -- output register can be any of num1 or num2
   data_out_framing <= data_out_tmp;
 

@@ -1,3 +1,10 @@
+# -------------------------------------------------------------------------------
+# File: lookup.py
+# Description: Generate a 8b10b lookup table,
+#  optimized for maximum transitions at low amplitudes
+# Author: Pepijn de Vos
+# -------------------------------------------------------------------------------
+
 import re
 
 def runs(x):
@@ -32,4 +39,3 @@ print("\n")
 for inp, outp in lookup.items():
     inp = twos_comp(inp, 8)
     print("when \"{0:010b}\" => data_out_tmp <= \"{1:08b}\";".format(outp, inp))
-

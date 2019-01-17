@@ -1,5 +1,10 @@
+-------------------------------------------------------------------------------
+-- File: clock_recovery_arch.vhd
+-- Description: Recover a clock signal from a binary stream and a logic clock
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 architecture behavioral of clock_recovery is
@@ -17,7 +22,7 @@ architecture behavioral of clock_recovery is
 	signal error_period_toggle_low		: std_logic;
 	signal error_period_toggle_high		: std_logic;
 	signal out_clk_tmp						: std_logic;
-	signal dynamic_enable					: std_logic;	
+	signal dynamic_enable					: std_logic;
 FUNCTION hex2display (n:std_logic_vector(3 DOWNTO 0)) RETURN std_logic_vector IS
     VARIABLE res : std_logic_vector(6 DOWNTO 0);
   BEGIN
@@ -37,17 +42,17 @@ FUNCTION hex2display (n:std_logic_vector(3 DOWNTO 0)) RETURN std_logic_vector IS
 	    WHEN "1100" => RETURN NOT "0111001";
 	    WHEN "1101" => RETURN NOT "1011110";
 	    WHEN "1110" => RETURN NOT "1111001";
-	    WHEN OTHERS => RETURN NOT "1110001";			
+	    WHEN OTHERS => RETURN NOT "1110001";
     END CASE;
   END hex2display;
-	
-	
+
+
 begin
 
-	
+
   comb_proc : process(period_256)
   begin
-		period <= resize(period_256/256, period'length);	
+		period <= resize(period_256/256, period'length);
 		HEX0 <= hex2display(std_logic_vector(period(3 downto 0)));
 		HEX1 <= hex2display(std_logic_vector(period(7 downto 4)));
 		HEX2 <= hex2display(std_logic_vector(period(11 downto 8)));
@@ -75,7 +80,7 @@ begin
 			 if multiple = 1 then
 			   period_256 <= resize((period_256*127 + (counter+1)*256)/128, period_256'length);
 			 end if;
-		    
+
 			 counter <= (others => '0');
 		    out_clk_tmp <= '1';
 		    multiple <= to_unsigned(1, multiple'length);
@@ -87,7 +92,7 @@ begin
 		 last_input <= input_buf;
 
 
-		 
+
 		 if counter > period*multiple+timeout then
 		   out_clk <= '1';
 		   multiple <= multiple+1;
@@ -109,11 +114,11 @@ begin
 --	    if multiple > 10 then
 --		    period_256 <= to_unsigned(std_period*256, period_256'length);
 --	    end if;
---			
+--
 --			if period <= ((std_period*95)/100) then
 --				period_256 <= to_unsigned(std_period*256, period_256'length);
 --			end if;
---			
+--
 --			if period >= ((std_period*105)/100) then
 --				period_256 <= to_unsigned(std_period*256, period_256'length);
 --			end if;
