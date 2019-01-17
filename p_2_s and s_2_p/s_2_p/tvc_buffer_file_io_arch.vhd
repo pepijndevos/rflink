@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 architecture file_io of tvc_buffer is
   -- internal clock and reset signals (these signals are necessary
   -- because VHDL does not allow that output signals are read in the
@@ -27,7 +33,7 @@ begin
   -- The hardware registers are clocked on the rising edge of the
   -- clock; the stimuli should be stable then and therefore change
   -- on the falling edge of the clock.
-  
+
   -- Note that the first edge of the clock is a falling one.
 
   stimuli: process (clk_i)
@@ -44,24 +50,24 @@ begin
     if falling_edge(clk_i)
     then
       -- handle reset; reset signal is high during first clock cycle only
-      if first 
+      if first
       then
 	first := false;
 	rst_i <= '0';
         time_out_counter := 0;
       else
 	rst_i <= '1';
-	
+
        output := to_integer(unsigned(data_out_buffer));
        write(outline, output);
        writeline(out_file, outline);
 
        assert not endfile(in_file)
-          report "OK! Simulation stopped at end of input file." 
+          report "OK! Simulation stopped at end of input file."
           severity failure;
        readline(in_file, inline);
        read(inline, input, good);
-       assert good 
+       assert good
 	  report "Error during input file processing." severity failure;
 
        -- encode input as a 2's complement signal
@@ -71,9 +77,9 @@ begin
 	  else
 		data_in_deframing <= '0';
 	  end if;
-	  
+
 	  time_out_counter := 0;
-	
+
           time_out_counter := time_out_counter + 1;
           if (time_out_counter > 100000)
           then

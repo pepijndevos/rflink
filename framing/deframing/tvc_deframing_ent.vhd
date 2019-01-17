@@ -1,22 +1,7 @@
 -------------------------------------------------------------------------------
--- File: tvc_siso_gen_ent.vhd
--- Description: test-vector controller (TVC) for SISO with generic
---              word length
--- Author: Sabih Gerez, University of Twente
--- Creation date: Wed Aug 11 00:24:38 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 270 $
--- $Author: gerezsh $
--- $Date: 2018-08-28 00:34:51 +0200 (Tue, 28 Aug 2018) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: tvc_siso_gen_ent.vhd,v $
--- Revision 1.2  2004/08/10 23:34:10  sabih
--- generic scan_chain_length added
---
--- Revision 1.1  2004/08/10 22:41:23  sabih
--- initial check in
---
+-- File: tvc_deframing_ent.vhd
+-- Description: Test bench for deframing
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
 
 -- library and package declarations

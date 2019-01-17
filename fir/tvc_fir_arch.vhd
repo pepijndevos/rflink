@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: tb_fir.vhd
+-- Description: Generic FIR filter test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee;
 
 -- Test vector controller for demodulator testbench
@@ -34,7 +40,7 @@ begin
       clk_i <= '0';
       wait for half_clock_period;
    end process;
-   
+
    -- generate snd clock  3MHz
    clock_snd : process
       constant half_clock_period : time :=  17 ns;
@@ -56,7 +62,7 @@ begin
       inclk <= '0';
       wait for half_clock_period;
    end process;
-			
+
    -- The hardware registers are clocked on the rising edge of the
    -- clock; the stimuli should be stable then and therefore change
    -- on the falling edge of the clock.
@@ -75,8 +81,8 @@ begin
 			end if; -- first = true
 		end if; -- falling_edge(clk_i)
 	end process; --process reset
-	
-	
+
+
 	stimuli : process(inclk)
 	   variable inline : line;
       variable good   : boolean;
@@ -89,8 +95,8 @@ begin
 
 			assert not endfile(in_file)
          report "OK! Simulation stopped at end of input file."
-         severity failure;	
-			
+         severity failure;
+
          readline(in_file, inline);
          read(inline, input, good);
          assert good
@@ -102,18 +108,18 @@ begin
             end if;
       end if;	-- if reset
    end process;
-	
+
 	output : process(sndclk_i)
 	   variable outline  : line;
       variable output   : integer;
-		
+
 	begin
 		if rst_i = '0' then
 		-- nothing
 		elsif falling_edge (sndclk_i) then
 			output := to_integer(signed(resp));
          write(outline, output);
-         writeline(out_file, outline);	
+         writeline(out_file, outline);
 		end if; -- if reset
 	end process;
 end file_io;

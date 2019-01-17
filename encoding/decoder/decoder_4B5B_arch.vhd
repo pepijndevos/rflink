@@ -1,20 +1,8 @@
 -------------------------------------------------------------------------------
--- File: siso_gen_gcd_arch.vhd
--- Description: siso_gen architecture for computing greatest common divider
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:37:33 CEST 2004
+-- File: decoder_4B5B_arch.vhd
+-- Description: 8B10B lookup table, decoding
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: siso_gen_gcd_arch.vhd,v $
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
 
 
 -- this architecture needs arithmetic functions
@@ -34,7 +22,7 @@ begin
 
     elsif rising_edge(clk_4B5B_decoder)
     then
-        case data_in_4B5B_decoder(9 downto 0) is      
+        case data_in_4B5B_decoder(9 downto 0) is
 		--data_in(7 downto 0)|data_out_tmp(9 downto 0)
 when "0011010100" => data_out_tmp <= "10000000";
 when "0011010110" => data_out_tmp <= "10000001";
@@ -295,7 +283,7 @@ when "1010101010" => data_out_tmp <= "00000000";
 when others	=> data_out_tmp <= "00000000";
         end case;
     end if; -- (reset = '0')
-  end process seq; 
+  end process seq;
 
   -- output register can be any of num1 or num2
   data_out_4B5B_decoder <= data_out_tmp;

@@ -1,3 +1,8 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
 
 
 -- library and package declarations

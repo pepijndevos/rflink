@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: tb_p_2_s.vhd
+-- Description: Parallel to serial conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 
 library ieee, std;
 use ieee.std_logic_1164.all;

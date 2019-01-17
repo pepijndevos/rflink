@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: tb_fir.vhd
+-- Description: Generic FIR filter test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.numeric_std.all;
 use ieee.std_logic_1164.all;
@@ -56,7 +62,7 @@ architecture structure of tb_fir is
 
 begin
 
-    duv: fir 
+    duv: fir
     	generic map (
             coef_scale => coef_scale,
             w_out => w_out,
@@ -69,7 +75,7 @@ begin
     		rst => rst,
     		word => word,
     		resp => resp
-    	);	
+    	);
     tvc : tvc_fir
         generic map(
             w_out     => w_out,
@@ -87,7 +93,7 @@ end structure;
 
 entity tb_fir_top is
 end tb_fir_top;
-    
+
 -- top level testbench (to define generic word length)
 architecture top of tb_fir_top is
     component tb_fir

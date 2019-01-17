@@ -1,5 +1,13 @@
+-------------------------------------------------------------------------------
+-- File: fir_arch_and_ent.vhd
+-- Description: Generic FIR filter
+-- Used for pulse shaping
+-- Combined ent and arch due to issues
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use work.data_types.all;
 
@@ -56,12 +64,12 @@ begin
 						resp <= (others => '0');
 					end if;
 				end if;
-				
+
       end if;
       lastsnd := sndclk;
     end if;
   end process;
-	
+
 	fir_filter_enable: process(reset_n, btn)
 	begin
 		if (reset_n = '0') then

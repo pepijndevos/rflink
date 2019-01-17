@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: conf_fir.vhd
+-- Description: Generic FIR filter tes bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 configuration conf_fir of tb_fir_top is
   for top
     for tg: tb_fir use entity work.tb_fir(structure)

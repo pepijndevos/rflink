@@ -1,21 +1,8 @@
 -------------------------------------------------------------------------------
--- File: siso_gen_gcd_arch.vhd
--- Description: siso_gen architecture for computing greatest common divider
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:37:33 CEST 2004
+-- File: deframing_arch.vhd
+-- Description: Detects a preamble byte, to synchronise the bit stream for decoding
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: siso_gen_gcd_arch.vhd,v $
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
--------------------------------------------------------------------------------
-
-
 
 -- this architecture needs arithmetic functions
 library ieee;
@@ -48,7 +35,7 @@ begin
 		data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 		deframing_counter_bits<=deframing_counter_bits+1;
 		preamble_found <= '1';
-	elsif((deframing_counter_frames > 0) or (deframing_counter_bits > 0)) then -- you are sending frames 
+	elsif((deframing_counter_frames > 0) or (deframing_counter_bits > 0)) then -- you are sending frames
 		if(deframing_counter_frames = 0)
 		then
 			if (deframing_counter_bits=((word_length_deframing/2)-1)) then
@@ -56,7 +43,7 @@ begin
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 			elsif(deframing_counter_bits=(word_length_deframing-1))
-			then 
+			then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=0;
 				deframing_counter_frames<=deframing_counter_frames+1;
@@ -65,19 +52,19 @@ begin
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 			end if;--(deframing_counter_bits=((word_length_deframing/2)-1))
-	
+
 		elsif(deframing_counter_frames <= deframing_length-1) then
 			if((deframing_counter_bits=0) and (deframing_counter_frames=1))
 			then
 				deframing_counter_bits<=deframing_counter_bits+1;
-				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);				
+				data_out_tmp <=data_in_temp_buffer_20_newest_of_20(0);
 			elsif (deframing_counter_bits=((word_length_deframing/2)-1))
 			then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
 			elsif(deframing_counter_bits=(word_length_deframing-1))
-			then 
+			then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=0;
 				deframing_counter_frames<=deframing_counter_frames+1;
@@ -94,11 +81,11 @@ begin
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
 			elsif(deframing_counter_bits=(word_length_deframing-1))
-			then 
+			then
 				clk_deframing_out_parallel_temp <= not clk_deframing_out_parallel_temp;
 				deframing_counter_bits<=0;
 				deframing_counter_frames<=0;
-				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);	
+				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
 			else
 				deframing_counter_bits<=deframing_counter_bits+1;
 				data_out_tmp <=data_in_temp_buffer_10_newest_of_20(0);
@@ -106,17 +93,17 @@ begin
 		end if; -- (deframing_counter_frames = 0)
 	else-- you have not found any preamble and are not sending any frames
 		deframing_counter_frames<=0;
-		deframing_counter_bits<=0;	
+		deframing_counter_bits<=0;
 		data_out_tmp <= '0';
 	end if;
-	
+
 	clk_deframing_out_parallel_temp_buffer1<=clk_deframing_out_parallel_temp;
 	clk_deframing_out_parallel_temp_buffer2<=clk_deframing_out_parallel_temp_buffer1;
 	clk_deframing_out_parallel_temp_buffer3<=clk_deframing_out_parallel_temp_buffer2;
-	
+
     end if; -- (reset = '0')
-  end process seq; 
-  
+  end process seq;
+
   -- output register can be any of num1 or num2
   data_out_deframing <= data_out_tmp;
   clk_deframing_out_serial<=clk_deframing_in;

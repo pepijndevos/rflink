@@ -1,21 +1,7 @@
 -------------------------------------------------------------------------------
--- File: unbuffer_ent.vhd
--- Description: generic serial-in serial-out device, entity declaration
--- Author: Sabih Gerez, University of Twente
--- Creation date: Sun Jul 11 00:34:27 CEST 2004
--------------------------------------------------------------------------------
--- $Rev: 8 $
--- $Author: gerezsh $
--- $Date: 2008-06-29 15:55:28 +0200 (Sun, 29 Jun 2008) $
--- $Log$
--------------------------------------------------------------------------------
--- $Log: unbuffer_ent.vhd,v $
--- Revision 1.2  2005/07/20 23:52:01  sabih
--- default values for generics supplied
---
--- Revision 1.1  2004/07/10 23:46:56  sabih
--- initial check in
---
+-- File: p_2_s_ent.vhd
+-- Description: Parallel to serial conversion
+-- Author: Big Boss Bakker
 -------------------------------------------------------------------------------
 
 

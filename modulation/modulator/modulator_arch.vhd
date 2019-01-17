@@ -1,5 +1,11 @@
+-------------------------------------------------------------------------------
+-- File: modulator_arch.vhd
+-- Description:  A thin wrapper around waveform_gen
+-- maps 8 bit input to the correct frequencies
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 architecture behavioral of modulator is
@@ -11,19 +17,19 @@ port (
   -- system signals
   clk         : in  std_logic;
   reset       : in  std_logic;
-  
+
   -- clock-enable
   en          : in  std_logic;
-  
+
   -- NCO frequency control
   phase_inc   : in  std_logic_vector(31 downto 0);
-  
+
   -- Output waveforms
   sin_out     : out std_logic_vector(11 downto 0);
   cos_out     : out std_logic_vector(11 downto 0);
   squ_out     : out std_logic_vector(11 downto 0);
   saw_out     : out std_logic_vector(11 downto 0) );
-  
+
 end component;
 
 signal phase_inc : std_logic_vector(31 downto 0);
@@ -48,13 +54,13 @@ nco: waveform_gen port map (
   -- system signals
   clk         => clk,
   reset       => rst,
-  
+
   -- clock-enable
   en          => '1',
-  
+
   -- NCO frequency control
   phase_inc   => phase_inc,
-  
+
   -- Output waveforms
   sin_out     => sin_out,
   cos_out     => open,

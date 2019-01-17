@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: tb_p_2_s.vhd
+-- Description: Parallel to serial conversion test bench
+-- Author: Jelle
+-------------------------------------------------------------------------------
+
 configuration conf_tb_p_2_s of tb_p_2_s_top is  
   for top 
     for tg: tb_p_2_s use entity work.tb_p_2_s(structure)

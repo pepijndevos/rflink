@@ -1,5 +1,10 @@
+-------------------------------------------------------------------------------
+-- File: clock_recovery_bench.vhd
+-- Description: Clock recovery test bench for the happy case
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;  
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use ieee.math_real.all;
 

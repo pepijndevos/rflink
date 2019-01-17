@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: audiobuffer_arch.vhd
+-- Description: An interpolation buffer
+-- Author: Pepijn de Vos
+-------------------------------------------------------------------------------
+
 architecture interpolate of audiobuffer is
 	 signal data_buf_start: signed(word_length-1 downto 0);
 	 signal data_buf_end: signed(word_length-1 downto 0);

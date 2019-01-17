@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- File: p_2_s.vhd
+-- Description: Serial to parellel conversion test bench
+-- Author: Big Boss Bakker
+-------------------------------------------------------------------------------
+
 library ieee, std;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
