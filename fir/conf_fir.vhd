@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: conf_fir.vhd
 -- Description: Generic FIR filter tes bench
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 configuration conf_fir of tb_fir_top is

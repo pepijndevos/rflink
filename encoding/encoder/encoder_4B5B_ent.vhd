@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: encoder_4B5B_ent.vhd
 -- Description: Test bench for 8B10B encoding
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

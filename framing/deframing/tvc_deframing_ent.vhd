@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tvc_deframing_ent.vhd
 -- Description: Test bench for deframing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 -- library and package declarations

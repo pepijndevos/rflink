@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tb_fir.vhd
 -- Description: Generic FIR filter test bench
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 library ieee, std;

@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tb_p_2_s.vhd
 -- Description: Parallel to serial conversion test bench
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

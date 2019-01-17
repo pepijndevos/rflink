@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tvc_framing_ent.vhd
 -- Description: Test bench for framing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 -- library and package declarations

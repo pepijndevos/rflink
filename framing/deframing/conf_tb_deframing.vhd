@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: conf_tb_deframing.vhd
 -- Description: Test bench for deframing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 configuration conf_tb_deframing of tb_top is

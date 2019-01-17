@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: p_2_s_arch.vhd
 -- Description: Parallel to serial conversion
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 library ieee;

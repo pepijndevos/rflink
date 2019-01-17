@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: p_2_s.vhd
 -- Description: Serial to parellel conversion test bench
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 library ieee;

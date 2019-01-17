@@ -2,7 +2,7 @@
 -- File: deframing_v2_arch.vhd
 -- Description: Detects a preamble byte, to synchronise the bit stream for decoding
 --              simplified implementation
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

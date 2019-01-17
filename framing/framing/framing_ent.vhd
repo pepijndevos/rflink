@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: framing_ent.vhd
 -- Description: Replace evey nth byte with a preamble byte for synchronization
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

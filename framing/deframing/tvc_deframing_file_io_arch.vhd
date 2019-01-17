@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tvc_deframing_file_io_arch.vhd
 -- Description: Test bench for deframing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

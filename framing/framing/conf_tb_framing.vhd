@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: conf_tb_framing.vhd
 -- Description: Test bench for framing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

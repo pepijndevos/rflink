@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: conf_tb_decoder_4B5B.vhd
 -- Description: 8B10B test bench
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 configuration conf_tb_siso_gen_fourBfiveB_decoder of tb_siso_gen_top is

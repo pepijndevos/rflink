@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tb_encoder_4B5B.vhd
 -- Description: Test bench for 8B10B encoding
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 -- library and package declarations

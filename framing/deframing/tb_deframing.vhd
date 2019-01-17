@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: tb_deframing.vhd
 -- Description: Test bench for deframing
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

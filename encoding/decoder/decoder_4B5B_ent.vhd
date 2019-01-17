@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: decoder_4B5B_ent.vhd
 -- Description: 8B10B lookup table, decoding
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

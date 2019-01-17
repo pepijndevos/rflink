@@ -2,7 +2,7 @@
 -- File: encoder_4B5B_arch.vhd
 -- Description: Test bench for 8B10B encoding
 -- Basically a big ol' lookup table
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 

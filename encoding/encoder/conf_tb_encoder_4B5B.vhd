@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- File: conf_tb_encoder_4B5B.vhd
 -- Description: Test bench for 8B10B encoding
--- Author: Big Boss Bakker
+-- Author: Jelle Bakker
 -------------------------------------------------------------------------------
 
 configuration conf_tb_siso_gen_fourBfiveB_encoder of tb_siso_gen_top is
