@@ -14,7 +14,7 @@ Increasing version numbers include increasingly many components, ranging from V1
 * modulation contains both the NCO and the demodulator
 * dac and adc contain the RF-side analog interface
 
-Besides these basic building blocks there are also suporting files
+Besides these basic building blocks there are also supporting files
 
 * clocks contains all the used PLLs and clock dividers
 * convolution contains a other demodulator that is not finished
