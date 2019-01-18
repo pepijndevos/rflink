@@ -19,3 +19,5 @@ run -all
 # ** Failure: OK! Simulation stopped at end of input file.
 #    Time: 13249300 ns  Iteration: 1  Process: /tb_top/tg/tvc/stimuli File: C:/Gedeeld/Project/master/framing/deframing/tvc_deframing_file_io_arch.vhd
 # Break in Process stimuli at C:/Gedeeld/Project/master/framing/deframing/tvc_deframing_file_io_arch.vhd line 96
+# End time: 21:12:15 on Jan 18,2019, Elapsed time: 28:51:30
+# Errors: 0, Warnings: 0
