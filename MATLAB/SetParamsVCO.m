@@ -34,7 +34,7 @@ DACSampleTime = 1/20000000;                     % Sample time (s)
 %% Set parameters simulink model
 Tsymbol = 1/(Fsample_audio);
 Tsim=320*Tsymbol;
-set_param('VCO', 'StopTime', 'Tsim');
+%%set_param('VCO', 'StopTime', 'Tsim');
 
 
 
