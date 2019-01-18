@@ -13,3 +13,11 @@ Increasing version numbers include increasingly many components, ranging from V1
 * clock_recovery contains, well, clock recovery
 * modulation contains both the NCO and the demodulator
 * dac and adc contain the RF-side analog interface
+
+Besides these basic building blocks there are also supporting files
+
+* clocks contains all the used PLLs and clock dividers
+* convolution contains a other demodulator that is not finished
+* MATLAB contains the Matlab/Simulink models of the digital system
+* ramp contains the vhdl code for a ramps test for adc/dac
+* sweep contains the vhdl module that does a frequency sweep
