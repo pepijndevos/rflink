@@ -1,3 +1,11 @@
+-------------------------------------------------------------------------------
+-- File: convolution.vhd
+-- Description: Convolution FFT filter (demodulator improvement)
+-- To be used for demodulation improvement
+-- Combined ent and arch
+-- Author: Gonçalo Camelo Neves Pereira
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
