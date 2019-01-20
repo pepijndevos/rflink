@@ -41,17 +41,17 @@ legend('channel 1', 'channel 2')
 
 figure(3); clf;
 subplot(2,1,1);
-plot(fWithout/1e6,10*log(abs(FFTWithoutFilter)))
-xlim([0 50])
-ylim([-40 40])
+plot((fWithout/1e6),10*log10(abs(FFTWithoutFilter)))
+xlim([0 (50)])
+ylim([-20 20])
 xlabel('Freq (MHz)')
 ylabel('Magnitude (dB)')
 title('FSK with filter disabled')
 subplot(2,1,2);
 hold on
-plot(fWith/1e6,10*log(abs(FFTWithFilter)))
-xlim([0 50])
-ylim([-40 40])
+plot((fWith/1e6),10*log10(abs(FFTWithFilter)))
+xlim([0 (50)])
+ylim([-20 20])
 xlabel('Freq (MHz)')
 ylabel('Magnitude (dB)')
 title('FSK with filter enabled')
